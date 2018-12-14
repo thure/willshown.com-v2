@@ -5,6 +5,9 @@ import Intro from './pages/Intro'
 
 const styles = {
   app: {
+    maxWidth: '80rem',
+    margin: '0 auto',
+    minHeight: '100%',
   },
 }
 
