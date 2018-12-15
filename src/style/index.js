@@ -1,4 +1,4 @@
-import colors from "./colors";
-import shadows from "./shadows";
+import colors from './colors'
+import shadows from './shadows'
 
-export { colors, shadows };
+export { colors, shadows }
