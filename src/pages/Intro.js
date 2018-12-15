@@ -1,12 +1,13 @@
 import React from 'react'
 import injectSheet from 'react-jss'
+import { Link } from 'react-router-dom'
 import anime from 'animejs'
-import { colors, shadows } from '../style'
+import { borderRadii, colors, fonts, shadows, typeScale } from '../style'
 
 const styles = {
   introCanvas: {
     display: 'flex',
-    flexFlow: 'row nowrap',
+    flexFlow: 'column nowrap',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'fixed',
@@ -31,30 +32,58 @@ const styles = {
   transformOriginCenter: {
     transformOrigin: 'center',
   },
+  topLevelLink: {
+    ...fonts.raleway.medium,
+    ...typeScale(0),
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    boxShadow: shadows.B,
+    //
+    color: colors.red,
+    background: 'white',
+    //
+    display: 'block',
+    borderRadius: borderRadii.A,
+    padding: '1rem',
+    marginTop: '1rem',
+    width: '12rem',
+    boxSizing: 'border-box',
+    //
+    transition: 'box-shadow 120ms linear',
+    '&:hover': {
+      boxShadow: shadows.A,
+    },
+  },
 }
+
+const TopLevelLink = injectSheet(styles)(({ children, to, classes }) => (
+  <Link to={to} className={classes.topLevelLink}>
+    <div>{children}</div>
+  </Link>
+))
 
 class Intro extends React.Component {
   constructor(props) {
     super(props)
-    this.animationRoot = React.createRef()
+    this.logoRoot = React.createRef()
   }
 
   playIntroAnimation() {
-    const $animRoot = this.animationRoot.current
-    const $boxes = $animRoot.querySelectorAll('.box')
-    const $roundedRects = $animRoot.querySelectorAll('.roundedRect')
-    const $markPaths = $animRoot.querySelectorAll('.mark')
+    const $logoRoot = this.logoRoot.current
+    const $boxes = $logoRoot.querySelectorAll('.box')
+    const $roundedRects = $logoRoot.querySelectorAll('.roundedRect')
+    const $markPaths = $logoRoot.querySelectorAll('.mark')
 
     anime
       .timeline()
       .add({
-        targets: $animRoot,
+        targets: $logoRoot,
         duration: 2000,
         easing: 'easeInOutQuart',
         translateY: ['0px', `-${38 - 19}px`],
         update: function(anim) {
           const p = anime.easings.easeInOutQuart(anim.currentTime / 2000)
-          $animRoot.style.setProperty(
+          $logoRoot.style.setProperty(
             'box-shadow',
             `0 ${p * 19}px ${p * 38}px rgba(0,0,0,${p * 0.3}), 0 ${p *
               15}px ${p * 12}px rgba(0,0,0,${p * 0.22})`
@@ -62,7 +91,7 @@ class Intro extends React.Component {
         },
       })
       .add({
-        targets: $animRoot,
+        targets: $logoRoot,
         duration: 400,
         easing: 'easeInOutExpo',
         translateY: '0px',
@@ -71,7 +100,7 @@ class Intro extends React.Component {
             const p = anime.easings.easeInOutExpo(
               (anim.currentTime - anim.offset) / (anim.duration - anim.offset)
             )
-            $animRoot.style.setProperty(
+            $logoRoot.style.setProperty(
               'box-shadow',
               `0 ${19 - p * (19 - 3)}px ${38 -
                 p * (38 - 6)}px rgba(0,0,0,${0.3 - p * (0.3 - 0.16)}), 0 ${15 -
@@ -87,16 +116,16 @@ class Intro extends React.Component {
       duration: 400,
       delay: 2000,
       easing: 'easeInOutExpo',
-      rx: 2,
-      ry: 2,
+      rx: (parseFloat(borderRadii.A) / 12) * 100,
+      ry: (parseFloat(borderRadii.A) / 12) * 100,
     })
 
     anime({
-      targets: $animRoot,
+      targets: $logoRoot,
       duration: 400,
       delay: 2000,
       easing: 'easeInOutExpo',
-      borderRadius: ['6rem', '.25rem'],
+      borderRadius: ['6rem', borderRadii.A],
     })
 
     anime
@@ -136,7 +165,7 @@ class Intro extends React.Component {
             () => `0 ${anime.setDashoffset($markPaths[0]) / 5}`,
             () => `${anime.setDashoffset($markPaths[0]) / 5}, 0`,
           ],
-          easing: 'easeInOutExpo',
+          easing: 'easeInOutQuart',
         },
         strokeWidth: {
           value: [0, 2],
@@ -170,7 +199,7 @@ class Intro extends React.Component {
 
     return (
       <div className={classes.introCanvas}>
-        <div className={classes.svgCanvas} ref={this.animationRoot}>
+        <div className={classes.svgCanvas} ref={this.logoRoot}>
           <svg viewBox="0 0 100 100" className={classes.svg}>
             <defs>
               <clipPath id="boxClip">
@@ -241,6 +270,9 @@ class Intro extends React.Component {
             </g>
           </svg>
         </div>
+        <TopLevelLink to="/portfolio">Portfolio</TopLevelLink>
+        <TopLevelLink to="/cv">CV + Résumé</TopLevelLink>
+        <TopLevelLink to="/etc">Et cetera</TopLevelLink>
       </div>
     )
   }
