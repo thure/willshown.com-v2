@@ -86,7 +86,7 @@ class Intro extends React.Component {
       targets: $roundedRects,
       duration: 400,
       delay: 2000,
-      easing: 'easeInOutQuint',
+      easing: 'easeInOutExpo',
       rx: 2,
       ry: 2,
     })
@@ -95,8 +95,8 @@ class Intro extends React.Component {
       targets: $animRoot,
       duration: 400,
       delay: 2000,
-      easing: 'easeInOutQuint',
-      borderRadius: '.25rem',
+      easing: 'easeInOutExpo',
+      borderRadius: ['6rem', '.25rem'],
     })
 
     anime
