@@ -3,6 +3,9 @@ import injectSheet from 'react-jss'
 import { Link } from 'react-router-dom'
 import anime from 'animejs'
 import { borderRadii, colors, fonts, shadows, typeScale } from '../style'
+import { ReactComponent as PackageIcon } from 'feather-icons/dist/icons/package.svg'
+import { ReactComponent as LayersIcon } from 'feather-icons/dist/icons/layers.svg'
+import { ReactComponent as MenuIcon } from 'feather-icons/dist/icons/menu.svg'
 
 const styles = {
   introCanvas: {
@@ -57,16 +60,27 @@ const styles = {
       cursor: 'pointer',
       pointerEvents: 'auto',
     },
-    '&.done:hover': {
+    '&.done:hover, &.done:focus, &.done:active': {
       boxShadow: [[shadows.A], '!important'],
       transform: [['translateY(3px)'], '!important'],
     },
+  },
+  topLevelLinkContent: {
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    alignItems: 'center',
+  },
+  topLevelLinkIcon: {
+    height: '1.2em',
+    width: '1.2em',
+    marginRight: '.75em',
+    strokeWidth: [[1.42], '!important'],
   },
 }
 
 const TopLevelLink = injectSheet(styles)(({ children, to, classes }) => (
   <Link to={to} className={`topLevelLink ${classes.topLevelLink}`}>
-    <div>{children}</div>
+    <div className={classes.topLevelLinkContent}>{children}</div>
   </Link>
 ))
 
@@ -325,9 +339,18 @@ class Intro extends React.Component {
             </g>
           </svg>
         </div>
-        <TopLevelLink to="/portfolio">Portfolio</TopLevelLink>
-        <TopLevelLink to="/cv">CV/Résumé</TopLevelLink>
-        <TopLevelLink to="/etc">Etc.</TopLevelLink>
+        <TopLevelLink to="/portfolio" tabIndex="0">
+          <PackageIcon className={classes.topLevelLinkIcon} />
+          Portfolio
+        </TopLevelLink>
+        <TopLevelLink to="/cv" tabIndex="0">
+          <LayersIcon className={classes.topLevelLinkIcon} />
+          CV/Résumé
+        </TopLevelLink>
+        <TopLevelLink to="/etc" tabIndex="0">
+          <MenuIcon className={classes.topLevelLinkIcon} />
+          Etc.
+        </TopLevelLink>
       </div>
     )
   }

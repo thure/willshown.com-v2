@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "animejs": "^2.2.0",
+    "feather-icons": "^4.9.0",
     "jss": "^9.8.7",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -26,7 +27,10 @@
     }
   },
   "lint-staged": {
-    "{src,public}/**/*.{js,json,css,md}": ["prettier --single-quote --trailing-comma es5 --no-semi --write", "git add"]
+    "{src,public}/**/*.{js,json,css,md}": [
+      "prettier --single-quote --trailing-comma es5 --no-semi --write",
+      "git add"
+    ]
   },
   "browserslist": [
     ">0.2%",
