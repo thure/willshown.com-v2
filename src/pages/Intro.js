@@ -112,8 +112,8 @@ class Intro extends React.Component {
           )
           $logoRoot.style.setProperty(
             'box-shadow',
-            `0 ${p * 19}px ${p * 38}px rgba(0,0,0,${p * 0.3}), 0 ${p *
-              15}px ${p * 12}px rgba(0,0,0,${p * 0.22})`
+            `0 ${p * 19}px ${p * 38}px ${colors.darkA(p * 0.3)}, 0 ${p *
+              15}px ${p * 12}px ${colors.darkA(p * 0.22)}`
           )
         },
       })
@@ -129,10 +129,10 @@ class Intro extends React.Component {
             )
             $logoRoot.style.setProperty(
               'box-shadow',
-              `0 ${19 - p * (19 - 3)}px ${38 -
-                p * (38 - 6)}px rgba(0,0,0,${0.3 - p * (0.3 - 0.16)}), 0 ${15 -
-                p * (15 - 3)}px ${12 - p * (12 - 6)}px rgba(0,0,0,${0.22 -
-                p * (0.22 - 0.23)})`
+              `0 ${19 - p * (19 - 3)}px ${38 - p * (38 - 6)}px ${colors.darkA(
+                0.3 - p * (0.3 - 0.16)
+              )}, 0 ${15 - p * (15 - 3)}px ${12 -
+                p * (12 - 6)}px ${colors.darkA(0.22 - p * (0.22 - 0.23))}`
             )
           }
         },
@@ -241,8 +241,8 @@ class Intro extends React.Component {
               )
               $link.style.setProperty(
                 'box-shadow',
-                `0 ${p * 3}px ${p * 6}px rgba(0,0,0,${p * 0.13}), 0 ${p *
-                  3}px ${p * 6}px rgba(0,0,0,${p * 0.2})`
+                `0 ${p * 3}px ${p * 6}px ${colors.darkA(p * 0.13)}, 0 ${p *
+                  3}px ${p * 6}px ${colors.darkA(p * 0.2)}`
               )
             }
           })
