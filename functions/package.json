@@ -2,8 +2,7 @@
   "name": "functions",
   "description": "Cloud™ functions™ for Firebase™",
   "engines": {
-    "node": "8",
-    "yarn": "1.9.2"
+    "node": "8"
   },
   "scripts": {
     "lint": "eslint . && ",
