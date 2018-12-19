@@ -1,6 +1,11 @@
 {
   "name": "client",
   "private": true,
+  "description": "Universal web app rendered by JS",
+  "engines": {
+    "node": "8.10.0",
+    "yarn": "1.9.2"
+  },
   "dependencies": {
     "animejs": "^2.2.0",
     "feather-icons": "^4.9.0",
