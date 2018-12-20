@@ -1,5 +1,0 @@
-linters:
-  index.js:
-    - eslint --fix
-    - prettier --single-quote --trailing-comma es5 --no-semi --write
-    - git add

@@ -1,8 +1,0 @@
-{
-  "lerna": "3.6.0",
-  "packages": [
-    "client",
-    "functions"
-  ],
-  "version": "0.1.0"
-}

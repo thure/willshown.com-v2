@@ -1,6 +1,7 @@
 node_modules
 build
 .firebase
+*-error.log
 
 # IDE stuff that changes too often
 .idea/workspace.xml

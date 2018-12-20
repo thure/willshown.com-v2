@@ -1,0 +1,6 @@
+Based upon Patrick Cason's "Server-side rendering in Create React App"
+https://github.com/cereallarceny/cra-ssr
+https://medium.com/@cereallarceny/server-side-rendering-in-create-react-app-with-all-the-goodies-without-ejecting-4c889d7db25e
+
+
+  yarn add @babel/core @babel/plugin-syntax-dynamic-import @babel/polyfill @babel/register babel-plugin-dynamic-import-node cookie-parser cross-env forcedomain ignore-styles js-cookie md5-file morgan

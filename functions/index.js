@@ -1,8 +1,7 @@
 const functions = require('firebase-functions')
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
+const manifest = require('./app/build/asset-manifest.json')
 
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  response.send('Hey, Earth!')
-})
+exports.render = functions.https.onRequest((req, res) =>
+  res.send(manifest)
+)
