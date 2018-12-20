@@ -1,7 +1,16 @@
-import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+// The basics
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { withRouter } from 'react-router'
+
+// Action creators and helpers
+import { establishCurrentUser } from './modules/auth'
+import { isServer } from './store'
+
+import Pages from './pages'
+
 import injectSheet from 'react-jss'
-import Intro from './pages/Intro'
 
 const styles = {
   app: {
@@ -11,12 +20,34 @@ const styles = {
   },
 }
 
-const App = ({ classes }) => (
-  <Router>
-    <main className={classes.app}>
-      <Route exact path="/" component={Intro} />
-    </main>
-  </Router>
-)
+class App extends Component {
+  componentWillMount() {
+    if (!isServer) {
+      this.props.establishCurrentUser()
+    }
+  }
 
-export default injectSheet(styles)(App)
+  render() {
+    return (
+      <div id="app">
+        <div id="content">
+          <Pages />
+        </div>
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ establishCurrentUser }, dispatch)
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(injectSheet(styles)(App))
+)
