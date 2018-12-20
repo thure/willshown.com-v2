@@ -120,10 +120,6 @@ export default (req, res) => {
           // We need to tell Helmet to compute the right meta tags, title, and such
           const helmet = Helmet.renderStatic()
 
-          // NOTE: Disable if you desire
-          // Let's output the title, just to see SSR is working as intended
-          console.log('THE TITLE', helmet.title.toString())
-
           // Pass all this nonsense into our HTML formatting function above
           const html = injectHTML(htmlData, {
             html: helmet.htmlAttributes.toString(),
@@ -133,6 +129,9 @@ export default (req, res) => {
             scripts: extraChunks,
             state: JSON.stringify(store.getState()).replace(/</g, '\\u003c'),
           })
+
+          // Log to confirm SSR (vs client-side render)
+          console.log('[Render]', 'rendered page', routeMarkup.length)
 
           // We have all the final HTML, let's send it to the user already!
           res.send(html)

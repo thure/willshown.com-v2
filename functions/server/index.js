@@ -40,5 +40,7 @@ require('@babel/register')({
   ],
 })
 
+console.log('[Render]', 'initializing server')
+
 // Now that the nonsense is over... load up the server entry point
 module.exports = require('./server')
