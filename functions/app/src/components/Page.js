@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import Helmet from 'react-helmet'
-import logo from '../assets/testpattern.png'
+import logo from '../assets/social-logo.png'
 
 const SITE_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'https://cra-ssr.herokuapp.com'
+    : 'https://willshown.com'
 
-const FACEBOOK_APP_ID = 'XXXXXXXXX'
-
-const defaultTitle = 'My Website'
-const defaultDescription =
-  'This is a really awesome website where we can render on the server. Supa cool.'
+const defaultTitle = 'Will Shown'
+const defaultDescription = "Will Shown's online portfolio"
 const defaultImage = `${SITE_URL}${logo}`
 const defaultTwitter = '@wwwillshown'
 const defaultSep = ' | '
@@ -58,7 +55,6 @@ class Page extends Component {
       { property: 'og:image', content: theImage },
       { property: 'og:description', content: theDescription },
       { property: 'og:site_name', content: defaultTitle },
-      { property: 'fb:app_id', content: FACEBOOK_APP_ID },
     ]
 
     if (noCrawl) {
@@ -82,7 +78,7 @@ class Page extends Component {
   }
 
   render() {
-    const { children, id, className, ...rest } = this.props
+    const { children, id, className, ...etc } = this.props
 
     return (
       <div id={id} className={className}>
@@ -90,10 +86,10 @@ class Page extends Component {
           htmlAttributes={{
             lang: 'en',
             itemscope: undefined,
-            itemtype: `http://schema.org/${rest.schema || 'WebPage'}`,
+            itemtype: `http://schema.org/${etc.schema || 'WebPage'}`,
           }}
           title={
-            rest.title ? rest.title + defaultSep + defaultTitle : defaultTitle
+            etc.title ? etc.title + defaultSep + defaultTitle : defaultTitle
           }
           link={[
             {
@@ -101,7 +97,7 @@ class Page extends Component {
               href: SITE_URL + this.props.location.pathname,
             },
           ]}
-          meta={this.getMetaTags(rest, this.props.location.pathname)}
+          meta={this.getMetaTags(etc, this.props.location.pathname)}
         />
         {children}
       </div>

@@ -1,7 +1,5 @@
 const functions = require('firebase-functions')
 
-const manifest = require('./app/build/asset-manifest.json')
+const renderServer = require('./server')
 
-exports.render = functions.https.onRequest((req, res) =>
-  res.send(manifest)
-)
+exports.render = functions.https.onRequest(renderServer)
