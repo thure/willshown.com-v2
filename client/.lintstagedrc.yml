@@ -1,4 +1,5 @@
 linters:
   "{src,public}/**/*.{js,json,css,md}":
+    - eslint --fix
     - prettier --single-quote --trailing-comma es5 --no-semi --write
     - git add
