@@ -8,6 +8,6 @@ export default () => (
     description="This is embarrassing."
     noCrawl
   >
-    <p>Super embarrassing.</p>
+    <div style={{ height: '500vh' }}>Super embarrassing.</div>
   </Page>
 )

@@ -8,8 +8,11 @@ import { withRouter } from 'react-router'
 import { establishCurrentUser } from './modules/auth'
 import { isServer } from './store'
 
+// Components
 import Pages from './pages'
+import TopNav from './components/TopNav'
 
+// Styles
 import injectSheet from 'react-jss'
 
 const styles = {
@@ -30,6 +33,10 @@ class App extends Component {
   render() {
     return (
       <div id="app">
+        <TopNav
+          isAuthenticated={this.props.isAuthenticated}
+          pathName={this.props.location.pathname}
+        />
         <div id="content">
           <Pages />
         </div>

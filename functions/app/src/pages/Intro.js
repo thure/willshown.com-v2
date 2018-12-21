@@ -351,15 +351,15 @@ class Intro extends React.Component {
                 </g>
               </svg>
             </div>
-            <TopLevelLink to="/portfolio" tabIndex="0">
+            <TopLevelLink to="/portfolio">
               <PackageIcon className={classes.topLevelLinkIcon} />
               <span>Portfolio</span>
             </TopLevelLink>
-            <TopLevelLink to="/cv" tabIndex="0">
+            <TopLevelLink to="/cv">
               <LayersIcon className={classes.topLevelLinkIcon} />
               <span>CV/Résumé</span>
             </TopLevelLink>
-            <TopLevelLink to="/etc" tabIndex="0">
+            <TopLevelLink to="/etc">
               <MenuIcon className={classes.topLevelLinkIcon} />
               <span>Etc.</span>
             </TopLevelLink>
