@@ -23,17 +23,9 @@ const styles = {
   },
 }
 
-const TopNav = Loadable.Map({
-  loader: {
-    TopNav: () =>
-      import(/* webpackChunkName: "topnav" */ './components/TopNav'),
-    icons: () => import(/* webpackChunkName: "icons" */ './style/icons'),
-  },
+const TopNav = Loadable({
+  loader: () => import(/* webpackChunkName: "topnav" */ './components/TopNav'),
   loading: () => null,
-  render(loaded, props) {
-    let TopNav = loaded.TopNav.default
-    return <TopNav {...props} icons={loaded.icons} />
-  },
 })
 
 class App extends Component {
