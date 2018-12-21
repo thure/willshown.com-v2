@@ -2,12 +2,8 @@ import React from 'react'
 import Headroom from 'react-headroom'
 import { Link } from 'react-router-dom'
 import injectSheet from 'react-jss'
-import { colors, shadows } from '../style'
+import { colors, shadows, icons } from '../style'
 import cx from 'classnames'
-import { ReactComponent as PackageIcon } from 'feather-icons/dist/icons/package.svg'
-import { ReactComponent as LayersIcon } from 'feather-icons/dist/icons/layers.svg'
-import { ReactComponent as MenuIcon } from 'feather-icons/dist/icons/menu.svg'
-import { ReactComponent as MarkIcon } from '../assets/mark.svg'
 
 const styles = {
   outerContainer: {
@@ -52,10 +48,6 @@ const styles = {
       strokeWidth: 8.6,
     },
   },
-  topNavLinkContent: {
-    display: 'block',
-    width: '100%',
-  },
   topNavLinkIcon: {
     display: 'block',
     height: '1.2em',
@@ -81,7 +73,7 @@ const TopNavLink = injectSheet(styles)(({ children, to, classes }) => (
       to === '/' && classes.topNavHomeLink
     )}
   >
-    <div className={classes.topNavLinkContent}>{children}</div>
+    {children}
   </Link>
 ))
 
@@ -95,16 +87,16 @@ const TopNav = ({ isAuthenticated, pathName, classes }) => (
     >
       <nav className={classes.innerContainer}>
         <TopNavLink to="/">
-          <MarkIcon className={classes.topNavHomeIcon} />
+          <icons.MarkIcon className={classes.topNavHomeIcon} />
         </TopNavLink>
         <TopNavLink to="/portfolio">
-          <PackageIcon className={classes.topNavLinkIcon} />
+          <icons.PackageIcon className={classes.topNavLinkIcon} />
         </TopNavLink>
         <TopNavLink to="/cv">
-          <LayersIcon className={classes.topNavLinkIcon} />
+          <icons.LayersIcon className={classes.topNavLinkIcon} />
         </TopNavLink>
         <TopNavLink to="/etc">
-          <MenuIcon className={classes.topNavLinkIcon} />
+          <icons.MenuIcon className={classes.topNavLinkIcon} />
         </TopNavLink>
       </nav>
     </div>

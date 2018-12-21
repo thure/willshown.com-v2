@@ -10,10 +10,10 @@ import { isServer } from './store'
 
 // Components
 import Pages from './pages'
-import TopNav from './components/TopNav'
 
 // Styles
 import injectSheet from 'react-jss'
+import Loadable from 'react-loadable'
 
 const styles = {
   app: {
@@ -22,6 +22,19 @@ const styles = {
     minHeight: '100%',
   },
 }
+
+const TopNav = Loadable.Map({
+  loader: {
+    TopNav: () =>
+      import(/* webpackChunkName: "topnav" */ './components/TopNav'),
+    icons: () => import(/* webpackChunkName: "icons" */ './style/icons'),
+  },
+  loading: () => null,
+  render(loaded, props) {
+    let TopNav = loaded.TopNav.default
+    return <TopNav {...props} icons={loaded.icons} />
+  },
+})
 
 class App extends Component {
   componentWillMount() {

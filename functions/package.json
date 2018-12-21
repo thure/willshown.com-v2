@@ -11,7 +11,10 @@
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
+    "predeploy": "cd app && yarn build && cd ..",
+    "predev": "yarn predeploy",
+    "deploy": "cd .. && firebase deploy",
+    "dev": "cd .. && firebase serve",
     "logs": "firebase functions:log",
     "precommit": "lint-staged"
   },

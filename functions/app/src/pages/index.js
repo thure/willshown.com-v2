@@ -4,24 +4,24 @@ import AuthenticatedRoute from '../components/AuthenticatedRoute'
 import UnauthenticatedRoute from '../components/UnauthenticatedRoute'
 import Loadable from 'react-loadable'
 
-import NotFound from './NotFound'
-
 const Intro = Loadable({
-  loader: () => import(/* webpackChunkName: "homepage" */ './Intro'),
+  loader: () => import(/* webpackChunkName: "intro" */ './Intro'),
   loading: () => null,
-  modules: ['Intro'],
 })
 
 const Login = Loadable({
   loader: () => import(/* webpackChunkName: "login" */ './Login'),
   loading: () => null,
-  modules: ['Login'],
 })
 
 const Logout = Loadable({
   loader: () => import(/* webpackChunkName: "logout" */ './Logout'),
   loading: () => null,
-  modules: ['Logout'],
+})
+
+const NotFound = Loadable({
+  loader: () => import(/* webpackChunkName: "notfound" */ './NotFound'),
+  loading: () => null,
 })
 
 export default () => (
