@@ -95,9 +95,6 @@ const TopNav = ({ isAuthenticated, pathName, classes }) => (
         <TopNavLink to="/cv">
           <icons.LayersIcon className={classes.topNavLinkIcon} />
         </TopNavLink>
-        <TopNavLink to="/etc">
-          <icons.MenuIcon className={classes.topNavLinkIcon} />
-        </TopNavLink>
       </nav>
     </div>
   </Headroom>

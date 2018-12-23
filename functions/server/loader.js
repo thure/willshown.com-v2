@@ -44,7 +44,7 @@ export default (req, res) => {
 
   // Load in our HTML file from our build
   fs.readFile(
-    path.resolve(__dirname, '../app/build/index.html'),
+    path.resolve(__dirname, '../app/build/basepage.html'),
     'utf8',
     (err, htmlData) => {
       // If there's an error... serve up something nasty
@@ -116,7 +116,9 @@ export default (req, res) => {
               .map(k => assets[k])
 
           // Render the stylesheet for this page
-          const ssrStyles = `<style type="text/css" id="server-side-styles">${sheets.toString()}</style>`
+          const ssrStyles = `<style type="text/css" id="server-side-styles">${sheets.toString()}${
+            req.url === '/' ? '#root{opacity:0;}' : ''
+          }</style>`
 
           // Let's format those assets into pretty <script> tags
           const extraChunks = extractAssets(manifest, modules).map(

@@ -356,10 +356,6 @@ class Intro extends React.Component {
               <icons.LayersIcon className={classes.topLevelLinkIcon} />
               <span>CV/Résumé</span>
             </TopLevelLink>
-            <TopLevelLink to="/etc">
-              <icons.MenuIcon className={classes.topLevelLinkIcon} />
-              <span>Etc.</span>
-            </TopLevelLink>
           </div>
         </div>
       </Page>
