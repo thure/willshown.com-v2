@@ -10,18 +10,9 @@ import { isServer } from './store'
 
 // Components
 import Pages from './pages'
-
-// Styles
-import injectSheet from 'react-jss'
 import Loadable from 'react-loadable'
 
-const styles = {
-  app: {
-    maxWidth: '80rem',
-    margin: '0 auto',
-    minHeight: '100%',
-  },
-}
+// Styles
 
 const TopNav = Loadable({
   loader: () => import(/* webpackChunkName: "topnav" */ './components/TopNav'),
@@ -61,5 +52,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(injectSheet(styles)(App))
+  )(App)
 )
