@@ -117,7 +117,9 @@ export default (req, res) => {
 
           // Render the stylesheet for this page
           const ssrStyles = `<style type="text/css" id="server-side-styles">${sheets.toString()}${
-            req.url === '/' ? '#root{opacity:0;}' : ''
+            // Set #root's opacity to zero if we're on the index;
+            // this gets removed when animation would start.
+            /^\/?$/.test(req.url) ? '#root{opacity:0;}' : ''
           }</style>`
 
           // Let's format those assets into pretty <script> tags
