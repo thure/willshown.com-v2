@@ -18,7 +18,12 @@ import App from '../app/src/App'
 import manifest from '../app/build/asset-manifest.json'
 
 // Some optional Redux functions related to user authentication
-import { setCurrentUser, logoutUser } from '../app/src/modules/auth'
+import { firebaseAuth } from './auth'
+import {
+  setCurrentUserFromCookie,
+  logoutUser,
+  COOKIE_KEY,
+} from '../app/src/modules/auth'
 
 // LOADER
 export default (req, res) => {
@@ -58,12 +63,19 @@ export default (req, res) => {
 
       // If the user has a cookie (i.e. they're signed in) - set them as the current user
       // Otherwise, we want to set the current state to be logged out, just in case this isn't the default
-      if ('mywebsite' in req.cookies) {
-        store.dispatch(setCurrentUser(req.cookies.mywebsite))
+      if (COOKIE_KEY in req.cookies) {
+        // pass `verifyIdToken` to the app code since they should remain separated
+        store.dispatch(
+          setCurrentUserFromCookie(
+            req.cookies[COOKIE_KEY],
+            firebaseAuth().verifyIdToken
+          )
+        )
       } else {
         store.dispatch(logoutUser())
       }
 
+      // Set up accumulators for SSR
       const context = {}
       const modules = []
       const sheets = new SheetsRegistry()

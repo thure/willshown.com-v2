@@ -7,6 +7,9 @@ import path from 'path'
 import Loadable from 'react-loadable'
 import cookieParser from 'cookie-parser'
 
+// Our auth methods
+import auth from './auth'
+
 // Our loader - this basically acts as the entry point for each page load
 import loader from './loader'
 
@@ -22,6 +25,7 @@ app.use(morgan('dev'))
 app.use(cookieParser())
 
 // Set up homepage, static assets, and capture everything else
+app.use('/auth', auth)
 app.use(express.Router().get('/', loader))
 app.use(express.static(path.resolve(__dirname, '../app/build')))
 app.use(loader)
