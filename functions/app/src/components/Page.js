@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
+import injectSheet from 'react-jss'
 import Helmet from 'react-helmet'
 import logo from '../assets/social-logo.png'
 
@@ -13,6 +14,17 @@ const defaultDescription = "Will Shown's online portfolio"
 const defaultImage = `${SITE_URL}${logo}`
 const defaultTwitter = '@wwwillshown'
 const defaultSep = ' | '
+
+const styles = {
+  page: {
+    padding: '0 1rem',
+    maxWidth: '48rem',
+    margin: '0 auto',
+    '@media (min-width: 600px)': {
+      padding: '0 2rem',
+    },
+  },
+}
 
 class Page extends Component {
   getMetaTags(
@@ -78,7 +90,7 @@ class Page extends Component {
   }
 
   render() {
-    const { children, id, className, ...etc } = this.props
+    const { children, id, className, classes, ...etc } = this.props
 
     return (
       <div id={id} className={className}>
@@ -99,10 +111,10 @@ class Page extends Component {
           ]}
           meta={this.getMetaTags(etc, this.props.location.pathname)}
         />
-        {children}
+        <main className={classes.page}>{children}</main>
       </div>
     )
   }
 }
 
-export default withRouter(Page)
+export default withRouter(injectSheet(styles)(Page))

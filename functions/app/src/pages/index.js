@@ -9,6 +9,16 @@ const Intro = Loadable({
   loading: () => null,
 })
 
+const Portfolio = Loadable({
+  loader: () => import(/* webpackChunkName: "portfolio" */ './Portfolio'),
+  loading: () => null,
+})
+
+const CV = Loadable({
+  loader: () => import(/* webpackChunkName: "cv" */ './CV'),
+  loading: () => null,
+})
+
 const Login = Loadable({
   loader: () => import(/* webpackChunkName: "login" */ './Login'),
   loading: () => null,
@@ -27,6 +37,8 @@ const NotFound = Loadable({
 export default () => (
   <Switch>
     <Route exact path="/" component={Intro} />
+    <Route exact path="/portfolio" component={Portfolio} />
+    <Route exact path="/cv" component={CV} />
 
     <UnauthenticatedRoute exact path="/login" component={Login} />
     <AuthenticatedRoute exact path="/logout" component={Logout} />
