@@ -3,8 +3,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router'
-import { initializeApp } from 'firebase'
-import firebaseConfig from './config/client-credentials.json'
 
 // Action creators and helpers
 import { establishCurrentUser } from './modules/auth'
@@ -13,9 +11,6 @@ import { isServer } from './store'
 // Components
 import Pages from './pages'
 import Loadable from 'react-loadable'
-
-// Firebase
-const firebaseApp = initializeApp(firebaseConfig)
 
 // Styles
 
@@ -26,10 +21,8 @@ const TopNav = Loadable({
 
 class App extends Component {
   componentWillMount() {
-    if (!isServer) {
-      // TODO: check if SSR provided the uid, log in to firebase if so
-      this.props.establishCurrentUser()
-    }
+    const { isAuthenticated, currentUser, establishCurrentUser } = this.props
+    if (!isServer) establishCurrentUser(isAuthenticated, currentUser)
   }
 
   render() {
@@ -49,6 +42,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
+  currentUser: state.auth.currentUser,
 })
 
 const mapDispatchToProps = dispatch =>
