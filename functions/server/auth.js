@@ -22,11 +22,19 @@ router.post('/login', (req, res) => {
           user,
         })
       )
+      .catch(err => {
+        console.log('[server/auth POST login]', 'error', err)
+        res.sendStatus(500)
+      })
   } else {
     res.sendStatus(401)
   }
 })
 
-export const firebaseAuth = () => admin.auth()
+export const verifyAccessToken = accessToken =>
+  admin
+    .auth()
+    .verifyIdToken(accessToken)
+    .then(({ uid }) => admin.auth().getUser(uid))
 
 export default router

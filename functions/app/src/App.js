@@ -27,6 +27,7 @@ const TopNav = Loadable({
 class App extends Component {
   componentWillMount() {
     if (!isServer) {
+      // TODO: check if SSR provided the uid, log in to firebase if so
       this.props.establishCurrentUser()
     }
   }

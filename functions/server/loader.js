@@ -18,7 +18,7 @@ import App from '../app/src/App'
 import manifest from '../app/build/asset-manifest.json'
 
 // Some optional Redux functions related to user authentication
-import { firebaseAuth } from './auth'
+import { verifyAccessToken } from './auth'
 import {
   setCurrentUserFromCookie,
   logoutUser,
@@ -64,14 +64,27 @@ export default (req, res) => {
       // If the user has a cookie (i.e. they're signed in) - set them as the current user
       // Otherwise, we want to set the current state to be logged out, just in case this isn't the default
       if (COOKIE_KEY in req.cookies) {
+        console.log('[SSR]', `${COOKIE_KEY} found in req.cookies`, req.cookies)
         // pass `verifyIdToken` to the app code since they should remain separated
-        store.dispatch(
-          setCurrentUserFromCookie(
-            req.cookies[COOKIE_KEY],
-            firebaseAuth().verifyIdToken
-          )
+        const accessToken = JSON.parse(req.cookies[COOKIE_KEY]).accessToken
+        console.log('[SSR]', 'auth', 'validating', accessToken)
+        store.dispatch(dispatch =>
+          verifyAccessToken(accessToken)
+            .then(user => {
+              console.log('[SSR]', 'authenticated', user)
+              return dispatch(setCurrentUserFromCookie(user))
+            })
+            .catch(err => {
+              console.log('[SSR]', 'authentication error', err)
+              return dispatch(logoutUser())
+            })
         )
       } else {
+        console.log(
+          '[SSR]',
+          `${COOKIE_KEY} not found in req.cookies`,
+          req.cookies
+        )
         store.dispatch(logoutUser())
       }
 

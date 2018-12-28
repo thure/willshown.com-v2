@@ -12,6 +12,40 @@ const initialState = {
   currentUser: {},
 }
 
+const pickUser = ({
+  uid,
+  displayName,
+  photoURL,
+  email,
+  emailVerified,
+  phoneNumber,
+  isAnonymous,
+  providerData,
+  apiKey,
+  appName,
+  authDomain,
+  stsTokenManager,
+  redirectEventId,
+  lastLoginAt,
+  createdAt,
+}) => ({
+  uid,
+  displayName,
+  photoURL,
+  email,
+  emailVerified,
+  phoneNumber,
+  isAnonymous,
+  providerData,
+  apiKey,
+  appName,
+  authDomain,
+  stsTokenManager,
+  redirectEventId,
+  lastLoginAt,
+  createdAt,
+})
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case AUTHENTICATE:
@@ -40,7 +74,9 @@ export const setCurrentUser = user => dispatch =>
       user,
     })
 
-    Cookies.set(COOKIE_KEY, user)
+    auth()
+      .currentUser.getIdToken()
+      .then(accessToken => Cookies.set(COOKIE_KEY, { accessToken }))
 
     dispatch({
       type: AUTHENTICATE,
@@ -50,41 +86,22 @@ export const setCurrentUser = user => dispatch =>
     resolve(user)
   })
 
-export const setCurrentUserFromCookie = (cookie, verifyIdToken) => dispatch => {
-  console.log('[setCurrentUserFromCookie]', 'attempt', cookie)
+export const setCurrentUserFromCookie = user => dispatch =>
+  new Promise(resolve => {
+    console.log('[setCurrentUserFromCookie]', user)
 
-  return verifyIdToken(cookie.token)
-    .then(user => {
-      console.log('[setCurrentUserFromCookie]', 'success', user)
-
-      dispatch({
-        type: SET_CURRENT_USER,
-        user,
-      })
-
-      dispatch({
-        type: AUTHENTICATE,
-        authenticated: true,
-      })
-
-      return user
+    dispatch({
+      type: SET_CURRENT_USER,
+      user,
     })
-    .catch(err => {
-      console.log('[setCurrentUserFromCookie]', 'failure', err)
 
-      dispatch({
-        type: AUTHENTICATE,
-        authenticated: false,
-      })
-
-      dispatch({
-        type: SET_CURRENT_USER,
-        user: {},
-      })
-
-      return {}
+    dispatch({
+      type: AUTHENTICATE,
+      authenticated: true,
     })
-}
+
+    resolve(user)
+  })
 
 export const establishCurrentUser = () => dispatch =>
   new Promise(resolve => {
@@ -96,7 +113,7 @@ export const establishCurrentUser = () => dispatch =>
       dispatch(setCurrentUser(user))
       resolve(user)
     } else {
-      resolve({})
+      return dispatch(loginUser('wss_i6]k[p7v'))
     }
   })
 
@@ -110,14 +127,22 @@ export const loginUser = accessCode => dispatch =>
   })
     .then(res => res.json())
     .then(({ token, user }) =>
-      auth().signInWithCustomToken(token, { name: user.name })
+      auth()
+        .signInWithCustomToken(token)
+        // apparently only the client can update the profile, so…
+        .then(() =>
+          auth().currentUser.updateProfile({
+            displayName: user.displayname,
+          })
+        )
+        .then(() => pickUser(auth().currentUser))
     )
-    .then(() => {
-      const user = auth().currentUser
+    .then(user => {
       console.log('[loginUser]', 'success', user)
       dispatch(setCurrentUser(user))
       return user
     })
+    .catch(err => console.log('[loginUser]', 'error', err))
 
 export const logoutUser = () => dispatch =>
   auth()
