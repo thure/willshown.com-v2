@@ -6,6 +6,7 @@ import morgan from 'morgan'
 import path from 'path'
 import Loadable from 'react-loadable'
 import cookieParser from 'cookie-parser'
+import { establishReqUser } from './auth'
 
 // Our routers
 import auth from './auth'
@@ -24,6 +25,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('dev'))
 app.use(cookieParser())
+
+app.use(establishReqUser)
 
 // Set up homepage, static assets, and capture everything else
 app.use('/auth', auth)

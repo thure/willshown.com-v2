@@ -1,4 +1,5 @@
 import express from 'express'
+import { COOKIE_KEY } from '../app/src/modules/auth'
 
 import accessCodes from '../config/access-codes.json'
 
@@ -17,5 +18,16 @@ router.post('/login', (req, res) => {
     res.sendStatus(401)
   }
 })
+
+export const establishReqUser = (req, res, next) => {
+  req.user = null
+
+  if (COOKIE_KEY in req.cookies) {
+    const user = JSON.parse(req.cookies[COOKIE_KEY])
+    if (user) req.user = user
+  }
+
+  return next()
+}
 
 export default router

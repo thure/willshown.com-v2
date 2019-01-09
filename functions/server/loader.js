@@ -44,18 +44,15 @@ const settleStore = req => {
 
   // If the user has a cookie (i.e. they're signed in) - set them as the current user
   // Otherwise, we want to set the current state to be logged out, just in case this isn't the default
-  if (COOKIE_KEY in req.cookies) {
-    console.log('[SSR]', `${COOKIE_KEY} found in req.cookies`)
-    const user = JSON.parse(req.cookies[COOKIE_KEY])
-    // TODO: check if user's accessCode is still valid
+  if (req.user) {
     return store
       .dispatch(dispatch => {
-        console.log('[SSR]', 'authenticated', user)
-        return dispatch(setCurrentUserFromCookie(user))
+        console.log('[SSR]', 'authenticated', req.user)
+        return dispatch(setCurrentUserFromCookie(req.user))
       })
       .then(() => store)
   } else {
-    console.log('[SSR]', `${COOKIE_KEY} not found in req.cookies`)
+    console.log('[SSR]', 'not authenticated')
     return store.dispatch(logoutUser()).then(() => store)
   }
 }
