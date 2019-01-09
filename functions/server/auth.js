@@ -2,6 +2,7 @@ import express from 'express'
 import { COOKIE_KEY } from '../app/src/modules/auth'
 
 import accessCodes from '../config/access-codes.json'
+import { getPrivatePortfolio } from './config'
 
 const router = express.Router()
 
@@ -11,8 +12,11 @@ router.post('/login', (req, res) => {
   const user = accessCodes.find(({ accessCode }) => accessCode === requestCode)
 
   if (user) {
-    res.json({
-      user,
+    getPrivatePortfolio().then(privatePortfolio => {
+      res.json({
+        user,
+        privatePortfolio,
+      })
     })
   } else {
     res.sendStatus(401)

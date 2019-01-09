@@ -5,10 +5,12 @@ export const COOKIE_KEY = 'willshown'
 
 export const AUTHENTICATE = 'auth/AUTHENTICATE'
 export const SET_CURRENT_USER = 'auth/SET_CURRENT_USER'
+export const SET_PRIVATE_PORTFOLIO = 'auth/SET_PRIVATE_PORTFOLIO'
 
 const initialState = {
   isAuthenticated: false,
   currentUser: {},
+  privatePortfolio: null,
 }
 
 export default (state = initialState, action) => {
@@ -23,6 +25,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentUser: action.user,
+      }
+
+    case SET_PRIVATE_PORTFOLIO:
+      return {
+        ...state,
+        privatePortfolio: action.privatePortfolio,
       }
 
     default:
@@ -47,6 +55,16 @@ export const setCurrentUser = user => dispatch =>
     resolve(user)
   })
 
+export const setPrivatePortfolio = privatePortfolio => dispatch =>
+  new Promise(resolve => {
+    dispatch({
+      type: SET_PRIVATE_PORTFOLIO,
+      privatePortfolio,
+    })
+
+    resolve(privatePortfolio)
+  })
+
 export const setCurrentUserFromCookie = user => dispatch =>
   new Promise(resolve => {
     console.log('[setCurrentUserFromCookie]', user)
@@ -69,9 +87,9 @@ export const establishCurrentUser = (isAuthenticated, user) => dispatch => {
     console.log('[establishCurrentUser]', 'logged in')
     return dispatch(setCurrentUser(user))
   } else {
-    console.log('[establishCurrentUser]', 'logging in with default profile')
-    return dispatch(loginUser('wss_i6]k[p7v'))
-    // return dispatch(logoutUser())
+    // console.log('[establishCurrentUser]', 'logging in with default profile')
+    // return dispatch(loginUser('wss_i6]k[p7v'))
+    return dispatch(logoutUser())
   }
 }
 
@@ -84,10 +102,11 @@ export const loginUser = accessCode => dispatch =>
     body: JSON.stringify({ accessCode }),
   })
     .then(res => res.json())
-    .then(({ user }) => {
+    .then(({ user, privatePortfolio }) => {
       Cookies.set(COOKIE_KEY, user)
       console.log('[loginUser]', 'success', user)
       dispatch(setCurrentUser(user))
+      dispatch(setPrivatePortfolio(privatePortfolio))
       return user
     })
     .catch(err => console.log('[loginUser]', 'error', err))

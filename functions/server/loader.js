@@ -18,11 +18,11 @@ import App from '../app/src/App'
 import manifest from '../app/build/asset-manifest.json'
 
 // Some optional Redux functions related to user authentication
-import { verifyAccessToken } from './auth'
+import { getPrivatePortfolio } from './config'
 import {
   setCurrentUserFromCookie,
+  setPrivatePortfolio,
   logoutUser,
-  COOKIE_KEY,
 } from '../app/src/modules/auth'
 
 const injectHTML = (data, { html, title, meta, body, scripts, state }) => {
@@ -48,7 +48,12 @@ const settleStore = req => {
     return store
       .dispatch(dispatch => {
         console.log('[SSR]', 'authenticated', req.user)
-        return dispatch(setCurrentUserFromCookie(req.user))
+        return Promise.all([
+          dispatch(setCurrentUserFromCookie(req.user)),
+          getPrivatePortfolio().then(privatePortfolio =>
+            dispatch(setPrivatePortfolio(privatePortfolio))
+          ),
+        ])
       })
       .then(() => store)
   } else {
