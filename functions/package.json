@@ -12,7 +12,7 @@
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "predeploy": "cd app && yarn build && cd ..",
-    "predev": "yarn predeploy",
+    "predev": "cd app && run.env -p ../../.env yarn build && cd ..",
     "deploy": "cd .. && firebase deploy",
     "dev": "cd .. && run.env firebase serve",
     "logs": "firebase functions:log",

@@ -4,13 +4,13 @@ import injectSheets from 'react-jss'
 
 const styles = {}
 
-const Portfolio = props => (
+const Portfolio = ({ portfolio = null }) => (
   <Page
     id="portfolio"
     title="Portfolio"
     description="Will Shown's online portfolio: topics"
   >
-    Hello, this is portfolio.
+    Hello, this is portfolio, with {Object.keys(portfolio.items).length} topics.
   </Page>
 )
 

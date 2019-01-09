@@ -7,8 +7,9 @@ import path from 'path'
 import Loadable from 'react-loadable'
 import cookieParser from 'cookie-parser'
 
-// Our auth methods
+// Our routers
 import auth from './auth'
+import config from './config'
 
 // Our loader - this basically acts as the entry point for each page load
 import loader from './loader'
@@ -26,14 +27,19 @@ app.use(cookieParser())
 
 // Set up homepage, static assets, and capture everything else
 app.use('/auth', auth)
+app.use('/config', config)
 app.use(express.Router().get('/', loader))
 app.use(express.static(path.resolve(__dirname, '../app/build')))
 app.use(loader)
 
 // We tell React Loadable to load all required assets and start listening - ROCK AND ROLL!
-Loadable.preloadAll().then(() => {
-  app.listen(PORT, console.log('[Render]', `app listening on port ${PORT}`))
-})
+Loadable.preloadAll()
+  .then(() => {
+    app.listen(PORT, console.log('[Render]', `app listening on port ${PORT}`))
+  })
+  .catch(err => {
+    console.log('[Render]', 'preloadAll', 'error', err)
+  })
 
 // Handle the bugs somehow
 app.on('error', error => {

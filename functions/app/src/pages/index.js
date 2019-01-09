@@ -4,19 +4,58 @@ import AuthenticatedRoute from '../components/AuthenticatedRoute'
 import UnauthenticatedRoute from '../components/UnauthenticatedRoute'
 import Loadable from 'react-loadable'
 
+const Loading = props => {
+  if (props.error) {
+    return (
+      <div>
+        Error! <button onClick={props.retry}>Retry</button>
+      </div>
+    )
+  } else if (props.timedOut) {
+    return (
+      <div>
+        Taking a long time… <button onClick={props.retry}>Retry</button>
+      </div>
+    )
+  } else if (props.pastDelay) {
+    return <div>Loading…</div>
+  } else {
+    return null
+  }
+}
+
+const rootURL = () =>
+  typeof document !== 'undefined'
+    ? `${document.location.protocol}//${document.location.hostname}${document
+        .location.port && `:${document.location.port}`}`
+    : process.env.REACT_APP_ROOT_URL || process.env.NODE_ENV === 'production'
+    ? 'https://willshown.com'
+    : 'http://localhost:5000'
+
 const Intro = Loadable({
   loader: () => import(/* webpackChunkName: "intro" */ './Intro'),
   loading: () => null,
 })
 
-const Portfolio = Loadable({
-  loader: () => import(/* webpackChunkName: "portfolio" */ './Portfolio'),
-  loading: () => null,
+console.log('[Pages]', 'REACT_APP_ROOT_URL', process.env.REACT_APP_ROOT_URL)
+
+const Portfolio = Loadable.Map({
+  loader: {
+    Portfolio: () => import(/* webpackChunkName: "portfolio" */ './Portfolio'),
+    portfolio: () =>
+      fetch(`${rootURL()}/config/portfolio.public.json`).then(res =>
+        res.json()
+      ),
+  },
+  loading: () => Loading,
+  render({ Portfolio, portfolio }, props) {
+    return <Portfolio.default {...props} portfolio={portfolio} />
+  },
 })
 
 const CV = Loadable({
   loader: () => import(/* webpackChunkName: "cv" */ './CV'),
-  loading: () => null,
+  loading: () => Loading,
 })
 
 const Login = Loadable({
