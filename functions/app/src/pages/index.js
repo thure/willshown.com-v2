@@ -24,7 +24,7 @@ const Loading = props => {
   }
 }
 
-const rootURL = () =>
+export const rootURL = () =>
   typeof document !== 'undefined'
     ? `${document.location.protocol}//${document.location.hostname}${document
         .location.port && `:${document.location.port}`}`
@@ -37,19 +37,22 @@ const Intro = Loadable({
   loading: () => null,
 })
 
-console.log('[Pages]', 'REACT_APP_ROOT_URL', process.env.REACT_APP_ROOT_URL)
-
 const Portfolio = Loadable.Map({
   loader: {
     Portfolio: () => import(/* webpackChunkName: "portfolio" */ './Portfolio'),
+    // include the public portfolio config for SEO purposes
     portfolio: () =>
-      fetch(`${rootURL()}/config/portfolio.public.json`).then(res =>
-        res.json()
-      ),
+      import(/* webpackChunkName: "portfolioPublicConfig" */ '../config/portfolio.public.json'),
   },
   loading: () => Loading,
-  render({ Portfolio, portfolio }, props) {
-    return <Portfolio.default {...props} portfolio={portfolio} />
+  render({ Portfolio, portfolio, privatePortfolio }, props) {
+    return (
+      <Portfolio.default
+        {...props}
+        portfolio={portfolio}
+        privatePortfolio={privatePortfolio}
+      />
+    )
   },
 })
 
