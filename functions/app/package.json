@@ -4,6 +4,7 @@
   "private": true,
   "description": "Universal web app rendered by JS",
   "dependencies": {
+    "@material-ui/core": "^3.8.3",
     "animejs": "^2.2.0",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.0.0",

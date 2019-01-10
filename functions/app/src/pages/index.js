@@ -37,28 +37,14 @@ const Intro = Loadable({
   loading: () => null,
 })
 
-const Portfolio = Loadable.Map({
-  loader: {
-    Portfolio: () => import(/* webpackChunkName: "portfolio" */ './Portfolio'),
-    // include the public portfolio config for SEO purposes
-    portfolio: () =>
-      import(/* webpackChunkName: "portfolioPublicConfig" */ '../config/portfolio.public.json'),
-  },
-  loading: () => Loading,
-  render({ Portfolio, portfolio, privatePortfolio }, props) {
-    return (
-      <Portfolio.default
-        {...props}
-        portfolio={portfolio}
-        privatePortfolio={privatePortfolio}
-      />
-    )
-  },
+const Portfolio = Loadable({
+  loader: () => import(/* webpackChunkName: "portfolio" */ './Portfolio'),
+  loading: Loading,
 })
 
 const CV = Loadable({
   loader: () => import(/* webpackChunkName: "cv" */ './CV'),
-  loading: () => Loading,
+  loading: Loading,
 })
 
 const Login = Loadable({

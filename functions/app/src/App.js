@@ -13,6 +13,7 @@ import Pages from './pages'
 import Loadable from 'react-loadable'
 
 // Styles
+import { ThemeProvider } from './style'
 
 const TopNav = Loadable({
   loader: () => import(/* webpackChunkName: "topnav" */ './components/TopNav'),
@@ -27,15 +28,17 @@ class App extends Component {
 
   render() {
     return (
-      <div id="app">
-        <TopNav
-          isAuthenticated={this.props.isAuthenticated}
-          pathName={this.props.location.pathname}
-        />
-        <div id="content">
-          <Pages />
+      <ThemeProvider>
+        <div id="app">
+          <TopNav
+            isAuthenticated={this.props.isAuthenticated}
+            pathName={this.props.location.pathname}
+          />
+          <div id="content">
+            <Pages />
+          </div>
         </div>
-      </div>
+      </ThemeProvider>
     )
   }
 }
