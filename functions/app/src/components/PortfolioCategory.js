@@ -17,24 +17,17 @@ const styles = {
   asset: {
     objectFit: 'cover',
     opacity: 0,
-    transition: 'opacity 1s linear',
+    transition: 'opacity 1s ease-out',
+    mixBlendMode: 'multiply',
   },
   assetReady: {
-    opacity: 0.5,
+    opacity: 0.82,
   },
-  scrim: {
-    background: colors.red,
-    zIndex: 1,
-    opacity: 0.7,
-    transition: 'opacity 1s linear',
-    mixBlendMode: 'color',
-  },
-  scrimReady: {},
   loading: {
     animation: 'loading infinite linear 4s',
-    backgroundImage: `linear-gradient(90deg, ${colors.red} 0%, ${
-      colors.red
-    } 10%, ${colors.lightA(0.5)} 30%, ${colors.red} 50%)`,
+    backgroundImage: `linear-gradient(90deg, ${colors.red} 0%, ${colors.lightA(
+      0.5
+    )} 25%, ${colors.red} 50%)`,
     backgroundSize: '1400px',
     opacity: 1,
     zIndex: 2,
@@ -45,7 +38,7 @@ const styles = {
   },
   assetStage: {
     width: '100%',
-    paddingBottom: `${100 * (9 / 16).toFixed(3)}%`,
+    paddingBottom: `${(900 / 16).toFixed(3)}%`,
     position: 'relative',
     overflow: 'hidden',
     background: colors.red,
@@ -124,13 +117,6 @@ class CategoryPreviewWithoutStyles extends React.Component {
     return (
       <div className={classes.assetStage}>
         <PreviewAsset asset={asset} ready={ready} setReady={this.setReady} />
-        <div
-          className={cx(
-            classes.fill,
-            classes.scrim,
-            ready && classes.scrimReady
-          )}
-        />
         <div
           className={cx(
             classes.fill,
