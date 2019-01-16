@@ -18,8 +18,11 @@ const styles = theme => ({
     padding: '.25rem',
     display: 'flex',
     alignItems: 'center',
-    maxWidth: '24rem',
-    margin: '0 auto 2rem auto',
+    margin: '0.5rem 2rem 2rem 2rem',
+    [theme.breakpoints.up('sm')]: {
+      maxWidth: '24rem',
+      margin: '0 auto 2rem auto',
+    },
   },
   accessCodeInput: {
     marginLeft: '.5rem',
@@ -30,14 +33,22 @@ const styles = theme => ({
   categories: {
     display: 'flex',
     flexFlow: 'row wrap',
-    margin: '0 -1rem -1rem 0',
+    margin: '0 -2rem -2rem 0',
+    padding: '0 2rem',
+    boxSizing: 'border-box',
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      padding: '0',
+      width: 'auto',
+    },
   },
   category: {
     flex: '1 0 auto',
-    margin: '0 1rem 1rem 0',
-    width: 'calc(100% - 1rem)',
+    margin: '0 0 2rem 0',
+    width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: 'calc(50% - 1rem)',
+      margin: '0 2rem 2rem 0',
+      width: 'calc(50% - 2rem)',
     },
   },
   validate: {
