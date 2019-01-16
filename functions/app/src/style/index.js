@@ -5,5 +5,15 @@ import shadows from './shadows'
 import typeScale from './typeScale'
 import * as icons from './icons'
 import ThemeProvider from './themeProvider'
+import { theme } from './themeProvider'
 
-export { borderRadii, colors, fonts, shadows, typeScale, icons, ThemeProvider }
+export {
+  borderRadii,
+  colors,
+  fonts,
+  shadows,
+  typeScale,
+  icons,
+  ThemeProvider,
+  theme,
+}
