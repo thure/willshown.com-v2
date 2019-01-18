@@ -1,5 +1,6 @@
 import React from 'react'
 import injectSheet from 'react-jss'
+import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
@@ -7,6 +8,10 @@ import cx from 'classnames'
 import { colors } from '../style'
 
 const styles = {
+  category: {
+    color: colors.dark,
+    textDecoration: 'none',
+  },
   fill: {
     position: 'absolute',
     top: 0,
@@ -131,13 +136,19 @@ class CategoryPreviewWithoutStyles extends React.Component {
 
 const CategoryPreview = injectSheet(styles)(CategoryPreviewWithoutStyles)
 
-export default ({ portfolio, category, className }) => {
-  return (
-    <Card className={className}>
-      <CardActionArea>
+const LinkTo = fullRoute => props => (
+  <Link {...props} to={fullRoute}>
+    {props.children}
+  </Link>
+)
+
+export default injectSheet(styles)(
+  ({ portfolio, category, className, classes }) => (
+    <Card className={cx(classes.category, className)}>
+      <CardActionArea component={LinkTo(`/portfolio/${category.route}`)}>
         <CategoryPreview asset={portfolio.assets[category.previewAsset]} />
         <CardContent>{category.title}</CardContent>
       </CardActionArea>
     </Card>
   )
-}
+)
