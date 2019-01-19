@@ -24,10 +24,14 @@ const styles = theme => ({
     },
   },
   accessCodeInput: {
+    display: 'block',
     marginLeft: '.5rem',
     flex: '1 1 auto',
     ...typeScale(0),
     ...fonts.raleway.medium,
+  },
+  loggedInText: {
+    padding: '6px 0 7px',
   },
   validate: {
     boxShadow: theme.shadows[0],
@@ -47,6 +51,7 @@ class AccessCodeInput extends React.Component {
     this.state = {
       inputValue: '',
       waiting: false,
+      encounteredError: false,
     }
     this.handleInputChange = this._handleInputChange.bind(this)
     this.handleSubmit = this._handleSubmit.bind(this)
@@ -66,24 +71,36 @@ class AccessCodeInput extends React.Component {
     if (loggedIn) {
       logoutUser().then(() => {
         console.log('[AccessCodeInput]', 'logged out')
-        this.setState({ waiting: false })
+        this.setState({
+          waiting: false,
+          encounteredError: false,
+          inputValue: '',
+        })
       })
     } else {
       loginUser(inputValue)
         .then(user => {
           console.log('[AccessCodeInput]', 'auth success')
-          this.setState({ waiting: false })
+          this.setState({
+            waiting: false,
+            encounteredError: false,
+            inputValue: '',
+          })
         })
         .catch(err => {
           console.log('[AccessCodeInput]', 'auth failure')
-          this.setState({ waiting: false })
+          this.setState({
+            waiting: false,
+            encounteredError: true,
+            inputValue: '',
+          })
         })
     }
   }
 
   render() {
     const { classes, user } = this.props
-    const { waiting, inputValue } = this.state
+    const { waiting, inputValue, encounteredError } = this.state
 
     const loggedIn = !!user.accessCode
 
@@ -92,17 +109,24 @@ class AccessCodeInput extends React.Component {
         className={cx(classes.accessCode, loggedIn && classes.loggedIn)}
         elevation={1}
       >
-        <InputBase
-          className={cx(
-            classes.accessCodeInput,
-            loggedIn && classes.loggedInInput
-          )}
-          placeholder="Access code"
-          onChange={loggedIn ? () => {} : this.handleInputChange}
-          value={loggedIn ? `Hello, ${user.displayName}` : inputValue}
-          disabled={waiting || loggedIn}
-          spellCheck={false}
-        />
+        {loggedIn ? (
+          <Typography
+            className={cx(
+              classes.accessCodeInput,
+              classes.loggedInInput,
+              classes.loggedInText
+            )}
+          >{`Hello, ${user.displayName}`}</Typography>
+        ) : (
+          <InputBase
+            className={classes.accessCodeInput}
+            placeholder={encounteredError ? 'Wanna try again?' : 'Access code'}
+            onChange={loggedIn ? () => {} : this.handleInputChange}
+            value={inputValue}
+            disabled={waiting || loggedIn}
+            spellCheck={false}
+          />
+        )}
         <Button
           color="primary"
           className={classes.validate}
