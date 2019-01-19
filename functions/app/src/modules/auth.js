@@ -87,8 +87,6 @@ export const establishCurrentUser = (isAuthenticated, user) => dispatch => {
     console.log('[establishCurrentUser]', 'logged in')
     return dispatch(setCurrentUser(user))
   } else {
-    // console.log('[establishCurrentUser]', 'logging in with default profile')
-    // return dispatch(loginUser('wss_i6]k[p7v'))
     return dispatch(logoutUser())
   }
 }
@@ -109,11 +107,11 @@ export const loginUser = accessCode => dispatch =>
       dispatch(setPrivatePortfolio(privatePortfolio))
       return user
     })
-    .catch(err => console.log('[loginUser]', 'error', err))
 
 export const logoutUser = () => dispatch =>
   new Promise(resolve => {
     console.log('[logoutUser]')
+
     dispatch({
       type: AUTHENTICATE,
       authenticated: false,
