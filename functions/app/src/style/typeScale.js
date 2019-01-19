@@ -1,6 +1,6 @@
 export default function(n) {
   return {
-    fontSize: `${Math.pow(4 / 3, n)}rem`,
+    fontSize: `${Math.pow(7 / 6, n).toFixed(3)}rem`,
     lineHeight: 1.2,
   }
 }

@@ -28,7 +28,6 @@ export default {
       fontFamily: 'raleway, sans-serif',
       fontWeight: 500,
       fontStyle: 'normal',
-      letterSpacing: '.066em',
     },
     semibold: {
       fontFamily: 'raleway, sans-serif',
@@ -40,13 +39,13 @@ export default {
       fontFamily: 'raleway, sans-serif',
       fontWeight: 700,
       fontStyle: 'normal',
-      letterSpacing: '.074em',
+      letterSpacing: '.02em',
     },
     extrabold: {
       fontFamily: 'raleway, sans-serif',
       fontWeight: 800,
       fontStyle: 'normal',
-      letterSpacing: '.076em',
+      letterSpacing: '.022em',
     },
   },
 }

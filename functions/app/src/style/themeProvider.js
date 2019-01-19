@@ -30,17 +30,22 @@ export const theme = createMuiTheme({
       fontWeightRegular: fonts.raleway.medium.fontWeight,
       fontWeightMedium: fonts.raleway.bold.fontWeight,
       // specific type styles
-      button: {
-        ...typeScale(-1),
-        ...fonts.raleway.bold,
+      h4: {
+        ...typeScale(3),
+        ...fonts.raleway.extrabold,
       },
       body1: {
         ...typeScale(0),
         ...fonts.lapture.caption.regular,
       },
       body2: {
-        ...typeScale(-0.5),
+        ...typeScale(-1),
         ...fonts.lapture.caption.regular,
+      },
+      button: {
+        ...typeScale(-2),
+        ...fonts.raleway.bold,
+        letterSpacing: '0.12em',
       },
     },
     fonts.raleway.medium
