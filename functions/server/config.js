@@ -1,18 +1,20 @@
 import express from 'express'
 import set from 'lodash/set'
-import { Storage } from '@google-cloud/storage'
+import Storage from '@google-cloud/storage'
 import serviceConfig from '../config/service-credentials.json'
 import clientConfig from '../app/src/config/client-credentials.json'
 
 const router = express.Router()
 
-const bucket = new Storage({
+const storageClient = new Storage({
   projectId: serviceConfig.project_id,
   credentials: {
     client_email: serviceConfig.client_email,
     private_key: serviceConfig.private_key,
   },
-}).bucket(clientConfig.storageBucket)
+})
+
+const bucket = storageClient.bucket(clientConfig.storageBucket)
 
 const getSignedURLsForPrivatePortfolio = privatePortfolioWithoutSrc => {
   const assets = privatePortfolioWithoutSrc.assets
