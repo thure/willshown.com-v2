@@ -57,6 +57,7 @@ export const setCurrentUser = user => dispatch =>
 
 export const setPrivatePortfolio = privatePortfolio => dispatch =>
   new Promise(resolve => {
+    console.log('[setPrivatePortfolio]', privatePortfolio)
     dispatch({
       type: SET_PRIVATE_PORTFOLIO,
       privatePortfolio,

@@ -37,7 +37,6 @@ const styles = theme => ({
 class Portfolio extends React.Component {
   render() {
     const { privatePortfolio = null, classes } = this.props
-
     return (
       <Page
         id="portfolio"
@@ -46,6 +45,15 @@ class Portfolio extends React.Component {
       >
         <AccessCodeInput />
         <main className={classes.categories}>
+          {privatePortfolio &&
+            privatePortfolio.structure.map(category => (
+              <PortfolioCategory
+                key={`PrivatePortfolioCategory__${category.title}`}
+                portfolio={privatePortfolio}
+                category={category}
+                className={classes.category}
+              />
+            ))}
           {publicPortfolio.structure.map(category => (
             <PortfolioCategory
               key={`PortfolioCategory__${category.title}`}

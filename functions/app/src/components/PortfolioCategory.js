@@ -1,6 +1,7 @@
 import React from 'react'
 import injectSheet from 'react-jss'
 import { Link } from 'react-router-dom'
+import Asset from './Asset'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
@@ -64,55 +65,6 @@ const styles = {
   },
 }
 
-const PreviewAsset = ({ asset, classes, ready, setReady }) => {
-  switch (asset.type) {
-    case 'video':
-      let { sources } = asset
-      return (
-        <video
-          width={asset.dims[0]}
-          height={asset.dims[1]}
-          className={cx(
-            classes.fill,
-            classes.asset,
-            ready && classes.assetReady
-          )}
-          poster={sources.png ? sources.png.src : sources.jpeg.src}
-          playsInline
-          autoPlay
-          muted
-          loop
-          onCanPlayThrough={() => {
-            setReady(true)
-          }}
-        >
-          {sources.mp4 && <source src={sources.mp4.src} type="video/mp4" />}
-          {sources.ogv && <source src={sources.ogv.src} type="video/ogv" />}
-          {sources.webm && <source src={sources.webm.src} type="video/webm" />}
-        </video>
-      )
-    case 'image':
-      return (
-        <img
-          width={asset.dims[0]}
-          height={asset.dims[1]}
-          className={cx(
-            classes.fill,
-            classes.asset,
-            ready && classes.assetReady
-          )}
-          alt={asset.alt}
-          src={asset.src}
-          onLoad={() => {
-            setReady(true)
-          }}
-        />
-      )
-    default:
-      return null
-  }
-}
-
 class CategoryPreview extends React.Component {
   constructor(props) {
     super(props)
@@ -122,8 +74,8 @@ class CategoryPreview extends React.Component {
     this.setReady = this._setReady.bind(this)
   }
 
-  _setReady(ready) {
-    this.setState({ ready })
+  _setReady() {
+    this.setState({ ready: true })
   }
 
   render() {
@@ -131,11 +83,15 @@ class CategoryPreview extends React.Component {
     const { ready } = this.state
     return (
       <div className={classes.assetStage}>
-        <PreviewAsset
+        <Asset
           asset={asset}
           ready={ready}
           setReady={this.setReady}
-          classes={classes}
+          className={cx(
+            classes.fill,
+            classes.asset,
+            ready && classes.assetReady
+          )}
         />
         <div
           className={cx(
