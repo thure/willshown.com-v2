@@ -34,7 +34,7 @@ const styles = theme => ({
   },
 })
 
-class Portfolio extends React.Component {
+class PortfolioItems extends React.Component {
   render() {
     const { privatePortfolio = null, classes } = this.props
     return (
@@ -78,4 +78,4 @@ export default compose(
     null
   ),
   withStyles(styles)
-)(Portfolio)
+)(PortfolioItems)
