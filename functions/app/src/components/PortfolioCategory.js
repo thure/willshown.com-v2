@@ -115,7 +115,7 @@ export default injectSheet(styles)(
   ({ portfolio, category, className, classes }) => (
     <Card className={cx(classes.category, className)}>
       <CardActionArea
-        component={LinkTo(`/portfolio/${category.route}`)}
+        component={LinkTo(`/portfolio/${category.id}`)}
         className={classes.actionArea}
       >
         <CategoryPreview
