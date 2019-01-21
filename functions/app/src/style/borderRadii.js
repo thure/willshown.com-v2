@@ -1,3 +1,3 @@
 export default {
-  A: '.125rem',
+  A: '.2rem',
 }

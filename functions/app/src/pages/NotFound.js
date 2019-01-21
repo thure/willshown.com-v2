@@ -14,7 +14,7 @@ const styles = {
     marginTop: '2rem',
   },
   text: {
-    ...fonts.lapture[''].regular,
+    ...fonts.lapture.caption.regular,
     display: 'block',
     textAlign: 'center',
     marginBottom: '0.6rem',

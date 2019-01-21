@@ -17,11 +17,11 @@ const defaultSep = ' | '
 
 const styles = {
   page: {
-    padding: '0 1rem',
-    maxWidth: '48rem',
+    padding: '1rem',
+    maxWidth: '56rem',
     margin: '0 auto',
     '@media (min-width: 600px)': {
-      padding: '0 2rem',
+      padding: '2rem',
     },
   },
 }

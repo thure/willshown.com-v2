@@ -3,6 +3,9 @@
   "version": "0.2.0",
   "private": true,
   "main": "index.js",
+  "engines": {
+    "node": "8.14.0"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -14,11 +17,14 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "@google-cloud/storage": "^1.6.0",
     "babel-plugin-dynamic-import-node": "^2.2.0",
     "cookie-parser": "^1.4.3",
     "cross-env": "^5.2.0",
+    "firebase-admin": "^6.4.0",
     "ignore-styles": "^5.0.1",
     "js-cookie": "^2.2.0",
+    "lodash": "^4.17.11",
     "md5-file": "^4.0.0",
     "morgan": "^1.9.1"
   }
