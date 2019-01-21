@@ -53,7 +53,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
   return content.map((particle, pIndex) => {
     const key = `particle_${particle.type}_${pIndex}`
     switch (particle.type) {
-      case 'hero':
+      case 'asset':
         return (
           <React.Fragment key={key}>
             <Paper elevation={1} className={classes.heroAssetContainer}>
@@ -62,21 +62,24 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                 asset={portfolio.assets[particle.asset]}
               />
             </Paper>
-            <Typography variant="caption" className={classes.text}>
+            <Typography variant="caption" className={classes.text} paragraph>
               {preventOrphans(particle.assetCaption)}
-            </Typography>
-            <Typography
-              variant="h1"
-              className={cx(classes.heroHeadline, classes.text)}
-              paragraph
-            >
-              {particle.text}
             </Typography>
           </React.Fragment>
         )
+      case 'title':
+        return (
+          <Typography
+            variant="h1"
+            className={cx(classes.heroHeadline, classes.text)}
+            paragraph
+          >
+            {particle.text}
+          </Typography>
+        )
       case 'subtitle':
         return (
-          <Typography variant="h3" key={key} className={classes.text}>
+          <Typography variant="h3" key={key} className={classes.text} paragraph>
             {particle.text}
           </Typography>
         )

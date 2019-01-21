@@ -34,23 +34,28 @@ export const theme = createMuiTheme({
       fontWeightMedium: fonts.raleway.bold.fontWeight,
       // specific type styles
       h1: {
-        ...typeScale(8),
-        ...fonts.raleway.light,
+        ...typeScale(7),
+        ...fonts.raleway.bold,
         [breakpoints.up('sm')]: {
           ...typeScale(10),
+          ...fonts.raleway.bold,
         },
+      },
+      h3: {
+        ...typeScale(5),
+        ...fonts.raleway.black,
       },
       h4: {
         ...typeScale(3),
-        ...fonts.raleway.extrabold,
+        ...fonts.raleway.black,
       },
       body1: {
         ...typeScale(0),
-        ...fonts.lapture.caption.regular,
+        ...fonts.merriweather.regular,
       },
       body2: {
         ...typeScale(-1),
-        ...fonts.lapture.caption.regular,
+        ...fonts.merriweather.regular,
       },
       button: {
         ...typeScale(-2),
@@ -58,9 +63,12 @@ export const theme = createMuiTheme({
         letterSpacing: '0.12em',
       },
       caption: {
-        ...typeScale(-1),
-        ...fonts.lapture.caption.regular,
+        ...typeScale(-2),
+        ...fonts.merriweather.regular,
         color: colors.darkA(0.7),
+        [breakpoints.up('sm')]: {
+          ...typeScale(-1),
+        },
       },
     },
     fonts.raleway.medium

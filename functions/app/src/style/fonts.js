@@ -1,51 +1,52 @@
 export default {
-  lapture: {
-    caption: {
-      regular: {
-        fontFamily: 'jaf-lapture-caption, serif',
-        fontWeight: 400,
-        fontStyle: 'normal',
-      },
-      italic: {
-        fontFamily: 'jaf-lapture-caption, serif',
-        fontWeight: 400,
-        fontStyle: 'italic',
-      },
-      bold: {
-        fontFamily: 'jaf-lapture-caption, serif',
-        fontWeight: 700,
-        fontStyle: 'normal',
-      },
+  merriweather: {
+    regular: {
+      fontFamily: 'Merriweather, serif',
+      fontWeight: 400,
+      fontStyle: 'normal',
+      lineHeight: 1.6,
+    },
+    italic: {
+      fontFamily: 'Merriweather, serif',
+      fontWeight: 400,
+      fontStyle: 'italic',
+      lineHeight: 1.6,
+    },
+    bold: {
+      fontFamily: 'Merriweather, serif',
+      fontWeight: 700,
+      fontStyle: 'normal',
+      lineHeight: 1.6,
     },
   },
   raleway: {
     light: {
-      fontFamily: 'raleway, sans-serif',
+      fontFamily: 'Raleway, sans-serif',
       fontWeight: 300,
       fontStyle: 'normal',
     },
     medium: {
-      fontFamily: 'raleway, sans-serif',
+      fontFamily: 'Raleway, sans-serif',
       fontWeight: 500,
       fontStyle: 'normal',
     },
     semibold: {
-      fontFamily: 'raleway, sans-serif',
+      fontFamily: 'Raleway, sans-serif',
       fontWeight: 600,
       fontStyle: 'normal',
-      letterSpacing: '.072em',
+      letterSpacing: '.016em',
     },
     bold: {
-      fontFamily: 'raleway, sans-serif',
+      fontFamily: 'Raleway, sans-serif',
       fontWeight: 700,
       fontStyle: 'normal',
-      letterSpacing: '.02em',
+      letterSpacing: '.018em',
     },
-    extrabold: {
-      fontFamily: 'raleway, sans-serif',
-      fontWeight: 800,
+    black: {
+      fontFamily: 'Raleway, sans-serif',
+      fontWeight: 900,
       fontStyle: 'normal',
-      letterSpacing: '.022em',
+      letterSpacing: '.02em',
     },
   },
 }
