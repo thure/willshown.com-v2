@@ -1,6 +1,6 @@
 import React from 'react'
 import injectSheet from 'react-jss'
-import { Link } from 'react-router-dom'
+import LinkTo from './LinkTo'
 import Asset from './Asset'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
@@ -104,12 +104,6 @@ class CategoryPreview extends React.Component {
     )
   }
 }
-
-const LinkTo = fullRoute => props => (
-  <Link {...props} to={fullRoute}>
-    {props.children}
-  </Link>
-)
 
 export default injectSheet(styles)(
   ({ portfolio, category, className, classes }) => (

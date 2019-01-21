@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
 import { withRouter } from 'react-router'
-import injectSheet from 'react-jss'
 import Helmet from 'react-helmet'
 import logo from '../assets/social-logo.png'
+
+import { withStyles } from '@material-ui/core'
 
 const SITE_URL =
   process.env.NODE_ENV === 'development'
@@ -15,16 +17,16 @@ const defaultImage = `${SITE_URL}${logo}`
 const defaultTwitter = '@wwwillshown'
 const defaultSep = ' | '
 
-const styles = {
+const styles = ({ breakpoints }) => ({
   page: {
-    padding: '1rem',
+    padding: '2rem 1rem 4rem 1rem',
     maxWidth: '56rem',
     margin: '0 auto',
-    '@media (min-width: 600px)': {
-      padding: '2rem',
+    [breakpoints.up('sm')]: {
+      padding: '3rem 2rem 5rem 2rem',
     },
   },
-}
+})
 
 class Page extends Component {
   getMetaTags(
@@ -117,4 +119,7 @@ class Page extends Component {
   }
 }
 
-export default withRouter(injectSheet(styles)(Page))
+export default compose(
+  withRouter,
+  withStyles(styles)
+)(Page)

@@ -6,16 +6,19 @@ import get from 'lodash/get'
 
 import Page from '../components/Page'
 import Asset from '../components/Asset'
+import LinkTo from '../components/LinkTo'
 import NotFound from './NotFound'
 
 import publicPortfolio from '../config/portfolio.public'
-import { preventOrphans } from '../style'
+import { colors, icons, preventOrphans } from '../style'
 
 import { withStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
 
 const styles = {
+  item: {},
   heroAssetContainer: {
     overflow: 'hidden',
     marginBottom: '.5rem',
@@ -29,9 +32,22 @@ const styles = {
     marginTop: '.3em',
   },
   text: {
+    display: 'block',
+    width: '100%',
     maxWidth: '36rem',
     marginLeft: 'auto',
     marginRight: 'auto',
+  },
+  ctaButton: {
+    color: colors.dark,
+    background: 'white',
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    alignItems: 'center',
+    marginTop: '2rem',
+  },
+  cta: {
+    marginLeft: '1em',
   },
 }
 
@@ -122,6 +138,17 @@ class PortfolioItem extends React.Component {
               content={item.content}
               classes={classes}
             />
+            <Button
+              variant="contained"
+              size="large"
+              className={cx(classes.text, classes.ctaButton)}
+              component={LinkTo('/portfolio')}
+            >
+              <icons.ArrowLeftIcon />
+              <Typography variant="button" className={classes.cta}>
+                Back to Portfolio
+              </Typography>
+            </Button>
           </main>
         </Page>
       )
