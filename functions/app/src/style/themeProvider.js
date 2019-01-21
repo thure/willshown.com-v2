@@ -1,10 +1,13 @@
 import React from 'react'
 import { createMuiTheme } from '@material-ui/core/styles'
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import fonts from './fonts'
 import colors from './colors'
 import typeScale from './typeScale'
 import borderRadii from './borderRadii'
+
+const breakpoints = createBreakpoints({})
 
 export const theme = createMuiTheme({
   palette: {
@@ -30,6 +33,13 @@ export const theme = createMuiTheme({
       fontWeightRegular: fonts.raleway.medium.fontWeight,
       fontWeightMedium: fonts.raleway.bold.fontWeight,
       // specific type styles
+      h1: {
+        ...typeScale(6),
+        ...fonts.raleway.light,
+        [breakpoints.up('sm')]: {
+          ...typeScale(10),
+        },
+      },
       h4: {
         ...typeScale(3),
         ...fonts.raleway.extrabold,
@@ -46,6 +56,11 @@ export const theme = createMuiTheme({
         ...typeScale(-2),
         ...fonts.raleway.bold,
         letterSpacing: '0.12em',
+      },
+      caption: {
+        ...typeScale(-1),
+        ...fonts.lapture.caption.regular,
+        color: colors.darkA(0.7),
       },
     },
     fonts.raleway.medium
