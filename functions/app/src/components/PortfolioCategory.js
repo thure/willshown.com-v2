@@ -7,7 +7,7 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import cx from 'classnames'
-import { colors } from '../style'
+import { colors, preventOrphans } from '../style'
 
 const styles = {
   category: {
@@ -124,9 +124,11 @@ export default injectSheet(styles)(
         />
         <CardContent className={classes.content}>
           <Typography variant="h4" className={classes.title}>
-            {category.title}
+            {preventOrphans(category.title)}
           </Typography>
-          <Typography variant="body1">{category.caption}</Typography>
+          <Typography variant="body1">
+            {preventOrphans(category.caption)}
+          </Typography>
         </CardContent>
       </CardActionArea>
     </Card>

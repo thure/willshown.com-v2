@@ -2,7 +2,7 @@ import React from 'react'
 import Headroom from 'react-headroom'
 import { Link } from 'react-router-dom'
 import injectSheet from 'react-jss'
-import { colors, shadows, icons } from '../style'
+import { colors, shadows, icons, borderRadii } from '../style'
 import cx from 'classnames'
 
 const styles = {
@@ -23,6 +23,28 @@ const styles = {
     justifyContent: 'center',
     background: colors.dark,
     boxShadow: shadows.A,
+  },
+  links: {
+    flex: '0 0 auto',
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    position: 'relative',
+  },
+  pip: {
+    display: 'block',
+    position: 'absolute',
+    bottom: 0,
+    left: `${3 * 0 + (3 - 1.2) / 2}rem`,
+    width: '1.2rem',
+    height: '.25rem',
+    background: colors.red,
+    borderRadius: [borderRadii.A, borderRadii.A, 0, 0].join(' '),
+  },
+  portfolioActive: {
+    left: `${3 * 1 + (3 - 1.2) / 2}rem`,
+  },
+  cvActive: {
+    left: `${3 * 2 + (3 - 1.2) / 2}rem`,
   },
   topNavLink: {
     display: 'flex',
@@ -64,7 +86,7 @@ const styles = {
   },
 }
 
-const TopNavLink = injectSheet(styles)(({ children, to, classes }) => (
+const TopNavLink = ({ children, to, classes }) => (
   <Link
     to={to}
     className={cx(
@@ -75,7 +97,7 @@ const TopNavLink = injectSheet(styles)(({ children, to, classes }) => (
   >
     {children}
   </Link>
-))
+)
 
 const TopNav = ({ isAuthenticated, pathName, classes }) => (
   <Headroom>
@@ -86,15 +108,24 @@ const TopNav = ({ isAuthenticated, pathName, classes }) => (
       )}
     >
       <nav className={classes.innerContainer}>
-        <TopNavLink to="/">
-          <icons.MarkIcon className={classes.topNavHomeIcon} />
-        </TopNavLink>
-        <TopNavLink to="/portfolio">
-          <icons.PackageIcon className={classes.topNavLinkIcon} />
-        </TopNavLink>
-        <TopNavLink to="/cv">
-          <icons.LayersIcon className={classes.topNavLinkIcon} />
-        </TopNavLink>
+        <div className={classes.links}>
+          <i
+            className={cx(
+              classes.pip,
+              pathName.startsWith('/portfolio') && classes.portfolioActive,
+              pathName.startsWith('/cv') && classes.cvActive
+            )}
+          />
+          <TopNavLink to="/" classes={classes}>
+            <icons.MarkIcon className={classes.topNavHomeIcon} />
+          </TopNavLink>
+          <TopNavLink to="/portfolio" classes={classes}>
+            <icons.PackageIcon className={classes.topNavLinkIcon} />
+          </TopNavLink>
+          <TopNavLink to="/cv" classes={classes}>
+            <icons.LayersIcon className={classes.topNavLinkIcon} />
+          </TopNavLink>
+        </div>
       </nav>
     </div>
   </Headroom>
