@@ -34,7 +34,7 @@ export const theme = createMuiTheme({
       fontWeightMedium: fonts.raleway.bold.fontWeight,
       // specific type styles
       h1: {
-        ...typeScale(6),
+        ...typeScale(8),
         ...fonts.raleway.light,
         [breakpoints.up('sm')]: {
           ...typeScale(10),

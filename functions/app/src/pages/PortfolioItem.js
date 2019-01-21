@@ -1,12 +1,16 @@
 import React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import cx from 'classnames'
 import get from 'lodash/get'
+
 import Page from '../components/Page'
 import Asset from '../components/Asset'
 import NotFound from './NotFound'
+
 import publicPortfolio from '../config/portfolio.public'
 import { preventOrphans } from '../style'
+
 import { withStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
@@ -23,6 +27,11 @@ const styles = {
   },
   heroHeadline: {
     marginTop: '.3em',
+  },
+  text: {
+    maxWidth: '36rem',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 }
 
@@ -53,18 +62,33 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                 asset={portfolio.assets[particle.asset]}
               />
             </Paper>
-            <Typography variant="caption">
+            <Typography variant="caption" className={classes.text}>
               {preventOrphans(particle.assetCaption)}
             </Typography>
-            <Typography variant="h1" className={classes.heroHeadline} paragraph>
+            <Typography
+              variant="h1"
+              className={cx(classes.heroHeadline, classes.text)}
+              paragraph
+            >
               {particle.text}
             </Typography>
           </React.Fragment>
         )
+      case 'subtitle':
+        return (
+          <Typography variant="h3" key={key} className={classes.text}>
+            {particle.text}
+          </Typography>
+        )
       case 'text':
         return (
-          <Typography variant="body1" paragraph key={key}>
-            {particle.text}
+          <Typography
+            variant="body1"
+            className={classes.text}
+            paragraph
+            key={key}
+          >
+            {preventOrphans(particle.text)}
           </Typography>
         )
       default:
