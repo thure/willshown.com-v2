@@ -39,7 +39,9 @@ export const theme = createMuiTheme({
         [breakpoints.up('sm')]: {
           ...typeScale(10),
           ...fonts.raleway.bold,
+          lineHeight: 1,
         },
+        lineHeight: 1,
       },
       h3: {
         ...typeScale(5),

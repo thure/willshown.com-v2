@@ -57,6 +57,7 @@ const styles = {
     color: 'white',
     transition: 'color 120ms linear',
     overflow: 'hidden',
+    background: 'none',
     '&:hover': {
       color: colors.red,
     },

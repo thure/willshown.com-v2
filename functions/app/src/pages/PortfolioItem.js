@@ -3,6 +3,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import get from 'lodash/get'
+import ReactMarkdown from 'react-markdown'
 
 import Page from '../components/Page'
 import Asset from '../components/Asset'
@@ -27,6 +28,11 @@ const styles = {
     display: 'block',
     width: '100%',
     height: 'auto',
+  },
+  assetLayoutTextWidth: {
+    maxWidth: '36rem',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   heroHeadline: {
     marginTop: '.3em',
@@ -72,7 +78,13 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
       case 'asset':
         return (
           <React.Fragment key={key}>
-            <Paper elevation={1} className={classes.heroAssetContainer}>
+            <Paper
+              elevation={1}
+              className={cx(
+                classes.heroAssetContainer,
+                classes[`assetLayout${particle.layout}`]
+              )}
+            >
               <Asset
                 className={classes.heroAsset}
                 asset={portfolio.assets[particle.asset]}
@@ -96,7 +108,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
       case 'subtitle':
         return (
           <Typography variant="h3" key={key} className={classes.text} paragraph>
-            {particle.text}
+            {preventOrphans(particle.text)}
           </Typography>
         )
       case 'text':
@@ -107,7 +119,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
             paragraph
             key={key}
           >
-            {preventOrphans(particle.text)}
+            <ReactMarkdown skipHtml source={preventOrphans(particle.text)} />
           </Typography>
         )
       default:

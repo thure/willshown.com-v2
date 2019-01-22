@@ -14,7 +14,6 @@ const Asset = ({ asset, className, ready, setReady }) => {
           autoPlay
           muted
           loop
-          onLoad={setReady}
           onCanPlayThrough={setReady}
         >
           {sources.mp4 && <source src={sources.mp4.src} type="video/mp4" />}
