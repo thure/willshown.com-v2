@@ -50,7 +50,7 @@ const styles = {
     )} 25%, ${colors.dark} 50%)`,
     backgroundSize: '1400px',
     opacity: 1,
-    zIndex: 2,
+    zIndex: 1,
     transition: 'opacity .5s linear',
   },
   loadingReady: {

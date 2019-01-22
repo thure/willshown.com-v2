@@ -100,7 +100,7 @@ const TopNavLink = ({ children, to, classes }) => (
 )
 
 const TopNav = ({ isAuthenticated, pathName, classes }) => (
-  <Headroom>
+  <Headroom style={{ zIndex: 99 }}>
     <div
       className={cx(
         classes.outerContainer,
