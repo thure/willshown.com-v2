@@ -1,6 +1,7 @@
 import React from 'react'
 import { createMuiTheme } from '@material-ui/core/styles'
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints'
+import shadows from '@material-ui/core/styles/shadows'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import fonts from './fonts'
 import colors from './colors'
@@ -8,6 +9,10 @@ import typeScale from './typeScale'
 import borderRadii from './borderRadii'
 
 const breakpoints = createBreakpoints({})
+
+const themedShadows = shadows.map(shadow =>
+  shadow.replace(/rgba\(0,0,0,/g, colors.darkShadow)
+)
 
 export const theme = createMuiTheme({
   palette: {
@@ -24,6 +29,7 @@ export const theme = createMuiTheme({
       primary: colors.dark,
     },
   },
+  shadows: themedShadows,
   typography: Object.assign(
     {
       // global values
