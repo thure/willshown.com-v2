@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 
-const styles = {
+const styles = ({ breakpoints }) => ({
   item: {},
   heroAssetContainer: {
     overflow: 'hidden',
@@ -41,8 +41,10 @@ const styles = {
     display: 'block',
     width: '100%',
     maxWidth: '36rem',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    margin: '1rem auto',
+  },
+  caption: {
+    marginTop: '0.5rem',
   },
   ctaButton: {
     color: colors.dark,
@@ -55,7 +57,17 @@ const styles = {
   cta: {
     marginLeft: '1em',
   },
-}
+  break: {
+    border: 'none',
+    borderBottom: `1px solid ${colors.dark}`,
+    margin: '2rem auto',
+    [breakpoints.up('sm')]: {
+      margin: '4rem auto',
+    },
+    padding: '0',
+    width: '50%',
+  },
+})
 
 const resolveItem = (id, privatePortfolio) => {
   if (id) {
@@ -90,9 +102,15 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                 asset={portfolio.assets[particle.asset]}
               />
             </Paper>
-            <Typography variant="caption" className={classes.text} paragraph>
-              {preventOrphans(particle.assetCaption)}
-            </Typography>
+            {particle.assetCaption && (
+              <Typography
+                variant="caption"
+                className={cx(classes.text, classes.caption)}
+                paragraph
+              >
+                {preventOrphans(particle.assetCaption)}
+              </Typography>
+            )}
           </React.Fragment>
         )
       case 'title':
@@ -122,6 +140,8 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
             <ReactMarkdown skipHtml source={preventOrphans(particle.text)} />
           </Typography>
         )
+      case 'break':
+        return <hr className={classes.break} />
       default:
         return null
     }
