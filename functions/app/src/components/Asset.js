@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Asset = ({ asset, className, ready, setReady }) => {
+const Asset = ({ asset, className, setReady }) => {
   const { sources, dims } = asset
   switch (asset.type) {
     case 'video':

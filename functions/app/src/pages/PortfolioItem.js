@@ -6,7 +6,7 @@ import get from 'lodash/get'
 import ReactMarkdown from 'react-markdown'
 
 import Page from '../components/Page'
-import Asset from '../components/Asset'
+import AssetInFlow from '../components/AssetInFlow'
 import LinkTo from '../components/LinkTo'
 import NotFound from './NotFound'
 
@@ -97,7 +97,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                 classes[`assetLayout${particle.layout}`]
               )}
             >
-              <Asset
+              <AssetInFlow
                 className={classes.heroAsset}
                 asset={portfolio.assets[particle.asset]}
               />

@@ -1,13 +1,34 @@
 import React from 'react'
 import Page from '../components/Page'
-import injectSheets from 'react-jss'
+import AssetInFlow from '../components/AssetInFlow'
 
-const styles = {}
+import { cv, assets } from '../config/cv.json'
 
-const CV = props => (
+import { withStyles } from '@material-ui/core'
+import Paper from '@material-ui/core/Paper'
+
+const styles = {
+  profile: {},
+  pic: {
+    borderRadius: 9999,
+    maxWidth: '12rem',
+    margin: '0 auto',
+    overflow: 'hidden',
+  },
+  timeline: {},
+}
+
+const CV = ({ classes }) => (
   <Page id="cv" title="CV" description="Will Shown's CV">
-    Hello, this is CV.
+    <main>
+      <section className={classes.profile}>
+        <Paper className={classes.pic}>
+          <AssetInFlow asset={assets[cv.profileAsset]} />
+        </Paper>
+      </section>
+      <section className={classes.timeline} />
+    </main>
   </Page>
 )
 
-export default injectSheets(styles)(CV)
+export default withStyles(styles)(CV)
