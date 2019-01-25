@@ -4,6 +4,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 import Page from '../components/Page'
 import AssetInFlow from '../components/AssetInFlow'
+import { icons } from '../style'
 
 import { cv, assets } from '../config/cv.json'
 
@@ -11,12 +12,6 @@ import { withStyles } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-
-import { ReactComponent as MailIcon } from 'feather-icons/dist/icons/mail.svg'
-import { ReactComponent as GithubIcon } from 'feather-icons/dist/icons/github.svg'
-import { ReactComponent as DiscIcon } from 'feather-icons/dist/icons/disc.svg'
-import { ReactComponent as InstagramIcon } from 'feather-icons/dist/icons/instagram.svg'
-import { ReactComponent as CopyIcon } from 'feather-icons/dist/icons/copy.svg'
 
 const styles = {
   profile: {
@@ -94,7 +89,7 @@ const ProfileLink = ({ href, Icon, social, classes, copy }) => (
         className={classes.profileDatumCommand}
         title={`Click to copy “${copy || href}”`}
       >
-        <CopyIcon className={classes.copyIcon} />
+        <icons.CopyIcon className={classes.copyIcon} />
       </Button>
     </CopyToClipboard>
   </div>
@@ -116,7 +111,7 @@ const CV = ({ classes }) => (
             case 'email':
               return (
                 <ProfileLink
-                  Icon={MailIcon}
+                  Icon={icons.MailIcon}
                   href={`mailto:${social}`}
                   social={social}
                   copy={social}
@@ -127,7 +122,7 @@ const CV = ({ classes }) => (
             case 'github':
               return (
                 <ProfileLink
-                  Icon={GithubIcon}
+                  Icon={icons.GithubIcon}
                   href={`https://github.com/${social}/`}
                   social={social}
                   key={`socialDatum_${socialType}`}
@@ -137,7 +132,7 @@ const CV = ({ classes }) => (
             case 'soundcloud':
               return (
                 <ProfileLink
-                  Icon={DiscIcon}
+                  Icon={icons.DiscIcon}
                   href={`https://soundcloud.com/${social}/`}
                   social={social}
                   key={`socialDatum_${socialType}`}
@@ -147,7 +142,7 @@ const CV = ({ classes }) => (
             case 'instagram':
               return (
                 <ProfileLink
-                  Icon={InstagramIcon}
+                  Icon={icons.InstagramIcon}
                   href={`https://www.instagram.com/${social}/`}
                   social={`@${social}`}
                   key={`socialDatum_${socialType}`}
