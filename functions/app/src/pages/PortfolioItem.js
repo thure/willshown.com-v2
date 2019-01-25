@@ -11,12 +11,14 @@ import LinkTo from '../components/LinkTo'
 import NotFound from './NotFound'
 
 import publicPortfolio from '../config/portfolio.public'
-import { colors, icons, preventOrphans } from '../style'
+import { colors, preventOrphans } from '../style'
 
 import { withStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
+
+import { ReactComponent as ArrowLeftIcon } from 'feather-icons/dist/icons/arrow-left.svg'
 
 const styles = ({ breakpoints }) => ({
   item: {},
@@ -176,7 +178,7 @@ class PortfolioItem extends React.Component {
               className={cx(classes.text, classes.ctaButton)}
               component={LinkTo('/portfolio')}
             >
-              <icons.ArrowLeftIcon />
+              <ArrowLeftIcon />
               <Typography variant="button" className={classes.cta}>
                 Back to Portfolio
               </Typography>

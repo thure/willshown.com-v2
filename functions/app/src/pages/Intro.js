@@ -2,7 +2,9 @@ import React from 'react'
 import injectSheet from 'react-jss'
 import { Link } from 'react-router-dom'
 import anime from 'animejs'
-import { borderRadii, colors, fonts, shadows, typeScale, icons } from '../style'
+import { borderRadii, colors, fonts, shadows, typeScale } from '../style'
+import { ReactComponent as PackageIcon } from 'feather-icons/dist/icons/package.svg'
+import { ReactComponent as LayersIcon } from 'feather-icons/dist/icons/layers.svg'
 import Page from '../components/Page'
 
 const styles = {
@@ -349,11 +351,11 @@ class Intro extends React.Component {
               </svg>
             </div>
             <TopLevelLink to="/portfolio">
-              <icons.PackageIcon className={classes.topLevelLinkIcon} />
+              <PackageIcon className={classes.topLevelLinkIcon} />
               <span>Portfolio</span>
             </TopLevelLink>
             <TopLevelLink to="/cv">
-              <icons.LayersIcon className={classes.topLevelLinkIcon} />
+              <LayersIcon className={classes.topLevelLinkIcon} />
               <span>CV/Résumé</span>
             </TopLevelLink>
           </div>

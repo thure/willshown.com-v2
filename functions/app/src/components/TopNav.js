@@ -3,6 +3,8 @@ import Headroom from 'react-headroom'
 import { Link } from 'react-router-dom'
 import injectSheet from 'react-jss'
 import { colors, shadows, icons, borderRadii } from '../style'
+import { ReactComponent as PackageIcon } from 'feather-icons/dist/icons/package.svg'
+import { ReactComponent as LayersIcon } from 'feather-icons/dist/icons/layers.svg'
 import cx from 'classnames'
 
 const styles = {
@@ -121,10 +123,10 @@ const TopNav = ({ isAuthenticated, pathName, classes }) => (
             <icons.MarkIcon className={classes.topNavHomeIcon} />
           </TopNavLink>
           <TopNavLink to="/portfolio" classes={classes}>
-            <icons.PackageIcon className={classes.topNavLinkIcon} />
+            <PackageIcon className={classes.topNavLinkIcon} />
           </TopNavLink>
           <TopNavLink to="/cv" classes={classes}>
-            <icons.LayersIcon className={classes.topNavLinkIcon} />
+            <LayersIcon className={classes.topNavLinkIcon} />
           </TopNavLink>
         </div>
       </nav>
