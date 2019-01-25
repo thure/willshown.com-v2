@@ -64,6 +64,9 @@ const styles = {
     margin: '0 auto 1rem auto',
     overflow: 'hidden',
   },
+  picAsset: {
+    '-webkit-clip-path': 'circle(50% at 50% 50%)',
+  },
   timeline: {},
 }
 
@@ -100,7 +103,10 @@ const CV = ({ classes }) => (
     <main>
       <section className={classes.profile}>
         <Paper className={classes.pic}>
-          <AssetInFlow asset={assets[cv.profileAsset]} />
+          <AssetInFlow
+            asset={assets[cv.profileAsset]}
+            className={classes.picAsset}
+          />
         </Paper>
         <Typography variant="h3" className={classes.profileTitle}>
           {cv.name}
