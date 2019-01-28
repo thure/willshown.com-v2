@@ -1,10 +1,11 @@
 import React from 'react'
-// import moment from 'moment'
+import moment from 'moment'
+import ReactMarkdown from 'react-markdown'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 import Page from '../components/Page'
 import AssetInFlow from '../components/AssetInFlow'
-import { icons } from '../style'
+import { icons, preventOrphans } from '../style'
 
 import { cv, assets } from '../config/cv.json'
 
@@ -16,7 +17,7 @@ import Button from '@material-ui/core/Button'
 const styles = {
   profile: {
     maxWidth: '13.2rem',
-    margin: '0 auto',
+    margin: '0 auto 2rem auto',
   },
   profileTitle: {
     textAlign: 'center',
@@ -98,6 +99,45 @@ const ProfileLink = ({ href, Icon, social, classes, copy }) => (
   </div>
 )
 
+const dateFormat = 'MMM YYYY'
+
+const TimelineEvent = ({ classes, event }) => {
+  const timeFrom = moment(event.timeRange[0])
+  const timeTo = moment(event.timeRange[1] || Date.now())
+  const duration = moment.duration(timeTo.diff(timeFrom))
+
+  const durationParts = []
+
+  if (duration.years() > 0)
+    durationParts.push(
+      duration.years() > 1 ? `${duration.years()} years` : '1 year'
+    )
+
+  if (duration.months() > 0)
+    durationParts.push(
+      duration.months() > 1 ? `${duration.months()} months` : '1 month'
+    )
+
+  return (
+    <section className={classes.timelineItem}>
+      <Typography variant="h5" paragraph>
+        {event.institution}
+      </Typography>
+      <Typography variant="body1" paragraph>
+        {`${durationParts.join(' ')} | ${timeFrom.format(
+          dateFormat
+        )} to ${preventOrphans(timeTo.format(dateFormat))}`}
+      </Typography>
+      <Typography variant="h6" paragraph>
+        {event.title}
+      </Typography>
+      <Typography variant="body2" paragraph component="div">
+        <ReactMarkdown source={preventOrphans(event.abstract)} />
+      </Typography>
+    </section>
+  )
+}
+
 const CV = ({ classes }) => (
   <Page id="cv" title="CV" description="Will Shown's CV">
     <main>
@@ -160,7 +200,20 @@ const CV = ({ classes }) => (
           }
         })}
       </section>
-      <section className={classes.timeline} />
+      <section className={classes.timeline}>
+        <Typography variant="h3" paragraph>
+          Work
+        </Typography>
+        {cv.workTimeline.map(event => (
+          <TimelineEvent classes={classes} event={event} />
+        ))}
+        <Typography variant="h3" paragraph>
+          Education
+        </Typography>
+        {cv.educationTimeline.map(event => (
+          <TimelineEvent classes={classes} event={event} />
+        ))}
+      </section>
     </main>
   </Page>
 )
