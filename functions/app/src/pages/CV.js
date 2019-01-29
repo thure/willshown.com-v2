@@ -120,7 +120,14 @@ const AnchorTo = fullRoute => props => (
   </a>
 )
 
-const ProfileLink = ({ href, Icon, social, classes, copy }) => (
+const ProfileLink = ({
+  href,
+  Icon,
+  social,
+  classes,
+  copy,
+  downloadDisposition,
+}) => (
   <div className={classes.profileButtonRow}>
     <Button
       size="small"
@@ -130,15 +137,17 @@ const ProfileLink = ({ href, Icon, social, classes, copy }) => (
       <Icon className={classes.profileIcon} />
       <code className={classes.profileDatumCopy}>{social}</code>
     </Button>
-    <CopyToClipboard text={copy || href}>
-      <Button
-        size="small"
-        className={classes.profileDatumCommand}
-        title={`Click to copy “${copy || href}”`}
-      >
-        <icons.CopyIcon className={classes.copyIcon} />
-      </Button>
-    </CopyToClipboard>
+    {!downloadDisposition && copy && (
+      <CopyToClipboard text={copy}>
+        <Button
+          size="small"
+          className={classes.profileDatumCommand}
+          title={`Click to copy “${copy || href}”`}
+        >
+          <icons.CopyIcon className={classes.copyIcon} />
+        </Button>
+      </CopyToClipboard>
+    )}
   </div>
 )
 
@@ -251,6 +260,15 @@ const CV = ({ classes }) => (
                 return null
             }
           })}
+          {cv.resumeAsset && (
+            <ProfileLink
+              Icon={icons.DownloadIcon}
+              href={assets[cv.resumeAsset].sources.pdf.src}
+              social="résumé as PDF"
+              classes={classes}
+              downloadDisposition
+            />
+          )}
         </CardContent>
       </section>
       <section className={classes.timeline}>

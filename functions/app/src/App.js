@@ -10,6 +10,7 @@ import { isServer } from './store'
 
 // Components
 import Pages from './pages'
+import ScrollToTop from './components/ScrollToTop'
 import Loadable from 'react-loadable'
 
 // Styles
@@ -28,17 +29,19 @@ class App extends Component {
 
   render() {
     return (
-      <ThemeProvider>
-        <div id="app">
-          <TopNav
-            isAuthenticated={this.props.isAuthenticated}
-            pathName={this.props.location.pathname}
-          />
-          <div id="content">
-            <Pages />
+      <ScrollToTop>
+        <ThemeProvider>
+          <div id="app">
+            <TopNav
+              isAuthenticated={this.props.isAuthenticated}
+              pathName={this.props.location.pathname}
+            />
+            <div id="content">
+              <Pages />
+            </div>
           </div>
-        </div>
-      </ThemeProvider>
+        </ThemeProvider>
+      </ScrollToTop>
     )
   }
 }
