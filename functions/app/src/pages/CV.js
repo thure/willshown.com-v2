@@ -190,7 +190,7 @@ const TimelineEvent = ({ classes, event }) => {
 }
 
 const CV = ({ classes }) => (
-  <Page id="cv" title="CV" description="Will Shown's CV">
+  <Page id="cv" title="CV" description="CV / résumé / list of things">
     <main className={classes.cv}>
       <section className={classes.profile}>
         <Paper className={classes.pic}>

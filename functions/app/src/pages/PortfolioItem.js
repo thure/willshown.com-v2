@@ -162,7 +162,7 @@ class PortfolioItem extends React.Component {
         <Page
           id={`portfolio_${item.id}`}
           title={`${item.title} | Portfolio`}
-          description={`Will Shown's online portfolio: ${item.title}`}
+          description={`A case study of ${item.title}`}
         >
           <main className={classes.item}>
             <PortfolioItemContent

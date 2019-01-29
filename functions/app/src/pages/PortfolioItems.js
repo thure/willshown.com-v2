@@ -41,7 +41,7 @@ class PortfolioItems extends React.Component {
       <Page
         id="portfolio"
         title="Portfolio"
-        description="Will Shown's online portfolio: topics"
+        description="Case studies in UX and engineering adventures"
       >
         <AccessCodeInput />
         <main className={classes.categories}>
