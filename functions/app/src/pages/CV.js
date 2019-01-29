@@ -11,17 +11,35 @@ import { cv, assets } from '../config/cv.json'
 
 import { withStyles } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
+import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
-const styles = {
+const profileWidth = 13.2
+const timelineWidth = 24
+const gap = 2
+const sideBySide = profileWidth + timelineWidth + gap
+const sideBySideBreakpoint = `@media (min-width: ${sideBySide * 16}px)`
+
+const styles = () => ({
+  cv: {},
   profile: {
-    maxWidth: '13.2rem',
-    margin: '0 auto 2rem auto',
+    width: '100%',
+    minWidth: `${profileWidth}rem`,
+    margin: '0 auto',
+    [sideBySideBreakpoint]: {
+      position: 'fixed',
+      width: `${profileWidth}rem`,
+    },
   },
   profileTitle: {
     textAlign: 'center',
-    marginBottom: '1rem',
+  },
+  profileLinks: {
+    [sideBySideBreakpoint]: {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
   },
   profileIcon: {
     height: '1.2rem',
@@ -43,7 +61,10 @@ const styles = {
     display: 'flex',
     flexFlow: 'row nowrap',
     alignItems: 'stretch',
-    margin: '.5rem 0',
+    margin: '.5rem -8px',
+    [sideBySideBreakpoint]: {
+      margin: '.5rem 0',
+    },
   },
   profileDatumCopy: {
     flex: '1 1 auto',
@@ -68,8 +89,30 @@ const styles = {
   picAsset: {
     '-webkit-clip-path': 'circle(50% at 50% 50%)',
   },
-  timeline: {},
-}
+  timeline: {
+    [sideBySideBreakpoint]: {
+      paddingLeft: `${profileWidth + gap}rem`,
+    },
+  },
+  timelineHeader: {
+    paddingTop: 0,
+    paddingBottom: '1rem',
+  },
+  timelineItem: {
+    marginBottom: '2rem',
+  },
+  timelineAbstract: {
+    '& > p:last-of-type': {
+      marginBottom: 0,
+    },
+  },
+  timelineCopy: {
+    marginBottom: '1rem',
+  },
+  timelineInstitution: {
+    marginBottom: '.5rem',
+  },
+})
 
 const AnchorTo = fullRoute => props => (
   <a {...props} href={fullRoute} target="_blank" rel="noopener noreferrer">
@@ -119,28 +162,36 @@ const TimelineEvent = ({ classes, event }) => {
     )
 
   return (
-    <section className={classes.timelineItem}>
-      <Typography variant="h5" paragraph>
-        {event.institution}
-      </Typography>
-      <Typography variant="body1" paragraph>
-        {`${durationParts.join(' ')} | ${timeFrom.format(
-          dateFormat
-        )} to ${preventOrphans(timeTo.format(dateFormat))}`}
-      </Typography>
-      <Typography variant="h6" paragraph>
-        {event.title}
-      </Typography>
-      <Typography variant="body2" paragraph component="div">
-        <ReactMarkdown source={preventOrphans(event.abstract)} />
-      </Typography>
-    </section>
+    <Paper elevation={1} className={classes.timelineItem}>
+      <CardContent>
+        <Typography variant="h5" className={classes.timelineInstitution}>
+          {event.institution}
+        </Typography>
+        <Typography variant="h6" className={classes.timelineCopy}>
+          {event.title}
+        </Typography>
+        <Typography variant="button" className={classes.timelineCopy}>
+          {`${durationParts.join(' ')} | ${timeFrom.format(dateFormat)} to\xa0${
+            event.timeRange[1]
+              ? preventOrphans(timeTo.format(dateFormat))
+              : 'present'
+          }`}
+        </Typography>
+        <Typography
+          variant="body2"
+          component="div"
+          className={classes.timelineAbstract}
+        >
+          <ReactMarkdown source={preventOrphans(event.abstract)} />
+        </Typography>
+      </CardContent>
+    </Paper>
   )
 }
 
 const CV = ({ classes }) => (
   <Page id="cv" title="CV" description="Will Shown's CV">
-    <main>
+    <main className={classes.cv}>
       <section className={classes.profile}>
         <Paper className={classes.pic}>
           <AssetInFlow
@@ -151,67 +202,77 @@ const CV = ({ classes }) => (
         <Typography variant="h3" className={classes.profileTitle}>
           {cv.name}
         </Typography>
-        {Object.keys(cv.social).map(socialType => {
-          const social = cv.social[socialType]
-          switch (socialType) {
-            case 'email':
-              return (
-                <ProfileLink
-                  Icon={icons.MailIcon}
-                  href={`mailto:${social}`}
-                  social={social}
-                  copy={social}
-                  key={`socialDatum_${socialType}`}
-                  classes={classes}
-                />
-              )
-            case 'github':
-              return (
-                <ProfileLink
-                  Icon={icons.GithubIcon}
-                  href={`https://github.com/${social}/`}
-                  social={social}
-                  key={`socialDatum_${socialType}`}
-                  classes={classes}
-                />
-              )
-            case 'soundcloud':
-              return (
-                <ProfileLink
-                  Icon={icons.DiscIcon}
-                  href={`https://soundcloud.com/${social}/`}
-                  social={social}
-                  key={`socialDatum_${socialType}`}
-                  classes={classes}
-                />
-              )
-            case 'instagram':
-              return (
-                <ProfileLink
-                  Icon={icons.InstagramIcon}
-                  href={`https://www.instagram.com/${social}/`}
-                  social={`@${social}`}
-                  key={`socialDatum_${socialType}`}
-                  classes={classes}
-                />
-              )
-            default:
-              return null
-          }
-        })}
+        <CardContent className={classes.profileLinks}>
+          {Object.keys(cv.social).map(socialType => {
+            const social = cv.social[socialType]
+            switch (socialType) {
+              case 'email':
+                return (
+                  <ProfileLink
+                    Icon={icons.MailIcon}
+                    href={`mailto:${social}`}
+                    social={social}
+                    copy={social}
+                    key={`socialDatum_${socialType}`}
+                    classes={classes}
+                  />
+                )
+              case 'github':
+                return (
+                  <ProfileLink
+                    Icon={icons.GithubIcon}
+                    href={`https://github.com/${social}/`}
+                    social={social}
+                    key={`socialDatum_${socialType}`}
+                    classes={classes}
+                  />
+                )
+              case 'soundcloud':
+                return (
+                  <ProfileLink
+                    Icon={icons.DiscIcon}
+                    href={`https://soundcloud.com/${social}/`}
+                    social={social}
+                    key={`socialDatum_${socialType}`}
+                    classes={classes}
+                  />
+                )
+              case 'instagram':
+                return (
+                  <ProfileLink
+                    Icon={icons.InstagramIcon}
+                    href={`https://www.instagram.com/${social}/`}
+                    social={`@${social}`}
+                    key={`socialDatum_${socialType}`}
+                    classes={classes}
+                  />
+                )
+              default:
+                return null
+            }
+          })}
+        </CardContent>
       </section>
       <section className={classes.timeline}>
-        <Typography variant="h3" paragraph>
-          Work
-        </Typography>
+        <CardContent className={classes.timelineHeader}>
+          <Typography variant="h3">Work</Typography>
+        </CardContent>
         {cv.workTimeline.map(event => (
-          <TimelineEvent classes={classes} event={event} />
+          <TimelineEvent
+            key={`timelineEvent_${event.timeRange[0]}`}
+            classes={classes}
+            event={event}
+          />
         ))}
-        <Typography variant="h3" paragraph>
-          Education
-        </Typography>
+        <CardContent>
+          <Typography variant="h3">Education</Typography>
+        </CardContent>
         {cv.educationTimeline.map(event => (
-          <TimelineEvent classes={classes} event={event} />
+          <TimelineEvent
+            key={`timelineEvent_${event.timeRange[0]}`}
+            classes={classes}
+            event={event}
+          />
         ))}
       </section>
     </main>

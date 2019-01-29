@@ -101,7 +101,13 @@ const TopNavLink = ({ children, to, classes }) => (
 )
 
 const TopNav = ({ isAuthenticated, pathName, classes }) => (
-  <Headroom style={{ zIndex: 99 }}>
+  <Headroom
+    style={{
+      zIndex: 99,
+      ...(pathName.startsWith('/cv') ? { position: 'fixed' } : {}),
+    }}
+    disable={pathName.startsWith('/cv')}
+  >
     <div
       className={cx(
         classes.outerContainer,

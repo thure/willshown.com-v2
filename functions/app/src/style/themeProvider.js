@@ -57,6 +57,14 @@ export const theme = createMuiTheme({
         ...typeScale(3),
         ...fonts.raleway.black,
       },
+      h5: {
+        ...typeScale(3),
+        ...fonts.raleway.semibold,
+      },
+      h6: {
+        ...typeScale(2),
+        ...fonts.raleway.black,
+      },
       body1: {
         ...typeScale(0),
         ...fonts.merriweather.regular,
@@ -68,7 +76,9 @@ export const theme = createMuiTheme({
       button: {
         ...typeScale(-2),
         ...fonts.raleway.bold,
-        letterSpacing: '0.12em',
+        letterSpacing: '0.08em',
+        fontFeatureSettings: "'lnum' 1, 'onum' 0",
+        fontVariantNumeric: 'lining-nums',
       },
       caption: {
         ...typeScale(-2),
