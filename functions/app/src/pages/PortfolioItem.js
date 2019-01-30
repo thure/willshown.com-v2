@@ -84,68 +84,78 @@ const resolveItem = (id, privatePortfolio) => {
 }
 
 const PortfolioItemContent = ({ portfolio, content, classes }) => {
-  return content.map((particle, pIndex) => {
-    const key = `particle_${particle.type}_${pIndex}`
-    switch (particle.type) {
-      case 'asset':
-        return (
-          <React.Fragment key={key}>
-            <Paper
-              elevation={1}
-              className={cx(
-                classes.heroAssetContainer,
-                classes[`assetLayout${particle.layout}`]
-              )}
-            >
-              <AssetInFlow
-                className={classes.heroAsset}
-                asset={portfolio.assets[particle.asset]}
-              />
-            </Paper>
-            {particle.assetCaption && (
+  return content
+    ? content.map((particle, pIndex) => {
+        const key = `particle_${particle.type}_${pIndex}`
+        switch (particle.type) {
+          case 'asset':
+            return (
+              <React.Fragment key={key}>
+                <Paper
+                  elevation={1}
+                  className={cx(
+                    classes.heroAssetContainer,
+                    classes[`assetLayout${particle.layout}`]
+                  )}
+                >
+                  <AssetInFlow
+                    className={classes.heroAsset}
+                    asset={portfolio.assets[particle.asset]}
+                  />
+                </Paper>
+                {particle.assetCaption && (
+                  <Typography
+                    variant="caption"
+                    className={cx(classes.text, classes.caption)}
+                    paragraph
+                  >
+                    {preventOrphans(particle.assetCaption)}
+                  </Typography>
+                )}
+              </React.Fragment>
+            )
+          case 'title':
+            return (
               <Typography
-                variant="caption"
-                className={cx(classes.text, classes.caption)}
+                variant="h1"
+                className={cx(classes.heroHeadline, classes.text)}
                 paragraph
               >
-                {preventOrphans(particle.assetCaption)}
+                {particle.text}
               </Typography>
-            )}
-          </React.Fragment>
-        )
-      case 'title':
-        return (
-          <Typography
-            variant="h1"
-            className={cx(classes.heroHeadline, classes.text)}
-            paragraph
-          >
-            {particle.text}
-          </Typography>
-        )
-      case 'subtitle':
-        return (
-          <Typography variant="h3" key={key} className={classes.text} paragraph>
-            {preventOrphans(particle.text)}
-          </Typography>
-        )
-      case 'text':
-        return (
-          <Typography
-            variant="body1"
-            className={classes.text}
-            paragraph
-            key={key}
-          >
-            <ReactMarkdown skipHtml source={preventOrphans(particle.text)} />
-          </Typography>
-        )
-      case 'break':
-        return <hr className={classes.break} />
-      default:
-        return null
-    }
-  })
+            )
+          case 'subtitle':
+            return (
+              <Typography
+                variant="h3"
+                key={key}
+                className={classes.text}
+                paragraph
+              >
+                {preventOrphans(particle.text)}
+              </Typography>
+            )
+          case 'text':
+            return (
+              <Typography
+                variant="body1"
+                className={classes.text}
+                paragraph
+                key={key}
+              >
+                <ReactMarkdown
+                  skipHtml
+                  source={preventOrphans(particle.text)}
+                />
+              </Typography>
+            )
+          case 'break':
+            return <hr className={classes.break} />
+          default:
+            return null
+        }
+      })
+    : null
 }
 
 class PortfolioItem extends React.Component {
