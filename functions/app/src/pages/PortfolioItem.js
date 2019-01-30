@@ -15,16 +15,15 @@ import { colors, icons, preventOrphans } from '../style'
 
 import { withStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 
 const styles = ({ breakpoints }) => ({
   item: {},
-  heroAssetContainer: {
+  heroAsset: {
     overflow: 'hidden',
     marginBottom: '.5rem',
   },
-  heroAsset: {
+  heroAssetPotato: {
     display: 'block',
     width: '100%',
     height: 'auto',
@@ -60,7 +59,7 @@ const styles = ({ breakpoints }) => ({
   break: {
     border: 'none',
     borderBottom: `1px solid ${colors.dark}`,
-    margin: '2rem auto',
+    margin: '4rem auto',
     [breakpoints.up('sm')]: {
       margin: '4rem auto',
     },
@@ -91,18 +90,13 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
           case 'asset':
             return (
               <React.Fragment key={key}>
-                <Paper
-                  elevation={1}
+                <AssetInFlow
                   className={cx(
-                    classes.heroAssetContainer,
+                    classes.heroAsset,
                     classes[`assetLayout${particle.layout}`]
                   )}
-                >
-                  <AssetInFlow
-                    className={classes.heroAsset}
-                    asset={portfolio.assets[particle.asset]}
-                  />
-                </Paper>
+                  asset={portfolio.assets[particle.asset]}
+                />
                 {particle.assetCaption && (
                   <Typography
                     variant="caption"
@@ -118,6 +112,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
             return (
               <Typography
                 variant="h1"
+                key={key}
                 className={cx(classes.heroHeadline, classes.text)}
                 paragraph
               >
@@ -139,9 +134,10 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
             return (
               <Typography
                 variant="body1"
-                className={classes.text}
-                paragraph
                 key={key}
+                className={classes.text}
+                component="div"
+                paragraph
               >
                 <ReactMarkdown
                   skipHtml
@@ -150,7 +146,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
               </Typography>
             )
           case 'break':
-            return <hr className={classes.break} />
+            return <hr key={key} className={classes.break} />
           default:
             return null
         }

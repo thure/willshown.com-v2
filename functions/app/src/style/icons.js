@@ -28,7 +28,9 @@ const MarkIcon = ({ className }) => (
   </svg>
 )
 
-// the workaround in create-react-app/issues/5276 does not work around this stack.
+// The workaround in create-react-app/issues/5276 does not work around this stack.
+// The following icons are copied and pasted (sigh) from the `feather-icons` dependency
+// with slight changes to work with React.
 
 const InstagramIcon = ({ className }) => (
   <svg
@@ -196,6 +198,40 @@ const DownloadIcon = ({ className }) => (
   </svg>
 )
 
+const ChevronLeft = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <polyline points="15 18 9 12 15 6" />
+  </svg>
+)
+
+const ChevronRight = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <polyline points="9 18 15 12 9 6" />
+  </svg>
+)
+
 export {
   ArrowLeftIcon,
   PackageIcon,
@@ -207,4 +243,6 @@ export {
   MailIcon,
   DiscIcon,
   DownloadIcon,
+  ChevronLeft,
+  ChevronRight,
 }

@@ -7,6 +7,8 @@ import { ConnectedRouter } from 'connected-react-router'
 import createStore from './store'
 
 import App from './App'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import './index.css'
 
 // Create a store and get back itself and its history object

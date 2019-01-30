@@ -1,9 +1,12 @@
 import React from 'react'
+import Carousel from 'react-slick'
 import cx from 'classnames'
 import LoadingScrim from './LoadingScrim'
-import { colors } from '../style'
+import { colors, icons } from '../style'
 
 import { withStyles } from '@material-ui/core'
+
+import Paper from '@material-ui/core/Paper'
 
 import Asset from './Asset'
 
@@ -28,9 +31,66 @@ const styles = {
     width: '100%',
     height: 'auto',
   },
+  carouselSlide: {
+    width: '8rem',
+    height: '8rem',
+  },
+  carouselArrow: {
+    '&:before': {
+      content: '""',
+      display: 'none',
+    },
+    height: '100%',
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    alignItems: 'center',
+    padding: '0 .5rem',
+    color: colors.dark,
+    transition: 'color .2s linear',
+    '&:hover': {
+      color: colors.red,
+    },
+  },
+  carouselArrowIcon: {
+    display: 'block',
+    flex: '0 0 auto',
+    marginLeft: '-2px',
+  },
 }
 
-class AssetInFlow extends React.Component {
+const CarouselArrow = withStyles(styles)(
+  ({ Icon, className, classes, style, ...props }) => (
+    <div
+      className={cx(classes.carouselArrow, className)}
+      style={{
+        ...style,
+        display: style.display === 'block' ? 'flex' : style.display,
+      }}
+      {...props}
+    >
+      <Icon className={classes.carouselArrowIcon} />
+    </div>
+  )
+)
+
+const CarouselArrowNext = props => (
+  <CarouselArrow Icon={icons.ChevronRight} {...props} />
+)
+const CarouselArrowPrev = props => (
+  <CarouselArrow Icon={icons.ChevronLeft} {...props} />
+)
+
+const carouselConfig = {
+  dots: true,
+  infinite: true,
+  speed: 400,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  nextArrow: <CarouselArrowNext />,
+  prevArrow: <CarouselArrowPrev />,
+}
+
+class AssetInFlowAsset extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -48,24 +108,37 @@ class AssetInFlow extends React.Component {
     const { ready } = this.state
 
     return (
-      <div
-        className={cx(className, classes.assetContainer)}
-        style={{
-          paddingBottom: `${((100 * asset.dims[1]) / asset.dims[0]).toFixed(
-            7
-          )}%`,
-        }}
-      >
-        <Asset
-          {...props}
-          asset={asset}
-          setReady={this.setReady}
-          className={classes.assetElement}
-        />
-        <LoadingScrim className={classes.fill} ready={ready} />
-      </div>
+      <Paper elevation={1} className={className}>
+        <div
+          className={classes.assetContainer}
+          style={{
+            paddingBottom: `${((100 * asset.dims[1]) / asset.dims[0]).toFixed(
+              7
+            )}%`,
+          }}
+        >
+          <Asset
+            {...props}
+            asset={asset}
+            setReady={this.setReady}
+            className={classes.assetElement}
+          />
+          <LoadingScrim className={classes.fill} ready={ready} />
+        </div>
+      </Paper>
     )
   }
 }
+
+const AssetInFlow = props =>
+  props.asset.type === 'carousel' ? (
+    <Carousel {...carouselConfig}>
+      <div className={props.classes.carouselSlide} />
+      <div className={props.classes.carouselSlide} />
+      <div className={props.classes.carouselSlide} />
+    </Carousel>
+  ) : (
+    <AssetInFlowAsset {...props} />
+  )
 
 export default withStyles(styles)(AssetInFlow)
