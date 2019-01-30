@@ -75,6 +75,7 @@ class CategoryPreview extends React.Component {
           asset={asset}
           ready={ready}
           setReady={this.setReady}
+          imgOnly
           className={cx(
             classes.fill,
             classes.asset,

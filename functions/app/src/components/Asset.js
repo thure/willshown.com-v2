@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Asset = ({ asset, className, setReady }) => {
+const Asset = ({ asset, className, setReady, imgOnly }) => {
   const { sources, dims } = asset
-  switch (asset.type) {
+  switch (imgOnly ? 'image' : asset.type) {
     case 'video':
       return (
         <video
