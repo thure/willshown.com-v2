@@ -32,8 +32,8 @@ const styles = {
     height: 'auto',
   },
   carouselSlide: {
-    width: '8rem',
-    height: '8rem',
+    padding: '0 1rem',
+    boxSizing: 'border-box',
   },
   carouselArrow: {
     '&:before': {
@@ -57,6 +57,8 @@ const styles = {
     marginLeft: '-2px',
   },
 }
+
+// Carousel configuration
 
 const CarouselArrow = withStyles(styles)(
   ({ Icon, className, classes, style, ...props }) => (
@@ -83,12 +85,15 @@ const CarouselArrowPrev = props => (
 const carouselConfig = {
   dots: true,
   infinite: true,
-  speed: 400,
+  speed: 600,
   slidesToShow: 1,
   slidesToScroll: 1,
   nextArrow: <CarouselArrowNext />,
   prevArrow: <CarouselArrowPrev />,
+  cssEase: 'cubic-bezier(0.77, 0, 0.175, 1)',
 }
+
+// Individual asset component
 
 class AssetInFlowAsset extends React.Component {
   constructor(props) {
@@ -130,12 +135,21 @@ class AssetInFlowAsset extends React.Component {
   }
 }
 
+// Composed component
+
 const AssetInFlow = props =>
   props.asset.type === 'carousel' ? (
     <Carousel {...carouselConfig}>
-      <div className={props.classes.carouselSlide} />
-      <div className={props.classes.carouselSlide} />
-      <div className={props.classes.carouselSlide} />
+      {props.asset.slides.map(assetId => {
+        return (
+          <div
+            className={props.classes.carouselSlide}
+            key={`carouselSlide_${assetId}`}
+          >
+            <AssetInFlowAsset {...props} asset={props.assets[assetId]} />
+          </div>
+        )
+      })}
     </Carousel>
   ) : (
     <AssetInFlowAsset {...props} />

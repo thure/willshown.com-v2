@@ -96,6 +96,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                     classes[`assetLayout${particle.layout}`]
                   )}
                   asset={portfolio.assets[particle.asset]}
+                  assets={portfolio.assets}
                 />
                 {particle.assetCaption && (
                   <Typography
