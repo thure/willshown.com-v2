@@ -115,7 +115,7 @@ const styles = () => ({
 })
 
 const AnchorTo = fullRoute => props => (
-  <a {...props} href={fullRoute} target="_blank" rel="noopener noreferrer">
+  <a {...props} href={fullRoute}>
     {props.children}
   </a>
 )
