@@ -11,6 +11,9 @@ import Paper from '@material-ui/core/Paper'
 import Asset from './Asset'
 
 const styles = {
+  assetInFlowAsset: {
+    overflow: 'hidden',
+  },
   assetContainer: {
     background: colors.dark,
     color: 'transparent',
@@ -136,7 +139,7 @@ class AssetInFlowAsset extends React.Component {
     const { ready } = this.state
 
     return (
-      <Paper elevation={1} className={className}>
+      <Paper elevation={1} className={cx(className, classes.assetInFlowAsset)}>
         <div
           className={classes.assetContainer}
           style={{
