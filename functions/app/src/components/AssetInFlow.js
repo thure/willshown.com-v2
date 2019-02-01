@@ -31,6 +31,25 @@ const styles = {
     width: '100%',
     height: 'auto',
   },
+  carousel: {
+    marginBottom: '3rem',
+    width: 'calc(100% + 2rem)',
+    marginLeft: '-1rem',
+  },
+  carouselPip: {
+    height: '.4rem',
+    width: '1.4rem',
+    borderRadius: 9999,
+    background: colors.darkA(0.2),
+    transition: 'background linear .2s',
+    display: 'block',
+    '.slick-active &, .slick-active &:hover': {
+      background: colors.red,
+    },
+    '&:hover': {
+      background: colors.dark,
+    },
+  },
   carouselSlide: {
     padding: '0 1rem',
     boxSizing: 'border-box',
@@ -61,7 +80,7 @@ const styles = {
 // Carousel configuration
 
 const CarouselArrow = withStyles(styles)(
-  ({ Icon, className, classes, style, ...props }) => (
+  ({ currentSlide, slideCount, Icon, className, classes, style, ...props }) => (
     <div
       className={cx(classes.carouselArrow, className)}
       style={{
@@ -81,6 +100,9 @@ const CarouselArrowNext = props => (
 const CarouselArrowPrev = props => (
   <CarouselArrow Icon={icons.ChevronLeft} {...props} />
 )
+const CarouselPip = withStyles(styles)(({ classes, ...props }) => (
+  <i className={classes.carouselPip} {...props} />
+))
 
 const carouselConfig = {
   dots: true,
@@ -91,6 +113,7 @@ const carouselConfig = {
   nextArrow: <CarouselArrowNext />,
   prevArrow: <CarouselArrowPrev />,
   cssEase: 'cubic-bezier(0.77, 0, 0.175, 1)',
+  customPaging: slideIndex => <CarouselPip />,
 }
 
 // Individual asset component

@@ -19,8 +19,13 @@ import Button from '@material-ui/core/Button'
 
 const styles = ({ breakpoints }) => ({
   item: {},
+  assetContainer: {
+    margin: '2rem 0',
+  },
+  firstAssetContainer: {
+    marginTop: 0,
+  },
   heroAsset: {
-    overflow: 'hidden',
     marginBottom: '.5rem',
   },
   heroAssetPotato: {
@@ -40,7 +45,7 @@ const styles = ({ breakpoints }) => ({
     display: 'block',
     width: '100%',
     maxWidth: '36rem',
-    margin: '1rem auto',
+    margin: '2rem auto',
   },
   caption: {
     marginTop: '0.5rem',
@@ -51,7 +56,7 @@ const styles = ({ breakpoints }) => ({
     display: 'flex',
     flexFlow: 'row nowrap',
     alignItems: 'center',
-    marginTop: '2rem',
+    marginTop: '4rem',
   },
   cta: {
     marginLeft: '1em',
@@ -89,7 +94,13 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
         switch (particle.type) {
           case 'asset':
             return (
-              <React.Fragment key={key}>
+              <div
+                className={cx(
+                  classes.assetContainer,
+                  pIndex === 0 && classes.firstAssetContainer
+                )}
+                key={key}
+              >
                 <AssetInFlow
                   className={cx(
                     classes.heroAsset,
@@ -107,7 +118,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                     {preventOrphans(particle.assetCaption)}
                   </Typography>
                 )}
-              </React.Fragment>
+              </div>
             )
           case 'title':
             return (
@@ -117,7 +128,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                 className={cx(classes.heroHeadline, classes.text)}
                 paragraph
               >
-                {particle.text}
+                {preventOrphans(particle.text)}
               </Typography>
             )
           case 'subtitle':
