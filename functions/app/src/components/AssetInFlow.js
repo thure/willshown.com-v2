@@ -15,6 +15,12 @@ const styles = {
     overflow: 'hidden',
   },
   assetContainer: {
+    margin: '0 auto',
+    '@media (max-aspect-ratio: 1/1)': {
+      width: ['100%', '!important'],
+    },
+  },
+  assetStage: {
     background: colors.dark,
     color: 'transparent',
     position: 'relative',
@@ -35,7 +41,7 @@ const styles = {
     height: 'auto',
   },
   carousel: {
-    marginBottom: '3rem',
+    marginBottom: '1rem',
     width: 'calc(100% + 2rem)',
     marginLeft: '-1rem',
   },
@@ -138,25 +144,34 @@ class AssetInFlowAsset extends React.Component {
     const { className, classes, asset, ...props } = this.props
     const { ready } = this.state
 
+    const aspect = asset.dims[0] / asset.dims[1]
+    const width = aspect > 1.1 ? 100 : 80 * aspect
+
     return (
-      <Paper elevation={1} className={cx(className, classes.assetInFlowAsset)}>
-        <div
-          className={classes.assetContainer}
-          style={{
-            paddingBottom: `${((100 * asset.dims[1]) / asset.dims[0]).toFixed(
-              7
-            )}%`,
-          }}
+      <div
+        className={classes.assetContainer}
+        style={{ width: `${width.toFixed(7)}%` }}
+      >
+        <Paper
+          elevation={1}
+          className={cx(className, classes.assetInFlowAsset)}
         >
-          <Asset
-            {...props}
-            asset={asset}
-            setReady={this.setReady}
-            className={classes.assetElement}
-          />
-          <LoadingScrim className={classes.fill} ready={ready} />
-        </div>
-      </Paper>
+          <div
+            className={classes.assetStage}
+            style={{
+              paddingBottom: `${(100 / aspect).toFixed(7)}%`,
+            }}
+          >
+            <Asset
+              {...props}
+              asset={asset}
+              setReady={this.setReady}
+              className={classes.assetElement}
+            />
+            <LoadingScrim className={classes.fill} ready={ready} />
+          </div>
+        </Paper>
+      </div>
     )
   }
 }
@@ -165,14 +180,15 @@ class AssetInFlowAsset extends React.Component {
 
 const AssetInFlow = props =>
   props.asset.type === 'carousel' ? (
-    <Carousel {...carouselConfig}>
+    <Carousel {...carouselConfig} className={props.classes.carousel}>
       {props.asset.slides.map(assetId => {
+        const asset = props.assets[assetId]
         return (
           <div
             className={props.classes.carouselSlide}
             key={`carouselSlide_${assetId}`}
           >
-            <AssetInFlowAsset {...props} asset={props.assets[assetId]} />
+            <AssetInFlowAsset {...props} asset={asset} />
           </div>
         )
       })}

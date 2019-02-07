@@ -22,6 +22,7 @@ const styles = ({ breakpoints }) => ({
     padding: '2rem 1rem 4rem 1rem',
     maxWidth: '56rem',
     margin: '0 auto',
+    overflowX: 'hidden',
     [breakpoints.up('sm')]: {
       padding: '3rem 2rem 5rem 2rem',
     },
