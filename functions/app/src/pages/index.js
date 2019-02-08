@@ -22,21 +22,19 @@ const Loading = props => {
   }
 }
 
-export const rootURL = () =>
-  typeof document !== 'undefined'
-    ? `${document.location.protocol}//${document.location.hostname}${document
-        .location.port && `:${document.location.port}`}`
-    : process.env.REACT_APP_ROOT_URL || process.env.NODE_ENV === 'production'
-    ? 'https://willshown.com'
-    : 'http://localhost:5000'
-
 const Intro = Loadable({
   loader: () => import(/* webpackChunkName: "intro" */ './Intro'),
   loading: () => null,
 })
 
-const Portfolio = Loadable({
-  loader: () => import(/* webpackChunkName: "portfolio" */ './Portfolio'),
+const PortfolioItems = Loadable({
+  loader: () => import(/* webpackChunkName: "portfolio" */ './PortfolioItems'),
+  loading: Loading,
+  delay: 2e3,
+})
+
+const PortfolioItem = Loadable({
+  loader: () => import(/* webpackChunkName: "portfolio" */ './PortfolioItem'),
   loading: Loading,
   delay: 2e3,
 })
@@ -55,7 +53,8 @@ const NotFound = Loadable({
 export default () => (
   <Switch>
     <Route exact path="/" component={Intro} />
-    <Route exact path="/portfolio" component={Portfolio} />
+    <Route exact path="/portfolio" component={PortfolioItems} />
+    <Route exact path="/portfolio/:id" component={PortfolioItem} />
     <Route exact path="/cv" component={CV} />
     <Route component={NotFound} />
   </Switch>

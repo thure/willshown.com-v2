@@ -6,12 +6,17 @@ import { getPrivatePortfolio } from './config'
 
 const router = express.Router()
 
+const cookieConfig = {
+  maxAge: 1000 * 60 * 60 * 24 * 3, // 3 days
+}
+
 router.post('/login', (req, res) => {
   const requestCode = req.body.accessCode
 
   const user = accessCodes.find(({ accessCode }) => accessCode === requestCode)
 
   if (user) {
+    res.cookie(COOKIE_KEY, JSON.stringify(user), cookieConfig)
     getPrivatePortfolio().then(privatePortfolio => {
       res.json({
         user,

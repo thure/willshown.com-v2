@@ -26,7 +26,7 @@ const getSignedURLsForPrivatePortfolio = privatePortfolioWithoutSrc => {
 
   const sources = Object.keys(assets).reduce((sources, assetKey) => {
     const asset = assets[assetKey]
-    return Object.keys(asset.sources).reduce((sources, sourceKey) => {
+    return Object.keys(asset.sources || {}).reduce((sources, sourceKey) => {
       sources.push({
         source: `${assetKey}.sources.${sourceKey}`,
         filePath: asset.sources[sourceKey].path,

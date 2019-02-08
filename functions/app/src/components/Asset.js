@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Asset = ({ asset, className, ready, setReady }) => {
+const Asset = ({ asset, className, setReady, imgOnly }) => {
   const { sources, dims } = asset
-  switch (asset.type) {
+  switch (imgOnly ? 'image' : asset.type) {
     case 'video':
       return (
         <video
@@ -14,7 +14,6 @@ const Asset = ({ asset, className, ready, setReady }) => {
           autoPlay
           muted
           loop
-          onLoad={setReady}
           onCanPlayThrough={setReady}
         >
           {sources.mp4 && <source src={sources.mp4.src} type="video/mp4" />}

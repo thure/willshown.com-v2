@@ -34,14 +34,14 @@ const styles = theme => ({
   },
 })
 
-class Portfolio extends React.Component {
+class PortfolioItems extends React.Component {
   render() {
     const { privatePortfolio = null, classes } = this.props
     return (
       <Page
         id="portfolio"
         title="Portfolio"
-        description="Will Shown's online portfolio: topics"
+        description="Case studies in UX and engineering adventures"
       >
         <AccessCodeInput />
         <main className={classes.categories}>
@@ -78,4 +78,4 @@ export default compose(
     null
   ),
   withStyles(styles)
-)(Portfolio)
+)(PortfolioItems)

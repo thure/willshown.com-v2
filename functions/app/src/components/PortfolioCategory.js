@@ -1,7 +1,8 @@
 import React from 'react'
 import injectSheet from 'react-jss'
-import { Link } from 'react-router-dom'
+import LinkTo from './LinkTo'
 import Asset from './Asset'
+import LoadingScrim from './LoadingScrim'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
@@ -43,19 +44,6 @@ const styles = {
   assetReady: {
     opacity: 0.5,
   },
-  loading: {
-    animation: 'loading infinite linear 4s',
-    backgroundImage: `linear-gradient(90deg, ${colors.dark} 0%, ${colors.lightA(
-      0.5
-    )} 25%, ${colors.dark} 50%)`,
-    backgroundSize: '1400px',
-    opacity: 1,
-    zIndex: 2,
-    transition: 'opacity .5s linear',
-  },
-  loadingReady: {
-    opacity: 0,
-  },
   assetStage: {
     width: '100%',
     paddingBottom: `${(900 / 16).toFixed(3)}%`,
@@ -87,35 +75,24 @@ class CategoryPreview extends React.Component {
           asset={asset}
           ready={ready}
           setReady={this.setReady}
+          imgOnly
           className={cx(
             classes.fill,
             classes.asset,
             ready && classes.assetReady
           )}
         />
-        <div
-          className={cx(
-            classes.fill,
-            classes.loading,
-            ready && classes.loadingReady
-          )}
-        />
+        <LoadingScrim ready={ready} className={classes.fill} />
       </div>
     )
   }
 }
 
-const LinkTo = fullRoute => props => (
-  <Link {...props} to={fullRoute}>
-    {props.children}
-  </Link>
-)
-
 export default injectSheet(styles)(
   ({ portfolio, category, className, classes }) => (
     <Card className={cx(classes.category, className)}>
       <CardActionArea
-        component={LinkTo(`/portfolio/${category.route}`)}
+        component={LinkTo(`/portfolio/${category.id}`)}
         className={classes.actionArea}
       >
         <CategoryPreview

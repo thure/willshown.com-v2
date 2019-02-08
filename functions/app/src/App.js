@@ -10,10 +10,13 @@ import { isServer } from './store'
 
 // Components
 import Pages from './pages'
+import ScrollToTop from './components/ScrollToTop'
 import Loadable from 'react-loadable'
 
-// Styles
-import { ThemeProvider } from './style'
+// Global styles
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import './index.css'
 
 const TopNav = Loadable({
   loader: () => import(/* webpackChunkName: "topnav" */ './components/TopNav'),
@@ -28,7 +31,7 @@ class App extends Component {
 
   render() {
     return (
-      <ThemeProvider>
+      <ScrollToTop>
         <div id="app">
           <TopNav
             isAuthenticated={this.props.isAuthenticated}
@@ -38,7 +41,7 @@ class App extends Component {
             <Pages />
           </div>
         </div>
-      </ThemeProvider>
+      </ScrollToTop>
     )
   }
 }

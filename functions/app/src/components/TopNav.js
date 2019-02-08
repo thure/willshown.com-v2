@@ -57,6 +57,7 @@ const styles = {
     color: 'white',
     transition: 'color 120ms linear',
     overflow: 'hidden',
+    background: 'none',
     '&:hover': {
       color: colors.red,
     },
@@ -100,7 +101,13 @@ const TopNavLink = ({ children, to, classes }) => (
 )
 
 const TopNav = ({ isAuthenticated, pathName, classes }) => (
-  <Headroom>
+  <Headroom
+    style={{
+      zIndex: 99,
+      ...(pathName.startsWith('/cv') ? { position: 'fixed' } : {}),
+    }}
+    disable={pathName.startsWith('/cv')}
+  >
     <div
       className={cx(
         classes.outerContainer,

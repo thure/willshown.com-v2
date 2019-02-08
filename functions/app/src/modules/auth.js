@@ -1,11 +1,15 @@
 import fetch from 'cross-fetch'
 import Cookies from 'js-cookie'
 
-export const COOKIE_KEY = 'willshown'
+export const COOKIE_KEY = '__session'
 
 export const AUTHENTICATE = 'auth/AUTHENTICATE'
 export const SET_CURRENT_USER = 'auth/SET_CURRENT_USER'
 export const SET_PRIVATE_PORTFOLIO = 'auth/SET_PRIVATE_PORTFOLIO'
+
+const cookiesConfig = {
+  expires: 3,
+}
 
 const initialState = {
   isAuthenticated: false,
@@ -102,7 +106,7 @@ export const loginUser = accessCode => dispatch =>
   })
     .then(res => res.json())
     .then(({ user, privatePortfolio }) => {
-      Cookies.set(COOKIE_KEY, user)
+      Cookies.set(COOKIE_KEY, user, cookiesConfig)
       console.log('[loginUser]', 'success', user)
       dispatch(setCurrentUser(user))
       dispatch(setPrivatePortfolio(privatePortfolio))
@@ -121,6 +125,11 @@ export const logoutUser = () => dispatch =>
     dispatch({
       type: SET_CURRENT_USER,
       user: {},
+    })
+
+    dispatch({
+      type: SET_PRIVATE_PORTFOLIO,
+      privatePortfolio: null,
     })
 
     Cookies.remove(COOKIE_KEY)

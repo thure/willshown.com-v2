@@ -1,26 +1,34 @@
 import React from 'react'
 import { render, hydrate } from 'react-dom'
 import { Provider } from 'react-redux'
+import { JssProvider } from 'react-jss'
+import { ThemeProvider } from './style'
 import Loadable from 'react-loadable'
 import { Frontload } from 'react-frontload'
 import { ConnectedRouter } from 'connected-react-router'
 import createStore from './store'
+import { createGenerateClassName } from '@material-ui/core/styles'
 
 import App from './App'
-import './index.css'
 
 // Create a store and get back itself and its history object
 const { store, history } = createStore()
+
+const generateClassName = createGenerateClassName()
 
 // Running locally, we should run on a <ConnectedRouter /> rather than on a <StaticRouter /> like on the server
 // Let's also let React Frontload explicitly know we're not rendering on the server here
 const Application = (
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <Frontload noServerRender={true}>
-        <App />
-      </Frontload>
-    </ConnectedRouter>
+    <JssProvider generateClassName={generateClassName}>
+      <ThemeProvider>
+        <ConnectedRouter history={history}>
+          <Frontload noServerRender={true}>
+            <App />
+          </Frontload>
+        </ConnectedRouter>
+      </ThemeProvider>
+    </JssProvider>
   </Provider>
 )
 
