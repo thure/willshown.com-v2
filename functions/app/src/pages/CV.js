@@ -206,6 +206,7 @@ const CV = ({ classes }) => (
           <AssetInFlow
             asset={assets[cv.profileAsset]}
             className={classes.picAsset}
+            forceFullWidth
           />
         </Paper>
         <Typography variant="h3" className={classes.profileTitle}>

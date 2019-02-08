@@ -11,6 +11,8 @@ import { StaticRouter } from 'react-router'
 import { Frontload, frontloadServerRender } from 'react-frontload'
 import Loadable from 'react-loadable'
 import { JssProvider, SheetsRegistry } from 'react-jss'
+import { ThemeProvider } from '../app/src/style'
+import { createGenerateClassName } from '@material-ui/core/styles'
 
 // Our store, entrypoint, and manifest
 import createStore from '../app/src/store'
@@ -67,6 +69,8 @@ const settleMarkup = ({ store, req }) => {
   const context = {}
   const modules = []
   const sheets = new SheetsRegistry()
+  const generateClassName = createGenerateClassName()
+  const sheetsManager = new Map()
 
   /*
     Here's the core funtionality of this file. We do the following in specific order (inside-out):
@@ -87,16 +91,18 @@ const settleMarkup = ({ store, req }) => {
 
   return frontloadServerRender(() =>
     renderToString(
-      <JssProvider registry={sheets}>
-        <Loadable.Capture report={m => modules.push(m)}>
-          <Provider store={store}>
-            <StaticRouter location={req.url} context={context}>
-              <Frontload isServer={true}>
-                <App />
-              </Frontload>
-            </StaticRouter>
-          </Provider>
-        </Loadable.Capture>
+      <JssProvider registry={sheets} generateClassName={generateClassName}>
+        <ThemeProvider sheetsManager={sheetsManager}>
+          <Loadable.Capture report={m => modules.push(m)}>
+            <Provider store={store}>
+              <StaticRouter location={req.url} context={context}>
+                <Frontload isServer={true}>
+                  <App />
+                </Frontload>
+              </StaticRouter>
+            </Provider>
+          </Loadable.Capture>
+        </ThemeProvider>
       </JssProvider>
     )
   ).then(routeMarkup => ({ store, routeMarkup, sheets, context, modules }))
