@@ -127,6 +127,11 @@ export const logoutUser = () => dispatch =>
       user: {},
     })
 
+    dispatch({
+      type: SET_PRIVATE_PORTFOLIO,
+      privatePortfolio: null,
+    })
+
     Cookies.remove(COOKIE_KEY)
     resolve({})
   })

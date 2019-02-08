@@ -83,8 +83,8 @@ const resolveItem = (id, privatePortfolio) => {
     }
     const publicItem = publicPortfolio.structure.find(item => item.id === id)
     if (publicItem) return { portfolio: publicPortfolio, item: publicItem }
-    else return null
-  } else return null
+    else return { item: null, portfolio: null }
+  } else return { item: null, portfolio: null }
 }
 
 const PortfolioItemContent = ({ portfolio, content, classes }) => {
@@ -202,7 +202,7 @@ class PortfolioItem extends React.Component {
           </main>
         </Page>
       )
-    else return NotFound
+    else return <NotFound />
   }
 }
 
