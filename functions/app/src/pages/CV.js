@@ -101,16 +101,21 @@ const styles = () => ({
   timelineItem: {
     marginBottom: '2rem',
   },
-  timelineAbstract: {
+  timelineAbstractLast: {
     '& > p:last-of-type': {
       marginBottom: 0,
+    },
+  },
+  timelineAbstract: {
+    '& > p:last-of-type': {
+      marginBottom: '1.4rem',
     },
   },
   timelineCopy: {
     marginBottom: '1rem',
   },
   timelineInstitution: {
-    marginBottom: '.5rem',
+    marginBottom: '1.2rem',
   },
 })
 
@@ -153,50 +158,61 @@ const ProfileLink = ({
 
 const dateFormat = 'MMM YYYY'
 
-const TimelineEvent = ({ classes, event }) => {
-  const timeFrom = moment(event.timeRange[0])
-  const timeTo = moment(event.timeRange[1] || Date.now())
-  const duration = moment.duration(timeTo.diff(timeFrom))
+const TimelineEvent = ({ classes, event }) => (
+  <Paper elevation={1} className={classes.timelineItem}>
+    <CardContent>
+      <Typography variant="h5" className={classes.timelineInstitution}>
+        {event.institution}
+      </Typography>
+      {event.roles.map((role, rIndex, roles) => {
+        const timeFrom = moment(role.timeRange[0])
+        const timeTo = moment(role.timeRange[1] || Date.now())
+        const duration = moment.duration(timeTo.diff(timeFrom))
 
-  const durationParts = []
+        const durationParts = []
 
-  if (duration.years() > 0)
-    durationParts.push(
-      duration.years() > 1 ? `${duration.years()} years` : '1 year'
-    )
+        if (duration.years() > 0)
+          durationParts.push(
+            duration.years() > 1 ? `${duration.years()} years` : '1 year'
+          )
 
-  if (duration.months() > 0)
-    durationParts.push(
-      duration.months() > 1 ? `${duration.months()} months` : '1 month'
-    )
+        if (duration.months() > 0)
+          durationParts.push(
+            duration.months() > 1 ? `${duration.months()} months` : '1 month'
+          )
 
-  return (
-    <Paper elevation={1} className={classes.timelineItem}>
-      <CardContent>
-        <Typography variant="h5" className={classes.timelineInstitution}>
-          {event.institution}
-        </Typography>
-        <Typography variant="h6" className={classes.timelineCopy}>
-          {event.title}
-        </Typography>
-        <Typography variant="button" className={classes.timelineCopy}>
-          {`${durationParts.join(' ')} | ${timeFrom.format(dateFormat)} to\xa0${
-            event.timeRange[1]
-              ? preventOrphans(timeTo.format(dateFormat))
-              : 'present'
-          }`}
-        </Typography>
-        <Typography
-          variant="body2"
-          component="div"
-          className={classes.timelineAbstract}
-        >
-          <ReactMarkdown source={preventOrphans(event.abstract)} />
-        </Typography>
-      </CardContent>
-    </Paper>
-  )
-}
+        return (
+          <React.Fragment>
+            <Typography variant="h6" className={classes.timelineCopy}>
+              {role.title}
+              {role.team ? `: ${role.team}` : ''}
+            </Typography>
+            <Typography variant="button" className={classes.timelineCopy}>
+              {`${durationParts.join(' ')} | ${timeFrom.format(
+                dateFormat
+              )} to\xa0${
+                role.timeRange[1]
+                  ? preventOrphans(timeTo.format(dateFormat))
+                  : 'present'
+              }`}
+            </Typography>
+            <Typography
+              variant="body2"
+              component="div"
+              className={
+                rIndex + 1 === roles.length
+                  ? classes.timelineAbstractLast
+                  : classes.timelineAbstract
+              }
+            >
+              <ReactMarkdown source={preventOrphans(role.abstract)} />
+            </Typography>
+          </React.Fragment>
+        )
+      })}
+    </CardContent>
+  </Paper>
+)
 
 const CV = ({ classes }) => (
   <Page id="cv" title="CV" description="CV / résumé / list of things">
@@ -278,7 +294,7 @@ const CV = ({ classes }) => (
         </CardContent>
         {cv.workTimeline.map(event => (
           <TimelineEvent
-            key={`timelineEvent_${event.timeRange[0]}`}
+            key={`timelineEvent_${event.roles[0].timeRange[0]}`}
             classes={classes}
             event={event}
           />
@@ -288,7 +304,7 @@ const CV = ({ classes }) => (
         </CardContent>
         {cv.educationTimeline.map(event => (
           <TimelineEvent
-            key={`timelineEvent_${event.timeRange[0]}`}
+            key={`timelineEvent_${event.roles[0].timeRange[0]}`}
             classes={classes}
             event={event}
           />
