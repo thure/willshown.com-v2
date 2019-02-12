@@ -47,6 +47,16 @@ const styles = ({ breakpoints }) => ({
     maxWidth: '36rem',
     margin: '2rem auto',
   },
+  blockquote: {
+    padding: '0 2rem',
+    boxSizing: 'border-box',
+    marginBottom: 0,
+    fontStyle: 'italic',
+  },
+  cite: {
+    marginTop: 0,
+    textAlign: 'right',
+  },
   caption: {
     marginTop: '0.5rem',
   },
@@ -63,7 +73,7 @@ const styles = ({ breakpoints }) => ({
   },
   break: {
     border: 'none',
-    borderBottom: `1px solid ${colors.dark}`,
+    borderBottom: `1px solid ${colors.darkA(0.2)}`,
     margin: '4rem auto',
     [breakpoints.up('sm')]: {
       margin: '4rem auto',
@@ -156,6 +166,29 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                   source={preventOrphans(particle.text)}
                 />
               </Typography>
+            )
+          case 'blockquote':
+            return (
+              <React.Fragment key={key}>
+                <Typography
+                  variant="body1"
+                  className={cx(classes.text, classes.blockquote)}
+                  component="blockquote"
+                >
+                  <ReactMarkdown
+                    skipHtml
+                    source={preventOrphans(particle.text)}
+                  />
+                </Typography>
+                <Typography
+                  variant="body2"
+                  className={cx(classes.text, classes.cite)}
+                  component="cite"
+                  paragraph
+                >
+                  ※ {particle.byline}
+                </Typography>
+              </React.Fragment>
             )
           case 'break':
             return <hr key={key} className={classes.break} />

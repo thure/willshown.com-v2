@@ -39,6 +39,10 @@ const styles = {
     display: 'block',
     width: '100%',
     height: 'auto',
+    opacity: 0,
+  },
+  assetElementReady: {
+    opacity: 1,
   },
   carousel: {
     marginBottom: '1rem',
@@ -50,7 +54,7 @@ const styles = {
     width: '1.4rem',
     borderRadius: 9999,
     background: colors.darkA(0.2),
-    transition: 'background linear .2s',
+    transition: 'background .2s linear',
     display: 'block',
     '.slick-active &, .slick-active &:hover': {
       background: colors.red,
@@ -166,7 +170,10 @@ class AssetInFlowAsset extends React.Component {
               {...props}
               asset={asset}
               setReady={this.setReady}
-              className={classes.assetElement}
+              className={cx(
+                classes.assetElement,
+                ready && classes.assetElementReady
+              )}
             />
             <LoadingScrim className={classes.fill} ready={ready} />
           </div>
