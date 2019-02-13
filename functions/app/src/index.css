@@ -40,6 +40,11 @@ a {
   background-position: 0 calc(1em + 2px);
 }
 
+sub,
+sup {
+  line-height: 0;
+}
+
 @keyframes loading {
   0% {
     background-position: 0;

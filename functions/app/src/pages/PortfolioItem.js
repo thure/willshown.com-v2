@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import get from 'lodash/get'
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown/with-html'
 
 import Page from '../components/Page'
 import AssetInFlow from '../components/AssetInFlow'
@@ -162,8 +162,8 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                 paragraph
               >
                 <ReactMarkdown
-                  skipHtml
                   source={preventOrphans(particle.text)}
+                  escapeHtml={false}
                 />
               </Typography>
             )
@@ -176,8 +176,8 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                   component="blockquote"
                 >
                   <ReactMarkdown
-                    skipHtml
                     source={preventOrphans(particle.text)}
+                    escapeHtml={false}
                   />
                 </Typography>
                 <Typography
