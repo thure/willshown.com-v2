@@ -1,8 +1,11 @@
 import React from 'react'
 import Headroom from 'react-headroom'
 import { Link } from 'react-router-dom'
+
+import Tooltip from '@material-ui/core/Tooltip'
+
 import injectSheet from 'react-jss'
-import { colors, shadows, icons, borderRadii } from '../style'
+import { colors, shadows, icons, borderRadii, fonts, typeScale } from '../style'
 import cx from 'classnames'
 
 const styles = {
@@ -56,10 +59,12 @@ const styles = {
     height: '3rem',
     color: 'white',
     transition: 'color 120ms linear',
-    overflow: 'hidden',
     background: 'none',
-    '&:hover': {
+    '&:hover,&:focus': {
       color: colors.red,
+    },
+    '&:focus': {
+      outline: 'none',
     },
   },
   topNavHomeLink: {
@@ -85,19 +90,33 @@ const styles = {
     margin: '0 auto',
     transform: 'translate(1px, -1px)',
   },
+  tooltip: {
+    margin: '.5rem 0',
+    background: colors.dark,
+    boxShadow: shadows.A,
+    ...fonts.raleway.medium,
+    ...typeScale(-2),
+    letterSpacing: '.02em',
+  },
 }
 
-const TopNavLink = ({ children, to, classes }) => (
-  <Link
-    to={to}
-    className={cx(
-      'topNavLink',
-      classes.topNavLink,
-      to === '/' && classes.topNavHomeLink
-    )}
+const TopNavLink = ({ children, to, tooltip, classes }) => (
+  <Tooltip
+    position="bottom"
+    title={tooltip}
+    classes={{ tooltip: classes.tooltip }}
   >
-    {children}
-  </Link>
+    <Link
+      to={to}
+      className={cx(
+        'topNavLink',
+        classes.topNavLink,
+        to === '/' && classes.topNavHomeLink
+      )}
+    >
+      {children}
+    </Link>
+  </Tooltip>
 )
 
 const TopNav = ({ isAuthenticated, pathName, classes }) => (
@@ -123,13 +142,13 @@ const TopNav = ({ isAuthenticated, pathName, classes }) => (
               pathName.startsWith('/cv') && classes.cvActive
             )}
           />
-          <TopNavLink to="/" classes={classes}>
+          <TopNavLink to="/" classes={classes} tooltip="Intro">
             <icons.MarkIcon className={classes.topNavHomeIcon} />
           </TopNavLink>
-          <TopNavLink to="/portfolio" classes={classes}>
+          <TopNavLink to="/portfolio" classes={classes} tooltip="Portfolio">
             <icons.PackageIcon className={classes.topNavLinkIcon} />
           </TopNavLink>
-          <TopNavLink to="/cv" classes={classes}>
+          <TopNavLink to="/cv" classes={classes} tooltip="CV/Résumé">
             <icons.LayersIcon className={classes.topNavLinkIcon} />
           </TopNavLink>
         </div>
