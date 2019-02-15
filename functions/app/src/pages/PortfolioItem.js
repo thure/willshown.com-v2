@@ -116,6 +116,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                     classes.heroAsset,
                     classes[`assetLayout${particle.layout}`]
                   )}
+                  layout={particle.layout}
                   asset={portfolio.assets[particle.asset]}
                   assets={portfolio.assets}
                 />

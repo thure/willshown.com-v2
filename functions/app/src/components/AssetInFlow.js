@@ -145,11 +145,21 @@ class AssetInFlowAsset extends React.Component {
   }
 
   render() {
-    const { className, classes, asset, forceFullWidth, ...props } = this.props
+    const {
+      className,
+      classes,
+      asset,
+      forceFullWidth,
+      layout,
+      ...props
+    } = this.props
     const { ready } = this.state
 
     const aspect = asset.dims[0] / asset.dims[1]
-    const width = forceFullWidth || aspect > 1.1 ? 100 : 80 * aspect
+    const width =
+      layout === 'TextWidth' || forceFullWidth || aspect > 1.1
+        ? 100
+        : 80 * aspect
 
     return (
       <div
