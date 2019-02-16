@@ -7,7 +7,7 @@ import Page from '../components/Page'
 import AssetInFlow from '../components/AssetInFlow'
 import { icons, preventOrphans } from '../style'
 
-import { cv, assets } from '../config/cv.json'
+import { cv, assets, footnotes } from '../config/cv.json'
 
 import { withStyles } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
@@ -309,6 +309,16 @@ const CV = ({ classes }) => (
             event={event}
           />
         ))}
+        <CardContent className={classes.timelineHeader}>
+          <Typography variant="h4" paragraph>
+            Footnotes
+          </Typography>
+          {footnotes.text.map(textParticle => (
+            <Typography variant="body2" paragraph>
+              <ReactMarkdown source={textParticle} />
+            </Typography>
+          ))}
+        </CardContent>
       </section>
     </main>
   </Page>
