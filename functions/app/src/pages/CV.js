@@ -1,11 +1,12 @@
 import React from 'react'
 import moment from 'moment'
+import cx from 'classnames'
 import ReactMarkdown from 'react-markdown'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 import Page from '../components/Page'
 import AssetInFlow from '../components/AssetInFlow'
-import { icons, preventOrphans } from '../style'
+import { typeScale, icons, preventOrphans } from '../style'
 
 import { cv, assets, footnotes } from '../config/cv.json'
 
@@ -15,7 +16,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
-const profileWidth = 13.2
+const profileWidth = 13
 const timelineWidth = 24
 const gap = 2
 const sideBySide = profileWidth + timelineWidth + gap
@@ -57,6 +58,9 @@ const styles = () => ({
     alignItems: 'center',
     background: 'none',
   },
+  profileDatumFlat: {
+    background: 'none',
+  },
   profileButtonRow: {
     display: 'flex',
     flexFlow: 'row nowrap',
@@ -70,8 +74,8 @@ const styles = () => ({
     flex: '1 1 auto',
     textAlign: 'right',
     textTransform: 'none',
-    letterSpacing: '.02em',
     fontWeight: 400,
+    ...typeScale(-1),
   },
   profileDatumCommand: {
     margin: '0 0 0 0',
@@ -79,6 +83,8 @@ const styles = () => ({
     minWidth: '1.4rem',
     width: 'auto',
     height: 'auto',
+    background: 'none',
+    clipPath: 'inset(-5px -5px -5px -1px)',
   },
   pic: {
     borderRadius: 9999,
@@ -117,18 +123,23 @@ const styles = () => ({
   timelineInstitution: {
     marginBottom: '1.2rem',
   },
+  bifurcatedLeft: {
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+  },
+  bifurcatedRight: {
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderLeftWidth: 0,
+  },
 })
-
-const AnchorTo = fullRoute => props => (
-  <a {...props} href={fullRoute}>
-    {props.children}
-  </a>
-)
 
 const ProfileLink = ({
   href,
   Icon,
+  socialType,
   social,
+  flat,
   classes,
   copy,
   downloadDisposition,
@@ -136,17 +147,30 @@ const ProfileLink = ({
   <div className={classes.profileButtonRow}>
     <Button
       size="small"
-      component={AnchorTo(href)}
-      className={classes.profileDatum}
+      variant="text"
+      elevation={1}
+      href={href}
+      className={cx(
+        classes.profileDatum,
+        flat && classes.profileDatumFlat,
+        !downloadDisposition && copy && classes.bifurcatedLeft
+      )}
     >
-      <Icon className={classes.profileIcon} />
-      <code className={classes.profileDatumCopy}>{social}</code>
+      {Icon ? (
+        <Icon className={classes.profileIcon} />
+      ) : (
+        <Typography variant="button">{socialType}</Typography>
+      )}
+      <Typography variant="button" className={classes.profileDatumCopy}>
+        {social}
+      </Typography>
     </Button>
     {!downloadDisposition && copy && (
       <CopyToClipboard text={copy}>
         <Button
           size="small"
-          className={classes.profileDatumCommand}
+          variant="text"
+          className={cx(classes.profileDatumCommand, classes.bifurcatedRight)}
           title={`Click to copy “${copy || href}”`}
         >
           <icons.CopyIcon className={classes.copyIcon} />
@@ -182,7 +206,7 @@ const TimelineEvent = ({ classes, event }) => (
           )
 
         return (
-          <React.Fragment>
+          <React.Fragment key={`timelineEvent__${role.timeRange[0]}`}>
             <Typography variant="h6" className={classes.timelineCopy}>
               {role.title}
               {role.team ? `: ${role.team}` : ''}
@@ -229,54 +253,14 @@ const CV = ({ classes }) => (
           {cv.name}
         </Typography>
         <CardContent className={classes.profileLinks}>
-          {Object.keys(cv.social).map(socialType => {
-            const social = cv.social[socialType]
-            switch (socialType) {
-              case 'email':
-                return (
-                  <ProfileLink
-                    Icon={icons.MailIcon}
-                    href={`mailto:${social}`}
-                    social={social}
-                    copy={social}
-                    key={`socialDatum_${socialType}`}
-                    classes={classes}
-                  />
-                )
-              case 'github':
-                return (
-                  <ProfileLink
-                    Icon={icons.GithubIcon}
-                    href={`https://github.com/${social}/`}
-                    social={social}
-                    key={`socialDatum_${socialType}`}
-                    classes={classes}
-                  />
-                )
-              case 'soundcloud':
-                return (
-                  <ProfileLink
-                    Icon={icons.DiscIcon}
-                    href={`https://soundcloud.com/${social}/`}
-                    social={social}
-                    key={`socialDatum_${socialType}`}
-                    classes={classes}
-                  />
-                )
-              case 'instagram':
-                return (
-                  <ProfileLink
-                    Icon={icons.InstagramIcon}
-                    href={`https://www.instagram.com/${social}/`}
-                    social={`@${social}`}
-                    key={`socialDatum_${socialType}`}
-                    classes={classes}
-                  />
-                )
-              default:
-                return null
-            }
-          })}
+          <ProfileLink
+            Icon={icons.MailIcon}
+            href={`mailto:${cv.email}`}
+            social={cv.email}
+            copy={cv.email}
+            key={`socialDatum_email`}
+            classes={classes}
+          />
           {cv.resumeAsset && (
             <ProfileLink
               Icon={icons.DownloadIcon}
@@ -286,6 +270,47 @@ const CV = ({ classes }) => (
               downloadDisposition
             />
           )}
+
+          {Object.keys(cv.social).map(socialType => {
+            const social = cv.social[socialType]
+            switch (socialType) {
+              case 'Github':
+                return (
+                  <ProfileLink
+                    href={`https://github.com/${social}/`}
+                    social={social}
+                    socialType={socialType}
+                    key={`socialDatum_${socialType}`}
+                    classes={classes}
+                    flat
+                  />
+                )
+              case 'Soundcloud':
+                return (
+                  <ProfileLink
+                    href={`https://soundcloud.com/${social}/`}
+                    social={social}
+                    socialType={socialType}
+                    key={`socialDatum_${socialType}`}
+                    classes={classes}
+                    flat
+                  />
+                )
+              case 'Instagram':
+                return (
+                  <ProfileLink
+                    href={`https://www.instagram.com/${social}/`}
+                    social={`@${social}`}
+                    socialType={socialType}
+                    key={`socialDatum_${socialType}`}
+                    classes={classes}
+                    flat
+                  />
+                )
+              default:
+                return null
+            }
+          })}
         </CardContent>
       </section>
       <section className={classes.timeline}>
@@ -313,8 +338,13 @@ const CV = ({ classes }) => (
           <Typography variant="h4" paragraph>
             Footnotes
           </Typography>
-          {footnotes.text.map(textParticle => (
-            <Typography variant="body2" paragraph>
+          {footnotes.text.map((textParticle, tpIndex) => (
+            <Typography
+              variant="body2"
+              component="div"
+              paragraph
+              key={`footnote__${tpIndex}`}
+            >
               <ReactMarkdown source={textParticle} />
             </Typography>
           ))}
