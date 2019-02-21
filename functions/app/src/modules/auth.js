@@ -61,7 +61,6 @@ export const setCurrentUser = user => dispatch =>
 
 export const setPrivatePortfolio = privatePortfolio => dispatch =>
   new Promise(resolve => {
-    console.log('[setPrivatePortfolio]', privatePortfolio)
     dispatch({
       type: SET_PRIVATE_PORTFOLIO,
       privatePortfolio,
@@ -90,6 +89,7 @@ export const setCurrentUserFromCookie = user => dispatch =>
 export const establishCurrentUser = (isAuthenticated, user) => dispatch => {
   if (isAuthenticated && user) {
     console.log('[establishCurrentUser]', 'logged in')
+    if (!Cookies.get(COOKIE_KEY)) Cookies.set(COOKIE_KEY, user, cookiesConfig)
     return dispatch(setCurrentUser(user))
   } else {
     return dispatch(logoutUser())
