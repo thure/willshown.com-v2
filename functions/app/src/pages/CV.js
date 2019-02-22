@@ -6,6 +6,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 import Page from '../components/Page'
 import AssetInFlow from '../components/AssetInFlow'
+import SkillCloud from '../components/SkillCloud'
 import { typeScale, icons, preventOrphans } from '../style'
 
 import { cv, assets, footnotes } from '../config/cv.json'
@@ -314,6 +315,17 @@ const CV = ({ classes }) => (
         </CardContent>
       </section>
       <section className={classes.timeline}>
+        <CardContent className={classes.timelineHeader}>
+          <Typography variant="h3" paragraph>
+            Skills &amp; tools
+          </Typography>
+          <Typography variant="caption">
+            Since I’ve had a fairly interdisciplinary career, years of
+            experience shown is roughly prorated by how frequently I practiced
+            the skill/tool throughout my{'\xa0'}career.
+          </Typography>
+        </CardContent>
+        <SkillCloud skills={cv.skills} />
         <CardContent className={classes.timelineHeader}>
           <Typography variant="h3">Work</Typography>
         </CardContent>
