@@ -1,6 +1,7 @@
 // Express requirements
 import path from 'path'
 import fs from 'fs'
+import url from 'url'
 
 // React requirements
 import React from 'react'
@@ -151,7 +152,7 @@ export default (req, res) => {
             const ssrStyles = `<style type="text/css" id="server-side-styles">${sheets.toString()}${
               // Set #root's opacity to zero if we're on the index;
               // this gets removed when animation would start.
-              /^\/?$/.test(req.url) ? '#root{opacity:0;}' : ''
+              url.parse(req.url).pathname === '/' ? '#root{opacity:0;}' : ''
             }</style>`
 
             // Let's format those assets into pretty <script> tags
