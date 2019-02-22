@@ -17,6 +17,6 @@
     "rules": "storage.rules"
   },
   "functions": {
-    "predeploy": []
+    "predeploy": ["cd functions/app && yarn build"]
   }
 }
