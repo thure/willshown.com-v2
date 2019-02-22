@@ -321,8 +321,9 @@ const CV = ({ classes }) => (
           </Typography>
           <Typography variant="caption">
             Since I’ve had a fairly interdisciplinary career, years of
-            experience shown is roughly prorated by how frequently I practiced
-            the skill/tool throughout my{'\xa0'}career.
+            experience in a skill/tool (displayed to the right of the label) is
+            roughly prorated by how frequently I practiced the skill/tool
+            throughout my{'\xa0'}life.
           </Typography>
         </CardContent>
         <SkillCloud skills={cv.skills} />

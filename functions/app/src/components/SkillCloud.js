@@ -12,18 +12,18 @@ const styles = {
     display: 'flex',
     flexFlow: 'row wrap',
     marginRight: '-.6rem',
+    marginBottom: '1rem',
   },
   skill: {
     display: 'flex',
     flex: '0 1 auto',
     flexFlow: 'row nowrap',
-    alignItems: 'stretch',
     background: 'white',
     margin: '0 .6rem .6rem 0',
     overflow: 'hidden',
   },
   skillTitle: {
-    padding: '.3rem .6rem',
+    padding: '.3rem .5rem .3rem .6rem',
     textTransform: 'none',
     letterSpacing: '.01em',
     ...typeScale(-1),
@@ -41,9 +41,10 @@ const styles = {
     position: 'relative',
     background: colors.darkA(0.9),
     color: 'white',
-    padding: '.3rem .4rem',
+    padding: '.3rem .5rem .3rem .5rem',
     textTransform: 'none',
     ...typeScale(-1),
+    fontWeight: 900,
   },
   skillYears: {
     position: 'relative',
@@ -53,15 +54,15 @@ const styles = {
 
 const Skill = ({ skill, classes }) => (
   <Paper elevation={1} className={classes.skill}>
-    <Typography variant="button" className={classes.skillTitle}>
+    <Typography variant="button" className={classes.skillTitle} component="div">
       {skill.title}
     </Typography>
-    <Typography variant="button" className={classes.years}>
+    <Typography variant="button" className={classes.years} component="div">
       <i
         className={classes.skillShade}
         style={{
           opacity:
-            (Math.log(parseInt(skill.years) / 12) / 3 + 1).toFixed(3) || 0,
+            (Math.log(parseInt(skill.years) / 8) / 2.5 + 0.8).toFixed(3) || 0,
         }}
       />
       <span className={classes.skillYears}>{skill.years}</span>
