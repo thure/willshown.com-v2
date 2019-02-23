@@ -102,7 +102,7 @@ const styles = {
     transition: 'opacity .2s linear 0s',
   },
   tooltipDisabled: {
-    opacity: 0,
+    opacity: [[0], '!important'],
   },
 }
 

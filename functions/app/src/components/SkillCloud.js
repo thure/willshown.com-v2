@@ -81,7 +81,7 @@ const styles = theme => ({
     display: 'block',
     height: '1.2rem',
     width: '1.2rem',
-    strokeWidth: ['1.64', '!important'],
+    strokeWidth: [['1.64'], '!important'],
     marginRight: '.4rem',
   },
 })
