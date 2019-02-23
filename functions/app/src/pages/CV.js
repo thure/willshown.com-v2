@@ -58,6 +58,7 @@ const styles = () => ({
     flexFlow: 'row nowrap',
     alignItems: 'center',
     background: 'none',
+    textShadow: 'none',
   },
   profileDatumFlat: {
     background: 'none',
@@ -85,6 +86,7 @@ const styles = () => ({
     width: 'auto',
     height: 'auto',
     background: 'none',
+    textShadow: 'none',
     clipPath: 'inset(-5px -5px -5px -1px)',
   },
   pic: {
@@ -107,6 +109,7 @@ const styles = () => ({
   },
   timelineItem: {
     marginBottom: '2rem',
+    '--text-background': 'white',
   },
   timelineAbstractLast: {
     '& > p:last-of-type': {
@@ -138,8 +141,8 @@ const styles = () => ({
 const ProfileLink = ({
   href,
   Icon,
-  socialType,
-  social,
+  service,
+  title,
   flat,
   classes,
   copy,
@@ -160,10 +163,10 @@ const ProfileLink = ({
       {Icon ? (
         <Icon className={classes.profileIcon} />
       ) : (
-        <Typography variant="button">{socialType}</Typography>
+        <Typography variant="button">{service}</Typography>
       )}
       <Typography variant="button" className={classes.profileDatumCopy}>
-        {social}
+        {title}
       </Typography>
     </Button>
     {!downloadDisposition && copy && (
@@ -257,61 +260,30 @@ const CV = ({ classes }) => (
           <ProfileLink
             Icon={icons.MailIcon}
             href={`mailto:${cv.email}`}
-            social={cv.email}
+            title={cv.email}
             copy={cv.email}
-            key={`socialDatum_email`}
             classes={classes}
           />
           {cv.resumeAsset && (
             <ProfileLink
               Icon={icons.DownloadIcon}
               href={assets[cv.resumeAsset].sources.pdf.src}
-              social="résumé as PDF"
+              title="résumé as PDF"
               classes={classes}
               downloadDisposition
             />
           )}
 
-          {Object.keys(cv.social).map(socialType => {
-            const social = cv.social[socialType]
-            switch (socialType) {
-              case 'Github':
-                return (
-                  <ProfileLink
-                    href={`https://github.com/${social}/`}
-                    social={social}
-                    socialType={socialType}
-                    key={`socialDatum_${socialType}`}
-                    classes={classes}
-                    flat
-                  />
-                )
-              case 'Soundcloud':
-                return (
-                  <ProfileLink
-                    href={`https://soundcloud.com/${social}/`}
-                    social={social}
-                    socialType={socialType}
-                    key={`socialDatum_${socialType}`}
-                    classes={classes}
-                    flat
-                  />
-                )
-              case 'Instagram':
-                return (
-                  <ProfileLink
-                    href={`https://www.instagram.com/${social}/`}
-                    social={`@${social}`}
-                    socialType={socialType}
-                    key={`socialDatum_${socialType}`}
-                    classes={classes}
-                    flat
-                  />
-                )
-              default:
-                return null
-            }
-          })}
+          {cv.socialLinks.map(({ href, title, service }) => (
+            <ProfileLink
+              href={href}
+              service={service}
+              title={title}
+              key={`socialDatum_${service}`}
+              classes={classes}
+              flat
+            />
+          ))}
         </CardContent>
       </section>
       <section className={classes.timeline}>

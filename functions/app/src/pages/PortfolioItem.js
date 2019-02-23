@@ -63,6 +63,7 @@ const styles = ({ breakpoints }) => ({
   ctaButton: {
     color: colors.dark,
     background: 'white',
+    textShadow: 'none',
     display: 'flex',
     flexFlow: 'row nowrap',
     alignItems: 'center',
@@ -74,9 +75,9 @@ const styles = ({ breakpoints }) => ({
   break: {
     border: 'none',
     borderBottom: `1px solid ${colors.darkA(0.2)}`,
-    margin: '4rem auto',
+    margin: '2rem auto',
     [breakpoints.up('sm')]: {
-      margin: '4rem auto',
+      margin: '3rem auto',
     },
     padding: '0',
     width: '50%',

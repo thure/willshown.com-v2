@@ -1,6 +1,7 @@
 html {
   font-size: 16px;
   background-color: rgb(239, 240, 241);
+  --text-background: rgb(239, 240, 241);
 }
 
 body {
@@ -34,10 +35,22 @@ a {
     currentColor 100%,
     currentColor 0
   );
-  background-image: url('data:image/svg+xml;utf8,<svg preserveAspectRatio="none" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="1" y2="1" stroke="currentColor" /></svg>');
   background-size: 1px 1px;
   background-position: 0 1.1em;
   background-position: 0 calc(1em + 2px);
+  /* If vars aren't supported, don't bother trying to occlude. */
+  text-shadow: 0 0 var(--text-background), 1px 0 var(--text-background),
+    2px 0 var(--text-background), 2.5px 0 var(--text-background),
+    -1px 0 var(--text-background), -2px 0 var(--text-background),
+    -2.5px 0 var(--text-background);
+}
+
+/* The code font needs a narrower shadow that extends further down. */
+code a,
+a code {
+  text-shadow: 0 1px var(--text-background), 1px 1px var(--text-background),
+    1.5px 1px var(--text-background), -1px 1px var(--text-background),
+    -1.5px 1px var(--text-background);
 }
 
 sub,
@@ -53,6 +66,8 @@ sup {
     background-position: 1400px;
   }
 }
+
+/* Self-hosted Raleway v4020 */
 
 @font-face {
   font-family: 'Raleway';
