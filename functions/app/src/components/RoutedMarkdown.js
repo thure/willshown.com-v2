@@ -16,7 +16,7 @@ export default ({ source, withHTML }) => {
       source={preventOrphans(source)}
       escapeHtml={!withHTML}
       renderers={{
-        a: renderLink,
+        link: renderLink,
       }}
     />
   )
