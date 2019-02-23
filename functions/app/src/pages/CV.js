@@ -1,12 +1,12 @@
 import React from 'react'
 import moment from 'moment'
 import cx from 'classnames'
-import ReactMarkdown from 'react-markdown'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 import Page from '../components/Page'
 import AssetInFlow from '../components/AssetInFlow'
 import SkillCloud from '../components/SkillCloud'
+import RoutedMarkdown from '../components/RoutedMarkdown'
 import { typeScale, icons, preventOrphans } from '../style'
 
 import { cv, assets, footnotes } from '../config/cv.json'
@@ -233,7 +233,7 @@ const TimelineEvent = ({ classes, event }) => (
                   : classes.timelineAbstract
               }
             >
-              <ReactMarkdown source={preventOrphans(role.abstract)} />
+              <RoutedMarkdown source={role.abstract} />
             </Typography>
           </React.Fragment>
         )
@@ -330,7 +330,7 @@ const CV = ({ classes }) => (
               paragraph
               key={`footnote__${tpIndex}`}
             >
-              <ReactMarkdown source={textParticle} />
+              <RoutedMarkdown source={textParticle} />
             </Typography>
           ))}
         </CardContent>

@@ -3,11 +3,11 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import get from 'lodash/get'
-import ReactMarkdown from 'react-markdown/with-html'
 
 import Page from '../components/Page'
 import AssetInFlow from '../components/AssetInFlow'
 import LinkTo from '../components/LinkTo'
+import RoutedMarkdown from '../components/RoutedMarkdown'
 import NotFound from './NotFound'
 
 import publicPortfolio from '../config/portfolio.public'
@@ -163,10 +163,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                 component="div"
                 paragraph
               >
-                <ReactMarkdown
-                  source={preventOrphans(particle.text)}
-                  escapeHtml={false}
-                />
+                <RoutedMarkdown withHTML source={particle.text} />
               </Typography>
             )
           case 'blockquote':
@@ -177,10 +174,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                   className={cx(classes.text, classes.blockquote)}
                   component="blockquote"
                 >
-                  <ReactMarkdown
-                    source={preventOrphans(particle.text)}
-                    escapeHtml={false}
-                  />
+                  <RoutedMarkdown withHTML source={particle.text} />
                 </Typography>
                 <Typography
                   variant="body2"
