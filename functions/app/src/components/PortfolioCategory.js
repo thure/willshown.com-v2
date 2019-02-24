@@ -24,6 +24,7 @@ const styles = {
   },
   actionArea: {
     minHeight: '100%',
+    textShadow: 'none',
   },
   content: {
     padding: '1.2rem 1.6rem 1.4rem 1.6rem',

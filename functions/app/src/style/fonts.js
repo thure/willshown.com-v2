@@ -23,11 +23,6 @@ export default {
     },
   },
   raleway: {
-    light: {
-      fontFamily: sansFamily,
-      fontWeight: 300,
-      fontStyle: 'normal',
-    },
     medium: {
       fontFamily: sansFamily,
       fontWeight: 500,

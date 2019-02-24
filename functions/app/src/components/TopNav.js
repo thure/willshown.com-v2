@@ -42,6 +42,7 @@ const styles = {
     height: '.25rem',
     background: colors.red,
     borderRadius: [borderRadii.A, borderRadii.A, 0, 0].join(' '),
+    transition: 'left .3s cubic-bezier(1, 0, 0, 1) 0s',
   },
   portfolioActive: {
     left: `${3 * 1 + (3 - 1.2) / 2}rem`,
@@ -97,14 +98,21 @@ const styles = {
     ...fonts.raleway.medium,
     ...typeScale(-2),
     letterSpacing: '.02em',
+    opacity: 1,
+    transition: 'opacity .2s linear 0s',
+  },
+  tooltipDisabled: {
+    opacity: [[0], '!important'],
   },
 }
 
-const TopNavLink = ({ children, to, tooltip, classes }) => (
+const TopNavLink = ({ children, to, tooltip, classes, disableTooltip }) => (
   <Tooltip
     position="bottom"
     title={tooltip}
-    classes={{ tooltip: classes.tooltip }}
+    classes={{
+      tooltip: cx(classes.tooltip, disableTooltip && classes.tooltipDisabled),
+    }}
   >
     <Link
       to={to}
@@ -119,42 +127,65 @@ const TopNavLink = ({ children, to, tooltip, classes }) => (
   </Tooltip>
 )
 
-const TopNav = ({ isAuthenticated, pathName, classes }) => (
-  <Headroom
-    style={{
-      zIndex: 99,
-      ...(pathName.startsWith('/cv') ? { position: 'fixed' } : {}),
-    }}
-    disable={pathName.startsWith('/cv')}
-  >
-    <div
-      className={cx(
-        classes.outerContainer,
-        pathName === '/' && classes.hiddenOuterContainer
-      )}
+const TopNav = ({ isAuthenticated, pathName, classes }) => {
+  const inRoot = pathName === '/'
+  const inCV = pathName.startsWith('/cv')
+  const inPortfolio = pathName.startsWith('/portfolio')
+  const disableHeadroom = inCV
+  const disableCompletely = inRoot
+
+  return (
+    <Headroom
+      style={{
+        zIndex: 99,
+        ...(disableHeadroom ? { position: 'fixed' } : {}),
+      }}
+      disable={disableHeadroom}
     >
-      <nav className={classes.innerContainer}>
-        <div className={classes.links}>
-          <i
-            className={cx(
-              classes.pip,
-              pathName.startsWith('/portfolio') && classes.portfolioActive,
-              pathName.startsWith('/cv') && classes.cvActive
-            )}
-          />
-          <TopNavLink to="/" classes={classes} tooltip="Intro">
-            <icons.MarkIcon className={classes.topNavHomeIcon} />
-          </TopNavLink>
-          <TopNavLink to="/portfolio" classes={classes} tooltip="Portfolio">
-            <icons.PackageIcon className={classes.topNavLinkIcon} />
-          </TopNavLink>
-          <TopNavLink to="/cv" classes={classes} tooltip="CV/Résumé">
-            <icons.LayersIcon className={classes.topNavLinkIcon} />
-          </TopNavLink>
-        </div>
-      </nav>
-    </div>
-  </Headroom>
-)
+      <div
+        className={cx(
+          classes.outerContainer,
+          disableCompletely && classes.hiddenOuterContainer
+        )}
+      >
+        <nav className={classes.innerContainer}>
+          <div className={classes.links}>
+            <i
+              className={cx(
+                classes.pip,
+                inPortfolio && classes.portfolioActive,
+                inCV && classes.cvActive
+              )}
+            />
+            <TopNavLink
+              to="/"
+              classes={classes}
+              tooltip="Intro"
+              disableTooltip={disableCompletely}
+            >
+              <icons.MarkIcon className={classes.topNavHomeIcon} />
+            </TopNavLink>
+            <TopNavLink
+              to="/portfolio"
+              classes={classes}
+              tooltip="Portfolio"
+              disableTooltip={disableCompletely}
+            >
+              <icons.PackageIcon className={classes.topNavLinkIcon} />
+            </TopNavLink>
+            <TopNavLink
+              to="/cv"
+              classes={classes}
+              tooltip="CV/Résumé"
+              disableTooltip={disableCompletely}
+            >
+              <icons.LayersIcon className={classes.topNavLinkIcon} />
+            </TopNavLink>
+          </div>
+        </nav>
+      </div>
+    </Headroom>
+  )
+}
 
 export default injectSheet(styles)(TopNav)

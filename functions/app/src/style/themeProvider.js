@@ -35,7 +35,6 @@ export const theme = createMuiTheme({
       // global values
       useNextVariants: true,
       fontSize: 16,
-      fontWeightLight: fonts.raleway.light.fontWeight,
       fontWeightRegular: fonts.raleway.medium.fontWeight,
       fontWeightMedium: fonts.raleway.bold.fontWeight,
       // specific type styles

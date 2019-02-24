@@ -47,6 +47,7 @@ const styles = {
     //
     color: colors.red,
     background: 'white',
+    textShadow: 'none',
     cursor: 'default',
     pointerEvents: 'none',
     //

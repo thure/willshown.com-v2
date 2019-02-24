@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
 
 export const setCurrentUser = user => dispatch =>
   new Promise(resolve => {
-    console.log('[setCurrentUser]', user)
+    // console.log('[setCurrentUser]', user)
 
     dispatch({
       type: SET_CURRENT_USER,
@@ -61,7 +61,6 @@ export const setCurrentUser = user => dispatch =>
 
 export const setPrivatePortfolio = privatePortfolio => dispatch =>
   new Promise(resolve => {
-    console.log('[setPrivatePortfolio]', privatePortfolio)
     dispatch({
       type: SET_PRIVATE_PORTFOLIO,
       privatePortfolio,
@@ -72,7 +71,7 @@ export const setPrivatePortfolio = privatePortfolio => dispatch =>
 
 export const setCurrentUserFromCookie = user => dispatch =>
   new Promise(resolve => {
-    console.log('[setCurrentUserFromCookie]', user)
+    // console.log('[setCurrentUserFromCookie]', user)
 
     dispatch({
       type: SET_CURRENT_USER,
@@ -89,7 +88,8 @@ export const setCurrentUserFromCookie = user => dispatch =>
 
 export const establishCurrentUser = (isAuthenticated, user) => dispatch => {
   if (isAuthenticated && user) {
-    console.log('[establishCurrentUser]', 'logged in')
+    // console.log('[establishCurrentUser]', 'logged in')
+    if (!Cookies.get(COOKIE_KEY)) Cookies.set(COOKIE_KEY, user, cookiesConfig)
     return dispatch(setCurrentUser(user))
   } else {
     return dispatch(logoutUser())
@@ -106,8 +106,8 @@ export const loginUser = accessCode => dispatch =>
   })
     .then(res => res.json())
     .then(({ user, privatePortfolio }) => {
+      // console.log('[loginUser]', 'success', user)
       Cookies.set(COOKIE_KEY, user, cookiesConfig)
-      console.log('[loginUser]', 'success', user)
       dispatch(setCurrentUser(user))
       dispatch(setPrivatePortfolio(privatePortfolio))
       return user
@@ -115,7 +115,7 @@ export const loginUser = accessCode => dispatch =>
 
 export const logoutUser = () => dispatch =>
   new Promise(resolve => {
-    console.log('[logoutUser]')
+    // console.log('[logoutUser]')
 
     dispatch({
       type: AUTHENTICATE,

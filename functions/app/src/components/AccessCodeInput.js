@@ -55,10 +55,15 @@ class AccessCodeInput extends React.Component {
     }
     this.handleInputChange = this._handleInputChange.bind(this)
     this.handleSubmit = this._handleSubmit.bind(this)
+    this.handleKeyPress = this._handleKeyPress.bind(this)
   }
 
   _handleInputChange(event) {
     this.setState({ inputValue: event.target.value })
+  }
+
+  _handleKeyPress({ key }) {
+    if (key === 'Enter') this.handleSubmit()
   }
 
   _handleSubmit() {
@@ -70,7 +75,7 @@ class AccessCodeInput extends React.Component {
 
     if (loggedIn) {
       logoutUser().then(() => {
-        console.log('[AccessCodeInput]', 'logged out')
+        // console.log('[AccessCodeInput]', 'logged out')
         this.setState({
           waiting: false,
           encounteredError: false,
@@ -80,7 +85,7 @@ class AccessCodeInput extends React.Component {
     } else {
       loginUser(inputValue)
         .then(user => {
-          console.log('[AccessCodeInput]', 'auth success')
+          // console.log('[AccessCodeInput]', 'auth success')
           this.setState({
             waiting: false,
             encounteredError: false,
@@ -88,7 +93,7 @@ class AccessCodeInput extends React.Component {
           })
         })
         .catch(err => {
-          console.log('[AccessCodeInput]', 'auth failure')
+          // console.log('[AccessCodeInput]', 'auth failure')
           this.setState({
             waiting: false,
             encounteredError: true,
@@ -122,6 +127,7 @@ class AccessCodeInput extends React.Component {
             className={classes.accessCodeInput}
             placeholder={encounteredError ? 'Wanna try again?' : 'Access code'}
             onChange={loggedIn ? () => {} : this.handleInputChange}
+            onKeyPress={waiting || loggedIn ? () => {} : this.handleKeyPress}
             value={inputValue}
             disabled={waiting || loggedIn}
             spellCheck={false}

@@ -17,7 +17,7 @@ const styles = {
   assetContainer: {
     margin: '0 auto',
     '@media (max-aspect-ratio: 1/1)': {
-      width: ['100%', '!important'],
+      width: [['100%'], '!important'],
     },
   },
   assetStage: {

@@ -3,11 +3,11 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import get from 'lodash/get'
-import ReactMarkdown from 'react-markdown/with-html'
 
 import Page from '../components/Page'
 import AssetInFlow from '../components/AssetInFlow'
 import LinkTo from '../components/LinkTo'
+import RoutedMarkdown from '../components/RoutedMarkdown'
 import NotFound from './NotFound'
 
 import publicPortfolio from '../config/portfolio.public'
@@ -63,6 +63,7 @@ const styles = ({ breakpoints }) => ({
   ctaButton: {
     color: colors.dark,
     background: 'white',
+    textShadow: 'none',
     display: 'flex',
     flexFlow: 'row nowrap',
     alignItems: 'center',
@@ -74,9 +75,9 @@ const styles = ({ breakpoints }) => ({
   break: {
     border: 'none',
     borderBottom: `1px solid ${colors.darkA(0.2)}`,
-    margin: '4rem auto',
+    margin: '2rem auto',
     [breakpoints.up('sm')]: {
-      margin: '4rem auto',
+      margin: '3rem auto',
     },
     padding: '0',
     width: '50%',
@@ -162,10 +163,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                 component="div"
                 paragraph
               >
-                <ReactMarkdown
-                  source={preventOrphans(particle.text)}
-                  escapeHtml={false}
-                />
+                <RoutedMarkdown withHTML source={particle.text} />
               </Typography>
             )
           case 'blockquote':
@@ -176,10 +174,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                   className={cx(classes.text, classes.blockquote)}
                   component="blockquote"
                 >
-                  <ReactMarkdown
-                    source={preventOrphans(particle.text)}
-                    escapeHtml={false}
-                  />
+                  <RoutedMarkdown withHTML source={particle.text} />
                 </Typography>
                 <Typography
                   variant="body2"
