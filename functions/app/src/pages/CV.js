@@ -288,15 +288,7 @@ const CV = ({ classes }) => (
       </section>
       <section className={classes.timeline}>
         <CardContent className={classes.timelineHeader}>
-          <Typography variant="h3" paragraph>
-            Skills &amp; tools
-          </Typography>
-          <Typography variant="caption">
-            Since I’ve had a fairly interdisciplinary career, years of
-            experience in a skill/tool (displayed to the right of the label) is
-            roughly prorated by how frequently I practiced the skill/tool
-            throughout my{'\xa0'}life.
-          </Typography>
+          <Typography variant="h3">Skills &amp; tools</Typography>
         </CardContent>
         <SkillCloud skills={cv.skills} />
         <CardContent className={classes.timelineHeader}>
