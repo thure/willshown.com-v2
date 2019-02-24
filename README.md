@@ -3,7 +3,7 @@ Themed for willshown.com
 
 This is an unejected `create-react-app` project built to be hosted on Firebase with server-side rendering (SSR) performed by Firebase Cloud Functions.
 
-The project is a monorepo with the `create-react-app` universal code and the server-only code as separate Yarn workspaces. So far deployment has worked fine this way, since Yarn hoists nearly all of the dependencies to `/functions`, however Babel sometimes has trouble finding its presets & plugins since `firebase deploy` runs from the root directory above `/funcitons` — to fix this, I’ve symlinked `functions/node_modules` to the root directory.
+The project is a monorepo with the `create-react-app` universal code and the server-only code as separate Yarn workspaces. So far deployment has worked fine this way, since Yarn hoists nearly all of the dependencies to `/functions`, however Babel sometimes has trouble finding its presets & plugins since `firebase deploy` runs from the root directory above `/functions` — to fix this, symlinking `/node_modules` to `/functions/node_modules` appears to satisfy all the things.
 
 ## Setup
 
