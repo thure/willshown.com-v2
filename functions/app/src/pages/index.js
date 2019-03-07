@@ -28,13 +28,15 @@ const Intro = Loadable({
 })
 
 const PortfolioItems = Loadable({
-  loader: () => import(/* webpackChunkName: "portfolio" */ './PortfolioItems'),
+  loader: () =>
+    import(/* webpackChunkName: "portfolioitems" */ './PortfolioItems'),
   loading: Loading,
   delay: 2e3,
 })
 
 const PortfolioItem = Loadable({
-  loader: () => import(/* webpackChunkName: "portfolio" */ './PortfolioItem'),
+  loader: () =>
+    import(/* webpackChunkName: "portfolioitem" */ './PortfolioItem'),
   loading: Loading,
   delay: 2e3,
 })
