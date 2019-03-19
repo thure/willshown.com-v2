@@ -16,6 +16,7 @@ const styles = {
     textDecoration: 'none',
     '&:hover $asset': {
       opacity: 0.9,
+      filter: 'grayscale(40%)',
     },
   },
   title: {
@@ -39,7 +40,7 @@ const styles = {
   asset: {
     objectFit: 'cover',
     opacity: 0,
-    transition: 'opacity .2s ease-out',
+    transition: 'opacity .2s ease-out, filter .2s linear',
     filter: 'grayscale(100%)',
   },
   assetReady: {
