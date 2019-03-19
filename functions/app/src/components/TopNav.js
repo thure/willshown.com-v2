@@ -129,7 +129,9 @@ const styles = ({ breakpoints }) => ({
     opacity: [[0], '!important'],
   },
   tooltipHiddenAfterMobile: {
-    opacity: [[0], '!important'],
+    [breakpoints.up('sm')]: {
+      opacity: [[0], '!important'],
+    },
   },
 })
 
