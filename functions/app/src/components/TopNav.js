@@ -1,14 +1,15 @@
 import React from 'react'
+import cx from 'classnames'
 import Headroom from 'react-headroom'
 import { Link } from 'react-router-dom'
 
 import Tooltip from '@material-ui/core/Tooltip'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core'
 
-import injectSheet from 'react-jss'
 import { colors, shadows, icons, borderRadii, fonts, typeScale } from '../style'
-import cx from 'classnames'
 
-const styles = {
+const styles = ({ breakpoints }) => ({
   outerContainer: {
     paddingBottom: '3px',
     transition: 'transform 120ms ease-in-out, opacity 0ms linear 0ms',
@@ -37,18 +38,24 @@ const styles = {
     display: 'block',
     position: 'absolute',
     bottom: 0,
-    left: `${3 * 0 + (3 - 1.2) / 2}rem`,
     width: '1.2rem',
     height: '.25rem',
     background: colors.red,
     borderRadius: [borderRadii.A, borderRadii.A, 0, 0].join(' '),
     transition: 'left .3s cubic-bezier(1, 0, 0, 1) 0s',
+    left: `${3 * 0 + (3 - 1.2) / 2}rem`,
   },
   portfolioActive: {
     left: `${3 * 1 + (3 - 1.2) / 2}rem`,
+    [breakpoints.up('sm')]: {
+      left: `${4.5 + (3 - 1.2) / 2}rem`,
+    },
   },
   cvActive: {
     left: `${3 * 2 + (3 - 1.2) / 2}rem`,
+    [breakpoints.up('sm')]: {
+      left: `${10.5 + (3 - 1.2) / 2}rem`,
+    },
   },
   topNavLink: {
     display: 'flex',
@@ -67,6 +74,9 @@ const styles = {
     '&:focus': {
       outline: 'none',
     },
+    [breakpoints.up('sm')]: {
+      width: '6rem',
+    },
   },
   topNavHomeLink: {
     color: colors.red,
@@ -76,6 +86,9 @@ const styles = {
     '&:hover .markPath': {
       strokeWidth: 8.6,
     },
+    [breakpoints.up('sm')]: {
+      width: '3rem',
+    },
   },
   topNavLinkIcon: {
     display: 'block',
@@ -83,13 +96,24 @@ const styles = {
     width: '1.2em',
     margin: '0 auto',
     strokeWidth: [[1.42], '!important'],
+    [breakpoints.up('sm')]: {
+      display: 'none',
+    },
   },
   topNavHomeIcon: {
     display: 'block',
-    width: '100%',
-    height: 'auto',
+    width: 'auto',
+    height: '100%',
     margin: '0 auto',
     transform: 'translate(1px, -1px)',
+  },
+  topNavLinkCopy: {
+    display: 'none',
+    textShadow: 'none',
+    color: 'inherit',
+    [breakpoints.up('sm')]: {
+      display: 'block',
+    },
   },
   tooltip: {
     margin: '.5rem 0',
@@ -104,14 +128,29 @@ const styles = {
   tooltipDisabled: {
     opacity: [[0], '!important'],
   },
-}
+  tooltipHiddenAfterMobile: {
+    opacity: [[0], '!important'],
+  },
+})
 
-const TopNavLink = ({ children, to, tooltip, classes, disableTooltip }) => (
+const TopNavLink = ({
+  children,
+  to,
+  tooltip,
+  title,
+  classes,
+  disableTooltip,
+  Icon,
+}) => (
   <Tooltip
     position="bottom"
-    title={tooltip}
+    title={tooltip || title}
     classes={{
-      tooltip: cx(classes.tooltip, disableTooltip && classes.tooltipDisabled),
+      tooltip: cx(
+        classes.tooltip,
+        disableTooltip && classes.tooltipDisabled,
+        title && classes.tooltipHiddenAfterMobile
+      ),
     }}
   >
     <Link
@@ -122,7 +161,16 @@ const TopNavLink = ({ children, to, tooltip, classes, disableTooltip }) => (
         to === '/' && classes.topNavHomeLink
       )}
     >
-      {children}
+      <Icon
+        className={cx(
+          to === '/' ? classes.topNavHomeIcon : classes.topNavLinkIcon
+        )}
+      />
+      {title && (
+        <Typography variant="button" className={classes.topNavLinkCopy}>
+          {title}
+        </Typography>
+      )}
     </Link>
   </Tooltip>
 )
@@ -162,25 +210,22 @@ const TopNav = ({ isAuthenticated, pathName, classes }) => {
               classes={classes}
               tooltip="Intro"
               disableTooltip={disableCompletely}
-            >
-              <icons.MarkIcon className={classes.topNavHomeIcon} />
-            </TopNavLink>
+              Icon={icons.MarkIcon}
+            />
             <TopNavLink
               to="/portfolio"
               classes={classes}
-              tooltip="Portfolio"
               disableTooltip={disableCompletely}
-            >
-              <icons.PackageIcon className={classes.topNavLinkIcon} />
-            </TopNavLink>
+              Icon={icons.PackageIcon}
+              title="Portfolio"
+            />
             <TopNavLink
               to="/cv"
               classes={classes}
-              tooltip="CV/Résumé"
               disableTooltip={disableCompletely}
-            >
-              <icons.LayersIcon className={classes.topNavLinkIcon} />
-            </TopNavLink>
+              Icon={icons.LayersIcon}
+              title="CV/Résumé"
+            />
           </div>
         </nav>
       </div>
@@ -188,4 +233,4 @@ const TopNav = ({ isAuthenticated, pathName, classes }) => {
   )
 }
 
-export default injectSheet(styles)(TopNav)
+export default withStyles(styles)(TopNav)
