@@ -14,10 +14,6 @@ const styles = {
   category: {
     color: colors.dark,
     textDecoration: 'none',
-    '&:hover $asset': {
-      opacity: 0.9,
-      filter: 'grayscale(40%)',
-    },
   },
   title: {
     margin: '.1em 0 .5em 0',
@@ -26,6 +22,10 @@ const styles = {
   actionArea: {
     minHeight: '100%',
     textShadow: 'none',
+    '&:hover $asset, &:focus $asset': {
+      opacity: 0.9,
+      filter: 'grayscale(40%)',
+    },
   },
   content: {
     padding: '1.2rem 1.6rem 1.4rem 1.6rem',

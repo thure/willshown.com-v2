@@ -44,6 +44,7 @@ const styles = {
     ...typeScale(0),
     textDecoration: 'none',
     textTransform: 'uppercase',
+    letterSpacing: '0.02em',
     //
     color: colors.red,
     background: 'white',
@@ -87,8 +88,8 @@ const styles = {
 }
 
 const TopLevelLink = injectSheet(styles)(({ children, to, classes }) => (
-  <Link to={to} className={`topLevelLink ${classes.topLevelLink}`}>
-    <div className={classes.topLevelLinkContent}>{children}</div>
+  <Link to={to} className={`topLevelLink ${classes.topLevelLink}`} tabIndex={0}>
+    <span className={classes.topLevelLinkContent}>{children}</span>
   </Link>
 ))
 
