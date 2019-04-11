@@ -9,15 +9,18 @@ const renderLink = ({ href, children }) => {
   else return <a href={href}>{children}</a>
 }
 
-export default ({ source, withHTML }) => {
+export default ({ source, withHTML, transforms = {} }) => {
   const Markdown = withHTML ? ReactMarkdownWithHTML : ReactMarkdown
   return (
     <Markdown
       source={preventOrphans(source)}
       escapeHtml={!withHTML}
-      renderers={{
-        link: renderLink,
-      }}
+      renderers={Object.assign(
+        {
+          link: renderLink,
+        },
+        transforms
+      )}
     />
   )
 }
