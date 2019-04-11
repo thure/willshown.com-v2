@@ -10,7 +10,8 @@ import LinkTo from '../components/LinkTo'
 import RoutedMarkdown from '../components/RoutedMarkdown'
 import NotFound from './NotFound'
 
-import publicPortfolio from '../config/portfolio.public'
+import { resolveItem } from '../modules/portfolio'
+
 import { colors, icons, preventOrphans } from '../style'
 
 import { withStyles } from '@material-ui/core'
@@ -83,20 +84,6 @@ const styles = ({ breakpoints }) => ({
     width: '50%',
   },
 })
-
-const resolveItem = (id, privatePortfolio) => {
-  if (id) {
-    if (privatePortfolio) {
-      const privateItem = privatePortfolio.structure.find(
-        item => item.id === id
-      )
-      if (privateItem) return { portfolio: privatePortfolio, item: privateItem }
-    }
-    const publicItem = publicPortfolio.structure.find(item => item.id === id)
-    if (publicItem) return { portfolio: publicPortfolio, item: publicItem }
-    else return { item: null, portfolio: null }
-  } else return { item: null, portfolio: null }
-}
 
 const PortfolioItemContent = ({ portfolio, content, classes }) => {
   return content

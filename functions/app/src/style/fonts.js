@@ -21,6 +21,8 @@ export default {
       fontStyle: 'normal',
       lineHeight: 1.6,
     },
+    name: serifFamily,
+    styles: ['400', '400i', '700'],
   },
   raleway: {
     medium: {
@@ -46,5 +48,7 @@ export default {
       fontStyle: 'normal',
       letterSpacing: '.02em',
     },
+    name: sansFamily,
+    styles: ['500', '600', '700', '900'],
   },
 }

@@ -3,6 +3,7 @@ import { createMuiTheme } from '@material-ui/core/styles'
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints'
 import shadows from '@material-ui/core/styles/shadows'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
+import createSpectacleTheme from 'spectacle/lib/themes/default'
 import fonts from './fonts'
 import colors from './colors'
 import typeScale from './typeScale'
@@ -12,6 +13,25 @@ const breakpoints = createBreakpoints({})
 
 const themedShadows = shadows.map(shadow =>
   shadow.replace(/rgba\(0,0,0,/g, colors.darkShadow)
+)
+
+export const spectacleTheme = createSpectacleTheme(
+  {
+    primary: colors.light,
+    secondary: colors.dark,
+    tertiary: colors.red,
+    quaternary: colors.dark,
+  },
+  {
+    primary: {
+      name: fonts.merriweather.name,
+      styles: fonts.merriweather.styles,
+    },
+    secondary: {
+      name: fonts.raleway.name,
+      styles: fonts.raleway.styles,
+    },
+  }
 )
 
 export const theme = createMuiTheme({

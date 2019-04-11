@@ -180,7 +180,8 @@ const TopNavLink = ({
 const TopNav = ({ isAuthenticated, pathName, classes }) => {
   const inRoot = pathName === '/'
   const inCV = pathName.startsWith('/cv')
-  const inPortfolio = pathName.startsWith('/portfolio')
+  const inPortfolio =
+    pathName.startsWith('/portfolio') || pathName.startsWith('/deck')
   const disableHeadroom = inCV
   const disableCompletely = inRoot
 

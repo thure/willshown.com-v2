@@ -6,13 +6,15 @@ const Loading = props => {
   if (props.error) {
     return (
       <div>
-        Error! <button onClick={props.retry}>Retry</button>
+        Oops, something went wrong.{' '}
+        <button onClick={props.retry}>Retry?</button>
       </div>
     )
   } else if (props.timedOut) {
     return (
       <div>
-        Taking a long time… <button onClick={props.retry}>Retry</button>
+        This is taking longer than expected…{' '}
+        <button onClick={props.retry}>Retry?</button>
       </div>
     )
   } else if (props.pastDelay) {
@@ -41,6 +43,13 @@ const PortfolioItem = Loadable({
   delay: 2e3,
 })
 
+const PortfolioDeck = Loadable({
+  loader: () =>
+    import(/* webpackChunkName: "portfoliodeck" */ './PortfolioDeck'),
+  loading: Loading,
+  delay: 2e3,
+})
+
 const CV = Loadable({
   loader: () => import(/* webpackChunkName: "cv" */ './CV'),
   loading: Loading,
@@ -57,6 +66,7 @@ export default () => (
     <Route exact path="/" component={Intro} />
     <Route exact path="/portfolio" component={PortfolioItems} />
     <Route exact path="/portfolio/:id" component={PortfolioItem} />
+    <Route exact path="/deck/:id" component={PortfolioDeck} />
     <Route exact path="/cv" component={CV} />
     <Route component={NotFound} />
   </Switch>
