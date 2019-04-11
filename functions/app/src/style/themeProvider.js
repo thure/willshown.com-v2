@@ -15,7 +15,7 @@ const themedShadows = shadows.map(shadow =>
   shadow.replace(/rgba\(0,0,0,/g, colors.darkShadow)
 )
 
-export const spectacleTheme = createSpectacleTheme(
+let spectacleThemeFlawed = createSpectacleTheme(
   {
     primary: colors.light,
     secondary: colors.dark,
@@ -33,6 +33,15 @@ export const spectacleTheme = createSpectacleTheme(
     },
   }
 )
+
+// Fix Spectacle theme using unconfigurable 'black' in places.
+Object.keys(spectacleThemeFlawed.screen.components).forEach(componentName => {
+  const color = spectacleThemeFlawed.screen.components[componentName].color
+  if (color === 'black')
+    spectacleThemeFlawed.screen.components[componentName].color = colors.dark
+})
+
+export const spectacleTheme = spectacleThemeFlawed
 
 export const theme = createMuiTheme({
   palette: {

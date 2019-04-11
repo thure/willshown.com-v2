@@ -1,0 +1,38 @@
+#! /usr/local/bin/node
+
+const fs = require('fs')
+const path = require('path')
+const glob = require('glob')
+
+const portfolios = ['private', 'public']
+
+const cwd = path.join(__dirname, '..', 'config')
+
+const mdxFiles = glob.sync(`${cwd}/*.mdx`)
+
+const decks = mdxFiles.reduce((decks, filename)=>{
+  const [portfolioName, deckName] = path.basename(filename, '.mdx').split('_')
+  const content = fs.readFileSync(filename, 'utf8')
+  if(!decks[portfolioName]) decks[portfolioName] = {}
+  if(decks[portfolioName]) decks[portfolioName] = {[deckName]: content}
+  else decks[portfolioName][deckName] = content
+  return decks
+}, {})
+
+portfolios.forEach(portfolioName => {
+
+  const portfolioPath = path.join(cwd, `portfolio.${portfolioName}.json`)
+  const portfolio = JSON.parse(fs.readFileSync(portfolioPath, 'utf8'))
+  portfolio.decks = {}
+
+  if(decks[portfolioName]) Object.keys(decks[portfolioName]).forEach(deckName=>{
+    portfolio.decks[deckName] = decks[portfolioName][deckName]
+  })
+
+  fs.writeFileSync(
+    portfolioPath,
+    JSON.stringify(portfolio, null, 2),
+    'utf8'
+  )
+
+})

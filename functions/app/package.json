@@ -52,6 +52,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "glob": "^7.1.3",
     "lint-staged": "^8.1.0",
     "prettier": "^1.15.3"
   }
