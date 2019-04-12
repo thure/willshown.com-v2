@@ -24,12 +24,12 @@ let spectacleThemeFlawed = createSpectacleTheme(
   },
   {
     primary: {
-      name: fonts.merriweather.name,
-      styles: fonts.merriweather.styles,
-    },
-    secondary: {
       name: fonts.raleway.name,
       styles: fonts.raleway.styles,
+    },
+    secondary: {
+      name: fonts.merriweather.name,
+      styles: fonts.merriweather.styles,
     },
   }
 )

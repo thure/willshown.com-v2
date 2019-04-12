@@ -20,12 +20,28 @@ import {
 } from 'spectacle'
 import { resolveDeck } from '../modules/portfolio'
 import { spectacleTheme } from '../style/themeProvider'
+import { withStyles } from '@material-ui/core'
 import NotFound from './NotFound'
 import RoutedMarkdown from '../components/RoutedMarkdown'
 
 const transforms = {}
 
 const LAYOUT = /[❪❮]((\n|.)+?)⸧/g
+
+const styles = {
+  center: {
+    display: 'flex',
+    flexFlow: 'column nowrap',
+    justifyContent: 'center',
+    height: '100%',
+  },
+}
+
+const CenterAlign = withStyles(styles)(({ children, classes }) => (
+  <div className={classes.center}>
+    <div>{children}</div>
+  </div>
+))
 
 class PortfolioDeck extends Component {
   render() {
@@ -48,9 +64,17 @@ class PortfolioDeck extends Component {
                 )
                 switch (child[0]) {
                   case '❪':
-                    return <Fit>{content}</Fit>
+                    return (
+                      <Fit>
+                        <CenterAlign>{content}</CenterAlign>
+                      </Fit>
+                    )
                   case '❮':
-                    return <Fill>{content}</Fill>
+                    return (
+                      <Fill>
+                        <CenterAlign>{content}</CenterAlign>
+                      </Fill>
+                    )
                   default:
                     return null
                 }
