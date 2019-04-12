@@ -103,7 +103,12 @@ class PortfolioDeck extends Component {
         )
     })
 
-    if (item) return <Deck theme={spectacleTheme}>{slides}</Deck>
+    if (item)
+      return (
+        <Deck theme={spectacleTheme} showFullscreenControl={false}>
+          {slides}
+        </Deck>
+      )
     else return <NotFound />
   }
 }
