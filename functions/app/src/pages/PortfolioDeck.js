@@ -34,6 +34,15 @@ const styles = {
     flexFlow: 'column nowrap',
     justifyContent: 'center',
     height: '100%',
+    padding: '2rem',
+    '& ul li, & ol li': {
+      textAlign: 'left',
+      margin: '.8em 0',
+    },
+    '& img': {
+      maxWidth: '100%',
+      height: 'auto',
+    },
   },
 }
 
