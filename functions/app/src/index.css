@@ -68,6 +68,11 @@ sup {
   }
 }
 
+.spectacle-content img {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Self-hosted Raleway v4020 */
 
 @font-face {

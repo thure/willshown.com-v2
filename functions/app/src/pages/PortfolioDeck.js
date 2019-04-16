@@ -26,7 +26,7 @@ import RoutedMarkdown from '../components/RoutedMarkdown'
 
 const transforms = {}
 
-const LAYOUT = /[❪❮]((\n|.)+?)⸧/g
+const LAYOUT = /[❪❮⸦]((\n|.)+?)⸧/g
 
 const styles = {
   center: {
@@ -39,9 +39,15 @@ const styles = {
       textAlign: 'left',
       margin: '.8em 0',
     },
+  },
+  imageStage: {
+    display: 'flex',
+    flexFlow: 'column nowrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '0 auto',
     '& img': {
-      maxWidth: '100%',
-      height: 'auto',
+      maxHeight: '60vh',
     },
   },
 }
@@ -50,6 +56,10 @@ const CenterAlign = withStyles(styles)(({ children, classes }) => (
   <div className={classes.center}>
     <div>{children}</div>
   </div>
+))
+
+const ImageStage = withStyles(styles)(({ children, classes }) => (
+  <div className={classes.imageStage}>{children}</div>
 ))
 
 class PortfolioDeck extends Component {
@@ -84,6 +94,8 @@ class PortfolioDeck extends Component {
                         <CenterAlign>{content}</CenterAlign>
                       </Fill>
                     )
+                  case '⸦':
+                    return <ImageStage>{content}</ImageStage>
                   default:
                     return null
                 }
