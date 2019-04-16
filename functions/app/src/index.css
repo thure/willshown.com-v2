@@ -73,6 +73,14 @@ sup {
   height: auto;
 }
 
+.spectacle-deck {
+  padding-top: 3rem;
+}
+
+.spectacle-deck p {
+  margin-bottom: 0;
+}
+
 /* Self-hosted Raleway v4020 */
 
 @font-face {

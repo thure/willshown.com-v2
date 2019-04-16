@@ -47,16 +47,19 @@ const transforms = {
   parsedHtml: ({ element }) => {
     const children = get(element, 'props.children', []).map(child => {
       if (child.type === 'img') {
+        const dims = [
+          parseInt(get(child, 'props.width')),
+          parseInt(get(child, 'props.height')),
+        ]
         return (
           <AssetInFlow
-            maxWidth="90vh"
+            maxWidth={dims[0] / dims[1] > 1.4 ? 'none' : '90vh'}
             light
+            forceFullWidth={get(child, ['props', 'data-forcefullwidth'], false)}
+            noMotion={get(child, ['props', 'data-nomotion'], false)}
             asset={{
               type: 'image',
-              dims: [
-                parseInt(get(child, 'props.width')),
-                parseInt(get(child, 'props.height')),
-              ],
+              dims,
               alt: get(child, 'props.title', ''),
               sources: {
                 png: {
@@ -86,6 +89,9 @@ const styles = {
     '& ul li, & ol li': {
       textAlign: 'left',
       margin: '.8em 0',
+    },
+    '& > div :first-child': {
+      marginTop: 0,
     },
   },
   imageStage: {
@@ -162,7 +168,11 @@ class PortfolioDeck extends Component {
 
     if (item)
       return (
-        <Deck theme={spectacleTheme} showFullscreenControl={false}>
+        <Deck
+          theme={spectacleTheme}
+          progress="none"
+          showFullscreenControl={false}
+        >
           {slides}
         </Deck>
       )

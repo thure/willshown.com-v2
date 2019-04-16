@@ -157,6 +157,7 @@ class AssetInFlowAsset extends React.Component {
       classes,
       asset,
       forceFullWidth,
+      noMotion,
       layout,
       light,
       maxWidth,
@@ -201,13 +202,14 @@ class AssetInFlowAsset extends React.Component {
               className={cx(
                 classes.assetElement,
                 ready && classes.assetElementReady,
-                light && classes.assetElementLight
+                light && !noMotion && classes.assetElementLight
               )}
             />
             <LoadingScrim
               className={classes.fill}
               ready={ready}
               light={light}
+              noMotion={noMotion}
             />
           </div>
         </Paper>
