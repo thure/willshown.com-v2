@@ -19,10 +19,20 @@ const styles = {
     opacity: 0,
     zIndex: -1,
   },
+  loadingLight: {
+    animation: 'loading infinite linear 4s',
+    backgroundSize: '800px',
+    backgroundImage: `linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 25%, transparent 50%)`,
+  },
 }
 
-export default withStyles(styles)(({ ready, classes, className }) => (
+export default withStyles(styles)(({ ready, light, classes, className }) => (
   <div
-    className={cx(classes.loading, ready && classes.loadingReady, className)}
+    className={cx(
+      classes.loading,
+      light && classes.loadingLight,
+      ready && classes.loadingReady,
+      className
+    )}
   />
 ))

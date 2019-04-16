@@ -23,8 +23,56 @@ import { spectacleTheme } from '../style/themeProvider'
 import { withStyles } from '@material-ui/core'
 import NotFound from './NotFound'
 import RoutedMarkdown from '../components/RoutedMarkdown'
+import AssetInFlow from '../components/AssetInFlow'
 
-const transforms = {}
+const transforms = {
+  image: ({ alt, src }) => {
+    const dims = alt.split('×').map(parseInt)
+    return (
+      <AssetInFlow
+        light
+        asset={{
+          type: 'image',
+          dims,
+          alt: '',
+          sources: {
+            png: {
+              src,
+            },
+          },
+        }}
+      />
+    )
+  },
+  parsedHtml: ({ element }) => {
+    const children = get(element, 'props.children', []).map(child => {
+      if (child.type === 'img') {
+        return (
+          <AssetInFlow
+            maxWidth="90vh"
+            light
+            asset={{
+              type: 'image',
+              dims: [
+                parseInt(get(child, 'props.width')),
+                parseInt(get(child, 'props.height')),
+              ],
+              alt: get(child, 'props.title', ''),
+              sources: {
+                png: {
+                  src: get(child, 'props.src'),
+                },
+              },
+            }}
+          />
+        )
+      } else {
+        return child
+      }
+    })
+    return <React.Fragment>{children}</React.Fragment>
+  },
+}
 
 const LAYOUT = /[❪❮⸦]((\n|.)+?)⸧/g
 
@@ -45,10 +93,7 @@ const styles = {
     flexFlow: 'column nowrap',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '0 auto',
-    '& img': {
-      maxHeight: '60vh',
-    },
+    width: '100%',
   },
 }
 

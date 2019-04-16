@@ -25,6 +25,10 @@ const styles = {
     color: 'transparent',
     position: 'relative',
   },
+  assetLight: {
+    background: 'transparent',
+    boxShadow: 'none',
+  },
   fill: {
     position: 'absolute',
     top: 0,
@@ -43,6 +47,9 @@ const styles = {
   },
   assetElementReady: {
     opacity: 1,
+  },
+  assetElementLight: {
+    transition: 'opacity .2s linear',
   },
   carousel: {
     marginBottom: '1rem',
@@ -151,6 +158,9 @@ class AssetInFlowAsset extends React.Component {
       asset,
       forceFullWidth,
       layout,
+      light,
+      maxWidth,
+      maxHeight,
       ...props
     } = this.props
     const { ready } = this.state
@@ -164,14 +174,22 @@ class AssetInFlowAsset extends React.Component {
     return (
       <div
         className={classes.assetContainer}
-        style={{ width: `${width.toFixed(7)}%` }}
+        style={{
+          width: `${width.toFixed(7)}%`,
+          maxWidth: width < 100 ? `${asset.dims[0]}px` : maxWidth || 'none',
+          maxHeight: maxHeight || 'none',
+        }}
       >
         <Paper
           elevation={1}
-          className={cx(className, classes.assetInFlowAsset)}
+          className={cx(
+            className,
+            classes.assetInFlowAsset,
+            light && classes.assetLight
+          )}
         >
           <div
-            className={classes.assetStage}
+            className={cx(classes.assetStage, light && classes.assetLight)}
             style={{
               paddingBottom: `${(100 / aspect).toFixed(7)}%`,
             }}
@@ -182,10 +200,15 @@ class AssetInFlowAsset extends React.Component {
               setReady={this.setReady}
               className={cx(
                 classes.assetElement,
-                ready && classes.assetElementReady
+                ready && classes.assetElementReady,
+                light && classes.assetElementLight
               )}
             />
-            <LoadingScrim className={classes.fill} ready={ready} />
+            <LoadingScrim
+              className={classes.fill}
+              ready={ready}
+              light={light}
+            />
           </div>
         </Paper>
       </div>
