@@ -17,6 +17,8 @@ import { colors, icons, preventOrphans } from '../style'
 import { withStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 
 const styles = ({ breakpoints }) => ({
   item: {},
@@ -83,7 +85,51 @@ const styles = ({ breakpoints }) => ({
     padding: '0',
     width: '50%',
   },
+  deckNoticeCopy: {
+    color: 'white',
+    display: 'block',
+    flex: '1 0 auto',
+  },
+  deckNoticeContent: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '1rem',
+    '&:last-child': {
+      padding: '1rem',
+    },
+  },
+  deckNotice: {
+    background: colors.red,
+    marginBottom: '2rem',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    maxWidth: '36rem',
+  },
+  deckNoticeButton: {
+    textDecoration: 'none',
+    textShadow: 'none',
+    backgroundImage: 'none',
+    textAlign: 'center',
+  },
 })
+
+const DeckNotice = ({ deck, classes }) => (
+  <Card className={classes.deckNotice}>
+    <CardContent className={classes.deckNoticeContent}>
+      <Typography className={classes.deckNoticeCopy} variant="h2">
+        A case-study deck for this project is available.
+      </Typography>
+      <Button
+        component={LinkTo(`/deck/${deck}`)}
+        className={classes.deckNoticeButton}
+      >
+        <Typography variant="button" className={classes.deckNoticeCopy}>
+          Open
+        </Typography>
+      </Button>
+    </CardContent>
+  </Card>
+)
 
 const PortfolioItemContent = ({ portfolio, content, classes }) => {
   return content
@@ -204,6 +250,7 @@ class PortfolioItem extends React.Component {
               content={item.content}
               classes={classes}
             />
+            {item.deck && <DeckNotice deck={item.deck} classes={classes} />}
             <Button
               variant="contained"
               size="large"

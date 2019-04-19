@@ -1,5 +1,4 @@
 import React from 'react'
-import injectSheet from 'react-jss'
 import LinkTo from './LinkTo'
 import Asset from './Asset'
 import LoadingScrim from './LoadingScrim'
@@ -9,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import cx from 'classnames'
 import { colors, preventOrphans } from '../style'
+import { withStyles } from '@material-ui/core'
 
 const styles = {
   category: {
@@ -53,6 +53,18 @@ const styles = {
     overflow: 'hidden',
     background: colors.dark,
   },
+  deckTag: {
+    background: colors.red,
+    position: 'absolute',
+    top: '1rem',
+    right: '-1.5rem',
+    transform: 'rotate(45deg)',
+    zIndex: 2,
+    padding: '.2rem 2rem',
+  },
+  deckTagLabel: {
+    color: 'white',
+  },
 }
 
 class CategoryPreview extends React.Component {
@@ -90,13 +102,22 @@ class CategoryPreview extends React.Component {
   }
 }
 
-export default injectSheet(styles)(
+const DeckTag = withStyles(styles)(({ classes }) => (
+  <div className={classes.deckTag}>
+    <Typography variant="button" className={classes.deckTagLabel}>
+      Deck
+    </Typography>
+  </div>
+))
+
+export default withStyles(styles)(
   ({ portfolio, category, className, classes }) => (
     <Card className={cx(classes.category, className)}>
       <CardActionArea
         component={LinkTo(`/portfolio/${category.id}`)}
         className={classes.actionArea}
       >
+        {category.hasOwnProperty('deck') && <DeckTag />}
         <CategoryPreview
           asset={portfolio.assets[category.previewAsset]}
           classes={classes}

@@ -77,6 +77,10 @@ export const theme = createMuiTheme({
         },
         lineHeight: 1,
       },
+      h2: {
+        ...typeScale(0),
+        ...fonts.raleway.medium,
+      },
       h3: {
         ...typeScale(5),
         ...fonts.raleway.black,

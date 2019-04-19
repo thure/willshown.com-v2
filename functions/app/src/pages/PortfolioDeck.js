@@ -24,6 +24,8 @@ import { withStyles } from '@material-ui/core'
 import NotFound from './NotFound'
 import RoutedMarkdown from '../components/RoutedMarkdown'
 import AssetInFlow from '../components/AssetInFlow'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 
 const transforms = {
   image: ({ alt, src }) => {
@@ -53,7 +55,7 @@ const transforms = {
         ]
         return (
           <AssetInFlow
-            maxWidth={dims[0] / dims[1] > 1.4 ? 'none' : '90vh'}
+            maxWidth={dims[0] / dims[1] > 1.61 ? 'none' : '90vh'}
             light
             forceFullWidth={get(child, ['props', 'data-forcefullwidth'], false)}
             noMotion={get(child, ['props', 'data-nomotion'], false)}
@@ -180,4 +182,13 @@ class PortfolioDeck extends Component {
   }
 }
 
-export default PortfolioDeck
+const mapStateToProps = state => ({
+  privatePortfolio: state.auth.privatePortfolio,
+})
+
+export default compose(
+  connect(
+    mapStateToProps,
+    null
+  )
+)(PortfolioDeck)
