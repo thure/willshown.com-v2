@@ -88,7 +88,7 @@ const styles = ({ breakpoints }) => ({
   deckNoticeCopy: {
     color: 'white',
     display: 'block',
-    flex: '1 0 auto',
+    flex: '1 1 auto',
   },
   deckNoticeContent: {
     display: 'flex',

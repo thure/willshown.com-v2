@@ -204,10 +204,9 @@ const TimelineEvent = ({ classes, event }) => (
             duration.years() > 1 ? `${duration.years()} years` : '1 year'
           )
 
-        if (duration.months() > 0)
-          durationParts.push(
-            duration.months() > 1 ? `${duration.months()} months` : '1 month'
-          )
+        durationParts.push(
+          duration.months() > 1 ? `${duration.months() + 1} months` : '1 month'
+        )
 
         return (
           <React.Fragment key={`timelineEvent__${role.timeRange[0]}`}>
@@ -288,7 +287,14 @@ const CV = ({ classes }) => (
       </section>
       <section className={classes.timeline}>
         <CardContent className={classes.timelineHeader}>
-          <Typography variant="h3">Skills &amp; tools</Typography>
+          <Typography variant="h3" paragraph>
+            Skills &amp; tools
+          </Typography>
+          <Typography variant="body2">
+            The numbers next to each item indicate (very approximately)
+            cumulative years of regular use. The list is in no
+            particular&nbsp;order.
+          </Typography>
         </CardContent>
         <SkillCloud skills={cv.skills} />
         <CardContent className={classes.timelineHeader}>
