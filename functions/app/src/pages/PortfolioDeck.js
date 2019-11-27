@@ -48,7 +48,7 @@ const transforms = {
   },
   parsedHtml: ({ element }) => {
     const children = get(element, 'props.children', []).map(child => {
-      if (child.type === 'img') {
+      if (get(child, 'type', null) === 'img') {
         const dims = [
           parseInt(get(child, 'props.width')),
           parseInt(get(child, 'props.height')),
