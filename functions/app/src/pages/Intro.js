@@ -58,17 +58,15 @@ const styles = {
     marginTop: '1rem',
     width: '12rem',
     boxSizing: 'border-box',
-    transform: 'translateY(0px)',
     //
     '&.done': {
-      boxShadow: [[shadows.B], '!important'],
-      transition: 'box-shadow 100ms linear, transform 100ms ease-in-out',
+      boxShadow: [[shadows.A], '!important'],
+      transition: 'box-shadow 100ms linear',
       cursor: 'pointer',
       pointerEvents: 'auto',
     },
     '&.done:hover, &.done:focus, &.done:active': {
-      boxShadow: [[shadows.A], '!important'],
-      transform: [['translateY(3px)'], '!important'],
+      boxShadow: [[shadows.B], '!important'],
     },
   },
   topLevelLinkContent: {
@@ -237,7 +235,7 @@ class Intro extends React.Component {
         easing: 'linear',
       },
       translateY: {
-        value: ['6px', '0px'],
+        value: ['3px', '0px'],
         easing: 'easeInOutQuart',
       },
       update: anim => {
@@ -250,8 +248,8 @@ class Intro extends React.Component {
               )
               $link.style.setProperty(
                 'box-shadow',
-                `0 ${p * 3}px ${p * 6}px ${colors.darkA(p * 0.13)}, 0 ${p *
-                  3}px ${p * 6}px ${colors.darkA(p * 0.2)}`
+                `0 ${p * 1}px ${p * 3}px ${colors.darkA(p * 0.13)}, 0 ${p *
+                  1}px ${p * 2}px ${colors.darkA(p * 0.2)}`
               )
             }
           })

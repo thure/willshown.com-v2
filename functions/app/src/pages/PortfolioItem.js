@@ -12,7 +12,7 @@ import NotFound from './NotFound'
 
 import { resolveItem } from '../modules/portfolio'
 
-import { colors, icons, preventOrphans } from '../style'
+import { colors, icons, preventOrphans, shadows } from '../style'
 
 import { withStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
@@ -71,6 +71,15 @@ const styles = ({ breakpoints }) => ({
     flexFlow: 'row nowrap',
     alignItems: 'center',
     marginTop: '4rem',
+    //
+    boxShadow: [[shadows.A], '!important'],
+    transition: 'box-shadow 100ms linear',
+    cursor: 'pointer',
+    pointerEvents: 'auto',
+    '&:hover, &:focus, &:active': {
+      background: 'white',
+      boxShadow: [[shadows.B], '!important'],
+    },
   },
   cta: {
     marginLeft: '1em',
