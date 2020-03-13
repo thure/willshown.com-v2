@@ -1,5 +1,4 @@
 html {
-  font-size: 16px;
   background-color: rgb(239, 240, 241);
   --text-background: rgb(239, 240, 241);
 }
@@ -17,8 +16,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'Dank Mono', 'JetBrains Mono', source-code-pro, Menlo, monospace;
 }
 
 a {
@@ -37,8 +35,8 @@ a {
     currentColor 0
   );
   background-size: 1px 1px;
-  background-position: 0 1.1em;
-  background-position: 0 calc(1em + 2px);
+  background-position: 0 1.15em;
+  background-position: 0 calc(1em + 3px);
   /* If vars aren't supported, don't bother trying to occlude. */
   text-shadow: 0 0 var(--text-background), 1px 0 var(--text-background),
     2px 0 var(--text-background), 2.5px 0 var(--text-background),
@@ -79,54 +77,4 @@ sup {
 
 .spectacle-deck p {
   margin-bottom: 0;
-}
-
-/* Self-hosted Raleway v4020 */
-
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 500;
-  src: local('Raleway Medium'), local('Raleway-Medium'),
-    local('Raleway-v4020 Medium'), local('Raleway-v4020-Medium'),
-    url(https://firebasestorage.googleapis.com/v0/b/willshown-com.appspot.com/o/fonts%2FRaleway.500.normal.woff2?alt=media&token=9cd49744-6ce9-428f-9279-ef735b53b9e3)
-      format('woff2'),
-    url(https://firebasestorage.googleapis.com/v0/b/willshown-com.appspot.com/o/fonts%2FRaleway.500.normal.woff?alt=media&token=420458d6-b683-497c-ad23-3f36f67605eb)
-      format('woff');
-}
-
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 600;
-  src: local('Raleway SemiBold'), local('Raleway-SemiBold'),
-    local('Raleway-v4020 SemiBold'), local('Raleway-v4020-SemiBold'),
-    url(https://firebasestorage.googleapis.com/v0/b/willshown-com.appspot.com/o/fonts%2FRaleway.600.normal.woff2?alt=media&token=dfcd86ad-e86e-48af-8b06-49d2c9000cdd)
-      format('woff2'),
-    url(https://firebasestorage.googleapis.com/v0/b/willshown-com.appspot.com/o/fonts%2FRaleway.600.normal.woff?alt=media&token=7a3ad444-4797-453a-8055-763161d39077)
-      format('woff');
-}
-
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Raleway Bold'), local('Raleway-Bold'), local('Raleway-v4020 Bold'),
-    local('Raleway-v4020-Bold'),
-    url(https://firebasestorage.googleapis.com/v0/b/willshown-com.appspot.com/o/fonts%2FRaleway.700.normal.woff2?alt=media&token=9de5c75d-b836-4941-9a4e-0bc5635d57a5)
-      format('woff2'),
-    url(https://firebasestorage.googleapis.com/v0/b/willshown-com.appspot.com/o/fonts%2FRaleway.700.normal.woff?alt=media&token=cdcaf23f-8332-4d5c-bcb1-141109eb4365)
-      format('woff');
-}
-
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 900;
-  src: local('Raleway Black'), local('Raleway-Black'),
-    local('Raleway-v4020 Black'), local('Raleway-v4020-Black'),
-    url(https://firebasestorage.googleapis.com/v0/b/willshown-com.appspot.com/o/fonts%2FRaleway.900.normal.woff2?alt=media&token=58b99b05-5920-4b8a-8d99-bad478e65621)
-      format('woff2'),
-    url(https://firebasestorage.googleapis.com/v0/b/willshown-com.appspot.com/o/fonts%2FRaleway.900.normal.woff?alt=media&token=6617821b-09bb-4731-b7fd-7345015e0361)
-      format('woff');
 }

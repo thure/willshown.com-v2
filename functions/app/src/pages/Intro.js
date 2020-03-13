@@ -40,7 +40,7 @@ const styles = {
     transformOrigin: 'center',
   },
   topLevelLink: {
-    ...fonts.raleway.medium,
+    ...fonts.sans.semibold,
     ...typeScale(0),
     textDecoration: 'none',
     textTransform: 'uppercase',
@@ -73,15 +73,12 @@ const styles = {
     display: 'flex',
     flexFlow: 'row nowrap',
     alignItems: 'center',
-    '& > span': {
-      transform: 'translateY(.02em)',
-    },
   },
   topLevelLinkIcon: {
     height: '1.2em',
     width: '1.2em',
     marginRight: '.75em',
-    strokeWidth: [[1.42], '!important'],
+    strokeWidth: [[1.68], '!important'],
   },
 }
 
@@ -136,10 +133,10 @@ class Intro extends React.Component {
             )
             $logoRoot.style.setProperty(
               'box-shadow',
-              `0 ${19 - p * (19 - 3)}px ${38 - p * (38 - 6)}px ${colors.darkA(
+              `0 ${19 - p * (19 - 1)}px ${38 - p * (38 - 2)}px ${colors.darkA(
                 0.3 - p * (0.3 - 0.16)
-              )}, 0 ${15 - p * (15 - 3)}px ${12 -
-                p * (12 - 6)}px ${colors.darkA(0.22 - p * (0.22 - 0.23))}`
+              )}, 0 ${15 - p * (15 - 1)}px ${12 -
+                p * (12 - 2)}px ${colors.darkA(0.22 - p * (0.22 - 0.23))}`
             )
           }
         },

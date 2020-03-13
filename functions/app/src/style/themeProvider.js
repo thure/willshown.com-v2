@@ -24,12 +24,12 @@ let spectacleThemeFlawed = createSpectacleTheme(
   },
   {
     primary: {
-      name: fonts.raleway.name,
-      styles: fonts.raleway.styles,
+      name: fonts.sans.name,
+      styles: fonts.sans.styles,
     },
     secondary: {
-      name: fonts.merriweather.name,
-      styles: fonts.merriweather.styles,
+      name: fonts.serif.name,
+      styles: fonts.serif.styles,
     },
   }
 )
@@ -64,64 +64,65 @@ export const theme = createMuiTheme({
       // global values
       useNextVariants: true,
       fontSize: 16,
-      fontWeightRegular: fonts.raleway.medium.fontWeight,
-      fontWeightMedium: fonts.raleway.bold.fontWeight,
+      fontWeightRegular: fonts.sans.medium.fontWeight,
+      fontWeightMedium: fonts.sans.bold.fontWeight,
       // specific type styles
       h1: {
         ...typeScale(7),
-        ...fonts.raleway.bold,
+        ...fonts.sans.medium,
+        letterSpacing: '-0.008em',
         [breakpoints.up('sm')]: {
           ...typeScale(10),
-          ...fonts.raleway.bold,
+          ...fonts.sans.bold,
           lineHeight: 1,
         },
         lineHeight: 1,
       },
       h2: {
         ...typeScale(0),
-        ...fonts.raleway.medium,
+        ...fonts.sans.medium,
       },
       h3: {
         ...typeScale(5),
-        ...fonts.raleway.black,
+        ...fonts.sans.black,
       },
       h4: {
         ...typeScale(3),
-        ...fonts.raleway.black,
+        ...fonts.sans.black,
       },
       h5: {
         ...typeScale(3),
-        ...fonts.raleway.semibold,
+        ...fonts.sans.semibold,
       },
       h6: {
         ...typeScale(2),
-        ...fonts.raleway.black,
+        ...fonts.sans.black,
       },
       body1: {
         ...typeScale(0),
-        ...fonts.merriweather.regular,
+        ...fonts.serif.regular,
       },
       body2: {
         ...typeScale(-1),
-        ...fonts.merriweather.regular,
+        ...fonts.serif.regular,
       },
       button: {
-        ...typeScale(-2),
-        ...fonts.raleway.bold,
+        ...typeScale(-1.5),
+        ...fonts.sans.bold,
         letterSpacing: '0.08em',
         fontFeatureSettings: "'lnum' 1, 'onum' 0",
         fontVariantNumeric: 'lining-nums',
       },
       caption: {
         ...typeScale(-2),
-        ...fonts.merriweather.regular,
+        ...fonts.serif.regular,
         color: colors.darkA(0.7),
         [breakpoints.up('sm')]: {
           ...typeScale(-1),
         },
       },
     },
-    fonts.raleway.medium
+    fonts.sans.medium
   ),
   shape: {
     borderRadius: borderRadii.A,

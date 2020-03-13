@@ -12,7 +12,7 @@ const styles = {
     marginTop: '2rem',
   },
   text: {
-    ...fonts.merriweather.regular,
+    ...fonts.serif.regular,
     display: 'block',
     textAlign: 'center',
     marginBottom: '0.6rem',
