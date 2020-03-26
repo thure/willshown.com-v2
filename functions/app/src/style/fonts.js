@@ -1,8 +1,8 @@
-const serifFamily = 'Merriweather, Georgia, serif'
-const sansFamily = 'Raleway, sans-serif'
+const serifFamily = "'Noto Serif', serif"
+const sansFamily = 'urw-din, sans-serif'
 
 export default {
-  merriweather: {
+  serif: {
     regular: {
       fontFamily: serifFamily,
       fontWeight: 400,
@@ -24,31 +24,28 @@ export default {
     name: serifFamily,
     styles: ['400', '400i', '700'],
   },
-  raleway: {
+  sans: {
     medium: {
       fontFamily: sansFamily,
-      fontWeight: 500,
+      fontWeight: 400,
       fontStyle: 'normal',
     },
     semibold: {
       fontFamily: sansFamily,
-      fontWeight: 600,
+      fontWeight: 500,
       fontStyle: 'normal',
-      letterSpacing: '.016em',
     },
     bold: {
       fontFamily: sansFamily,
-      fontWeight: 700,
+      fontWeight: 600,
       fontStyle: 'normal',
-      letterSpacing: '.018em',
     },
     black: {
       fontFamily: sansFamily,
-      fontWeight: 900,
+      fontWeight: 700,
       fontStyle: 'normal',
-      letterSpacing: '.02em',
     },
     name: sansFamily,
-    styles: ['500', '600', '700', '900'],
+    styles: ['400', '500', '600', '700'],
   },
 }

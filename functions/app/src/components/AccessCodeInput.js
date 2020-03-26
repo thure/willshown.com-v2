@@ -28,7 +28,7 @@ const styles = theme => ({
     marginLeft: '.5rem',
     flex: '1 1 auto',
     ...typeScale(0),
-    ...fonts.raleway.medium,
+    ...fonts.sans.medium,
   },
   loggedInText: {
     padding: '6px 0 7px',

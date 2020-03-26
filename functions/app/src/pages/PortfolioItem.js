@@ -12,7 +12,7 @@ import NotFound from './NotFound'
 
 import { resolveItem } from '../modules/portfolio'
 
-import { colors, icons, preventOrphans } from '../style'
+import { colors, icons, preventOrphans, shadows } from '../style'
 
 import { withStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
@@ -42,13 +42,13 @@ const styles = ({ breakpoints }) => ({
     marginRight: 'auto',
   },
   heroHeadline: {
-    marginTop: '.3em',
+    marginTop: ['.3em', '!important'],
   },
   text: {
     display: 'block',
     width: '100%',
     maxWidth: '36rem',
-    margin: '2rem auto',
+    margin: '1em auto .5em auto',
   },
   blockquote: {
     padding: '0 2rem',
@@ -71,6 +71,15 @@ const styles = ({ breakpoints }) => ({
     flexFlow: 'row nowrap',
     alignItems: 'center',
     marginTop: '4rem',
+    //
+    boxShadow: [[shadows.A], '!important'],
+    transition: 'box-shadow 100ms linear',
+    cursor: 'pointer',
+    pointerEvents: 'auto',
+    '&:hover, &:focus, &:active': {
+      background: 'white',
+      boxShadow: [[shadows.B], '!important'],
+    },
   },
   cta: {
     marginLeft: '1em',
@@ -131,7 +140,7 @@ const DeckNotice = ({ deck, classes }) => (
   </Card>
 )
 
-const PortfolioItemContent = ({ portfolio, content, classes }) => {
+const PortfolioItemContent = ({ portfolio, content, classes, title }) => {
   return content
     ? content.map((particle, pIndex) => {
         const key = `particle_${particle.type}_${pIndex}`
@@ -173,7 +182,7 @@ const PortfolioItemContent = ({ portfolio, content, classes }) => {
                 className={cx(classes.heroHeadline, classes.text)}
                 paragraph
               >
-                {preventOrphans(particle.text)}
+                {title}
               </Typography>
             )
           case 'subtitle':
@@ -248,6 +257,7 @@ class PortfolioItem extends React.Component {
             <PortfolioItemContent
               portfolio={portfolio}
               content={item.content}
+              title={item.title}
               classes={classes}
             />
             {item.deck && <DeckNotice deck={item.deck} classes={classes} />}

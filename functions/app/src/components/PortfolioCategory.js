@@ -1,31 +1,40 @@
 import React from 'react'
-import LinkTo from './LinkTo'
+import { Link } from 'react-router-dom'
 import Asset from './Asset'
 import LoadingScrim from './LoadingScrim'
 import Card from '@material-ui/core/Card'
-import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import cx from 'classnames'
-import { colors, preventOrphans } from '../style'
+import { colors, preventOrphans, shadows, borderRadii } from '../style'
 import { withStyles } from '@material-ui/core'
 
 const styles = {
-  category: {
-    color: colors.dark,
-    textDecoration: 'none',
-  },
-  title: {
-    margin: '.1em 0 .5em 0',
-    color: colors.red,
-  },
-  actionArea: {
-    minHeight: '100%',
-    textShadow: 'none',
+  link: {
+    borderRadius: borderRadii.A,
+    boxShadow: [[shadows.A], '!important'],
+    transition: 'box-shadow 100ms linear',
+    cursor: 'pointer',
+    pointerEvents: 'auto',
     '&:hover $asset, &:focus $asset': {
       opacity: 0.9,
       filter: 'grayscale(40%)',
     },
+    '&:hover, &:focus, &:active': {
+      boxShadow: [[shadows.B], '!important'],
+    },
+  },
+  category: {
+    color: colors.dark,
+    textDecoration: 'none',
+    minHeight: '100%',
+    textShadow: 'none',
+    boxShadow: ['none', '!important'],
+    position: 'relative',
+  },
+  title: {
+    margin: '.1em 0 .5em 0',
+    color: colors.red,
   },
   content: {
     padding: '1.2rem 1.6rem 1.4rem 1.6rem',
@@ -112,11 +121,11 @@ const DeckTag = withStyles(styles)(({ classes }) => (
 
 export default withStyles(styles)(
   ({ portfolio, category, className, classes }) => (
-    <Card className={cx(classes.category, className)}>
-      <CardActionArea
-        component={LinkTo(`/portfolio/${category.id}`)}
-        className={classes.actionArea}
-      >
+    <Link
+      to={`/portfolio/${category.id}`}
+      className={cx(classes.link, className)}
+    >
+      <Card className={cx(classes.category)}>
         {category.hasOwnProperty('deck') && <DeckTag />}
         <CategoryPreview
           asset={portfolio.assets[category.previewAsset]}
@@ -130,7 +139,7 @@ export default withStyles(styles)(
             {preventOrphans(category.caption)}
           </Typography>
         </CardContent>
-      </CardActionArea>
-    </Card>
+      </Card>
+    </Link>
   )
 )

@@ -75,7 +75,7 @@ const styles = theme => ({
     marginRight: '.5rem',
     flex: '1 1 auto',
     ...typeScale(0),
-    ...fonts.raleway.medium,
+    ...fonts.sans.medium,
   },
   filterIcon: {
     display: 'block',
