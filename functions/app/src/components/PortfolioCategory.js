@@ -30,6 +30,7 @@ const styles = {
     minHeight: '100%',
     textShadow: 'none',
     boxShadow: ['none', '!important'],
+    position: 'relative',
   },
   title: {
     margin: '.1em 0 .5em 0',
