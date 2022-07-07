@@ -15,7 +15,7 @@
     "feather-icons": "^4.9.0",
     "firebase": "^5.7.1",
     "jss": "^9.8.7",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "query-string": "^6.2.0",
     "react": "^16.6.3",
     "react-copy-to-clipboard": "^5.0.1",
