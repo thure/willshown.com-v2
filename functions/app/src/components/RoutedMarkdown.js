@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactMarkdownWithHTML from 'react-markdown/with-html'
 import ReactMarkdown from 'react-markdown'
 import { preventOrphans } from '../style'
 import { Link } from 'react-router-dom'
@@ -10,17 +9,16 @@ const renderLink = ({ href, children }) => {
 }
 
 export default ({ source, withHTML, transforms = {} }) => {
-  const Markdown = withHTML ? ReactMarkdownWithHTML : ReactMarkdown
-  return (
-    <Markdown
-      source={preventOrphans(source)}
-      escapeHtml={!withHTML}
-      renderers={Object.assign(
-        {
-          link: renderLink,
-        },
-        transforms
-      )}
-    />
-  )
+  const params = {
+    children: preventOrphans(source),
+    escapeHtml: !withHTML,
+    renderers: Object.assign(
+      {
+        link: renderLink,
+      },
+      transforms
+    ),
+    ...(withHTML && { rehypePlugins: [import('rehype-raw')] }),
+  }
+  return <ReactMarkdown {...params} />
 }
