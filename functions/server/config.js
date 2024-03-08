@@ -1,6 +1,6 @@
 import express from 'express'
 import set from 'lodash/set'
-import Storage from '@google-cloud/storage'
+import { Storage } from '@google-cloud/storage'
 import serviceConfig from '../config/service-credentials.json'
 import clientConfig from '../app/src/config/client-credentials.json'
 

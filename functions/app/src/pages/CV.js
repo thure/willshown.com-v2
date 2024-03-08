@@ -154,6 +154,7 @@ const ProfileLink = ({
       variant="text"
       elevation={1}
       href={href}
+      rel="me"
       className={cx(
         classes.profileDatum,
         flat && classes.profileDatumFlat,
