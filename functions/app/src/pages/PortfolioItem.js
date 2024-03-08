@@ -1,6 +1,6 @@
 import React from 'react'
 import { compose } from 'redux'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import cx from 'classnames'
 import get from 'lodash/get'
 
@@ -284,9 +284,9 @@ const mapStateToProps = state => ({
 })
 
 export default compose(
-  connect(
-    mapStateToProps,
-    null
-  ),
+  // connect(
+  //   mapStateToProps,
+  //   null
+  // ),
   withStyles(styles)
 )(PortfolioItem)

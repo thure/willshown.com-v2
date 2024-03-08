@@ -1,12 +1,11 @@
 import React from 'react'
 import Page from '../components/Page'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import { compose } from 'redux'
 
 import { withStyles } from '@material-ui/core/styles'
 
 import PortfolioCategory from '../components/PortfolioCategory'
-import AccessCodeInput from '../components/AccessCodeInput'
 
 import publicPortfolio from '../config/portfolio.public.json'
 
@@ -43,7 +42,6 @@ class PortfolioItems extends React.Component {
         title="Portfolio"
         description="Case studies in UX and engineering adventures"
       >
-        <AccessCodeInput />
         <main className={classes.categories}>
           {privatePortfolio &&
             privatePortfolio.structure.map(category => (
@@ -73,9 +71,9 @@ const mapStateToProps = state => ({
 })
 
 export default compose(
-  connect(
-    mapStateToProps,
-    null
-  ),
+  // connect(
+  //   mapStateToProps,
+  //   null
+  // ),
   withStyles(styles)
 )(PortfolioItems)

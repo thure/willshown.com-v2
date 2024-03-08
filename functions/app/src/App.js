@@ -1,12 +1,12 @@
 // The basics
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router'
 
 // Action creators and helpers
-import { establishCurrentUser } from './modules/auth'
-import { isServer } from './store'
+// import { establishCurrentUser } from './modules/auth'
+// import { isServer } from './store'
 
 // Components
 import Pages from './pages'
@@ -24,17 +24,17 @@ const TopNav = Loadable({
 })
 
 class App extends Component {
-  componentWillMount() {
-    const { isAuthenticated, currentUser, establishCurrentUser } = this.props
-    if (!isServer) establishCurrentUser(isAuthenticated, currentUser)
-  }
+  // componentWillMount() {
+  //   const { isAuthenticated, currentUser, establishCurrentUser } = this.props
+  //   if (!isServer) establishCurrentUser(isAuthenticated, currentUser)
+  // }
 
   render() {
     return (
       <ScrollToTop>
         <div id="app">
           <TopNav
-            isAuthenticated={this.props.isAuthenticated}
+            // isAuthenticated={this.props.isAuthenticated}
             pathName={this.props.location.pathname}
           />
           <div id="content">
@@ -46,17 +46,18 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  currentUser: state.auth.currentUser,
-})
+// const mapStateToProps = state => ({
+//   isAuthenticated: state.auth.isAuthenticated,
+//   currentUser: state.auth.currentUser,
+// })
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ establishCurrentUser }, dispatch)
+// const mapDispatchToProps = dispatch =>
+//   bindActionCreators({ establishCurrentUser }, dispatch)
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
+  // connect(
+  //   mapStateToProps,
+  //   mapDispatchToProps
+  // )(App)
+  App
 )
